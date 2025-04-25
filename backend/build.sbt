@@ -1,0 +1,35 @@
+val Http4sVersion = "0.23.30"
+val MunitVersion = "1.1.0"
+val LogbackVersion = "1.5.18"
+val MunitCatsEffectVersion = "2.1.0"
+val DoobieVersion = "1.0.0-RC9"
+val ScryptoVersion = "3.1.0"
+val CirceVersion = "0.14.13"
+
+lazy val root = (project in file("."))
+  .settings(
+    organization := "t-health",
+    name := "t-health-backend",
+    version := "0.0.1-SNAPSHOT",
+    scalaVersion := "3.6.4",
+    libraryDependencies ++= Seq(
+      "org.http4s" %% "http4s-ember-server" % Http4sVersion,
+      "org.http4s" %% "http4s-ember-client" % Http4sVersion,
+      "org.http4s" %% "http4s-circe" % Http4sVersion,
+      "org.http4s" %% "http4s-dsl" % Http4sVersion,
+      "org.scalameta" %% "munit" % MunitVersion % Test,
+      "org.typelevel" %% "munit-cats-effect" % MunitCatsEffectVersion % Test,
+      "org.tpolecat" %% "doobie-core" % DoobieVersion,
+      "org.tpolecat" %% "doobie-hikari" % DoobieVersion,
+      "org.tpolecat" %% "doobie-postgres" % DoobieVersion,
+      "ch.qos.logback" % "logback-classic" % LogbackVersion,
+      "org.scorexfoundation" %% "scrypto" % ScryptoVersion,
+      "io.circe" %% "circe-generic" % CirceVersion,
+      "io.circe" %% "circe-parser" % CirceVersion
+    ),
+    testFrameworks += new TestFramework("munit.Framework"),
+    javacOptions ++= Seq("-encoding", "UTF-8"),
+    scalacOptions ++= Seq("-encoding", "UTF-8")
+  )
+
+enablePlugins(JavaServerAppPackaging)

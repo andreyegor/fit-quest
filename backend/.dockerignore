@@ -1,0 +1,7 @@
+.dockerignore
+
+.bloop
+.bsp
+.idea
+.metal
+.vscode

@@ -1,0 +1,14 @@
+.idea
+.metals
+.vscode
+
+.bloop
+.bsp
+
+*.log
+*.tmp
+*.swp
+
+target/
+dist/
+out/
