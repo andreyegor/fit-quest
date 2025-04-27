@@ -1,7 +1,7 @@
 package ru.fitquest.silly
 
 import cats.effect.Sync
-import cats.implicits._
+import cats.implicits.*
 import io.circe.{Encoder, Json}
 
 trait Cat[F[_]] {

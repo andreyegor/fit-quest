@@ -1,10 +1,14 @@
-package ru.fitquest.core
+package ru.fitquest.core.database
 
 import cats.effect.Sync
-import cats.implicits._
-import doobie._
-import doobie.implicits._
-import doobie.postgres.implicits._
+import cats.implicits.*
+import doobie.*
+import doobie.implicits.*
+import doobie.postgres.implicits.*
+
+import ru.fitquest.core.structures.User
+import ru.fitquest.core.types._
+
 
 trait UserTable[F[_]](transactor: Transactor[F]) {
   def add(user: User): F[Unit]
@@ -19,20 +23,17 @@ object UserTable:
       override def add(user: User): F[Unit] =
         sql"""
         INSERT INTO users (uuid, name, email, passhash, google_id)
-        VALUES (${user.uuid}, ${user.name}, ${user.email}, ${user.passhash}, ${user.googleId})
+        VALUES (${user.uuid}, ${user.name.value}, ${user.email.value}, ${user.passhash
+            .map(_.value)}, ${user.googleId.map(_.value)})
         """.update.run
           .transact(transactor)
           .void
-          .handleErrorWith { e =>
-            Sync[F].delay(
-              println(s"Error during query execution: ${e.getMessage}")
-            ) *> Sync[F].raiseError(e)
-          }
 
       override def update(user: User): F[Unit] =
         sql"""
         UPDATE users
-        SET name = ${user.name}, email = ${user.email}, passhash = ${user.passhash}, google_id = ${user.googleId}
+        SET name = ${user.name.value}, email = ${user.email.value}, passhash = ${user.passhash
+            .map(_.value)}, google_id = ${user.googleId.map(_.value)}
         WHERE uuid = ${user.uuid}
         """.update.run
           .transact(transactor)
@@ -42,16 +43,10 @@ object UserTable:
         sql"""
         SELECT 
             CASE 
-            WHEN EXISTS (SELECT 1 FROM users WHERE name = ${user.name}) THEN 'User with this name already exists'
-            WHEN EXISTS (SELECT 1 FROM users WHERE email = ${user.email}) THEN 'User with this email already exists'
+            WHEN EXISTS (SELECT 1 FROM users WHERE email = ${user.email.value}) THEN 'User with this email already exists'
             ELSE NULL
             END
         """
           .query[Option[String]]
           .unique
           .transact(transactor)
-          .handleErrorWith { e =>
-            Sync[F].delay(
-              println(s"Error during query execution: ${e.getMessage}")
-            ) *> Sync[F].raiseError(e)
-          }

@@ -5,6 +5,8 @@ val MunitCatsEffectVersion = "2.1.0"
 val DoobieVersion = "1.0.0-RC9"
 val ScryptoVersion = "3.1.0"
 val CirceVersion = "0.14.13"
+val Argon2JvmVersion = "2.11"
+val JwtVersion = "10.0.4"
 
 lazy val root = (project in file("."))
   .settings(
@@ -22,10 +24,12 @@ lazy val root = (project in file("."))
       "org.tpolecat" %% "doobie-core" % DoobieVersion,
       "org.tpolecat" %% "doobie-hikari" % DoobieVersion,
       "org.tpolecat" %% "doobie-postgres" % DoobieVersion,
-      "ch.qos.logback" % "logback-classic" % LogbackVersion,
       "org.scorexfoundation" %% "scrypto" % ScryptoVersion,
       "io.circe" %% "circe-generic" % CirceVersion,
-      "io.circe" %% "circe-parser" % CirceVersion
+      "io.circe" %% "circe-parser" % CirceVersion,
+      "com.github.jwt-scala" %% "jwt-circe" % JwtVersion,
+      "ch.qos.logback" % "logback-classic" % LogbackVersion,
+      "de.mkammerer" % "argon2-jvm" % Argon2JvmVersion,
     ),
     testFrameworks += new TestFramework("munit.Framework"),
     javacOptions ++= Seq("-encoding", "UTF-8"),

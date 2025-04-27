@@ -2,24 +2,13 @@ package ru.fitquest.routes
 
 import cats.effect.Sync
 import cats.implicits.*
-import org.http4s.HttpRoutes
+import org.http4s.{AuthedRoutes, HttpRoutes}
 import org.http4s.dsl.Http4sDsl
-import org.http4s.AuthedRoutes
+
+import ru.fitquest.auth
 import ru.fitquest.silly
-import ru.fitquest.auth//TODO
 
 object SillyRoutes:
-  def jokeRoutes[F[_] : Sync](J: silly.Jokes[F]): HttpRoutes[F] =
-    val dsl = new Http4sDsl[F] {}
-    import dsl.*
-    HttpRoutes.of[F] {
-      case GET -> Root / "joke" =>
-        for {
-          joke <- J.get
-          resp <- Ok(joke)
-        } yield resp
-    }
-
   def helloWorldRoutes[F[_] : Sync](H: silly.HelloWorld[F]): HttpRoutes[F] =
     val dsl = new Http4sDsl[F] {}
     import dsl.*
