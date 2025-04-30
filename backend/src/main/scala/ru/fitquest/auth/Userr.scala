@@ -7,19 +7,19 @@ import org.http4s.{BasicCredentials, Request}
 import org.http4s.headers.Authorization
 import org.http4s.server.AuthMiddleware
 
-case class User(id: Long, name: String)
+case class Userr(id: Long, name: String)
 
 trait UserAuth[F[_]]:
-  def authenticate(req: Request[F]): OptionT[F, User]
+  def authenticate(req: Request[F]): OptionT[F, Userr]
 
 object UserAuth:
   def apply[F[_]: Sync]: UserAuth[F] = (req: Request[F]) =>
     val authHeader: Option[Authorization] = req.headers.get[Authorization]
     authHeader match
       case Some(Authorization(BasicCredentials(username, _))) =>
-        OptionT.liftF(Sync[F].pure(User(1, username)))
+        OptionT.liftF(Sync[F].pure(Userr(1, username)))
       case _ =>
-        OptionT.none[F, User]
+        OptionT.none[F, Userr]
 
-def userMiddleware[F[_]: Monad](auth: UserAuth[F]): AuthMiddleware[F, User] =
+def userMiddleware[F[_]: Monad](auth: UserAuth[F]): AuthMiddleware[F, Userr] =
   AuthMiddleware(Kleisli(req => auth.authenticate(req)))

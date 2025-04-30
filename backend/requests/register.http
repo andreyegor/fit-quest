@@ -1,8 +1,8 @@
-POST http://localhost:8080/api/identity/new
+POST http://localhost:8080/api/user/add
 Content-Type: application/json
 
 {
     "name": "John Doe",
-    "email": "johndoeeee@example.com",
-    "password": "sssssssssssssssssssssssss"
+    "email": "john_doe@example.com",
+    "password": "the-amazing-spider-password"
 }

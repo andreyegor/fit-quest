@@ -20,17 +20,21 @@ object Server:
   def run[F[_]: Async]: F[Nothing] = {
     for {
       client <- EmberClientBuilder.default[F].build
+
       transactor <- postgres[F]
       userTable = core.database.UserTable.impl(transactor)
+      sessionTable = core.database.SessionTable.impl(transactor)
       authMiddleware = auth.userMiddleware[F](auth.UserAuth[F])
 
       helloWorldAlg = silly.HelloWorld.impl[F]
       catAlg = silly.Cat.impl[F]
       registerAlg = auth.Register.impl[F](userTable)
+      loginAlg = auth.Login.impl[F](userTable, sessionTable)
 
       publicRoutes =
         SillyRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
-          AuthRoutes.registerRoute[F](registerAlg)
+          AuthRoutes.registerRoute[F](registerAlg) <+>
+          AuthRoutes.loginRoute[F](loginAlg)
 
       protectedRoutes =
         SillyRoutes.catRoutes[F](catAlg)

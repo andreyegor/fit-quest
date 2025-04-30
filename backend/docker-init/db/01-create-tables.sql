@@ -1,22 +1,21 @@
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    uid CHAR(36) NOT NULL,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(320) NOT NULL UNIQUE,
-    passhash VARCHAR(255),
-    google_id VARCHAR(255),
-    CONSTRAINT passhash_or_google_id CHECK (
-        passhash IS NOT NULL OR google_id IS NOT NULL
-    )
+  user_id UUID PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  email VARCHAR(320) NOT NULL UNIQUE,
+  password_hash VARCHAR(255),
+  google_id VARCHAR(255) UNIQUE,
+  CONSTRAINT password_hash_or_google_id CHECK (
+    password_hash IS NOT NULL
+    OR google_id IS NOT NULL
+  )
 );
-
 CREATE TABLE sessions (
-  id UUID PRIMARY KEY,
-  uid UUID NOT NULL,
-  tokenhash TEXT NOT NULL,
-  issued_at TIMESTAMP NOT NULL, -- когда выпущен
-  expires_at TIMESTAMP NOT NULL,-- когда истекает
-  device_info TEXT,             -- инфа о девайсе (опционально)
-  revoked BOOLEAN NOT NULL DEFAULT FALSE, -- признак отзыва
-  CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(uuid) ON DELETE CASCADE
+  session_id UUID PRIMARY KEY,
+  user_id UUID NOT NULL,
+  token_hash TEXT NOT NULL,
+  issued_at TIMESTAMP NOT NULL,
+  expires_at TIMESTAMP NOT NULL,
+  device_info TEXT,
+  is_revoked BOOLEAN NOT NULL DEFAULT FALSE,
+  CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );

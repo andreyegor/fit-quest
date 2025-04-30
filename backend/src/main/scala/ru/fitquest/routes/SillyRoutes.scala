@@ -7,26 +7,25 @@ import org.http4s.dsl.Http4sDsl
 
 import ru.fitquest.auth
 import ru.fitquest.silly
+import ru.fitquest.auth.Userr
 
 object SillyRoutes:
-  def helloWorldRoutes[F[_] : Sync](H: silly.HelloWorld[F]): HttpRoutes[F] =
+  def helloWorldRoutes[F[_]: Sync](H: silly.HelloWorld[F]): HttpRoutes[F] =
     val dsl = new Http4sDsl[F] {}
     import dsl.*
-    HttpRoutes.of[F] {
-      case GET -> Root / "hello" / name =>
-        for {
-          greeting <- H.hello(silly.HelloWorld.Name(name))
-          resp <- Ok(greeting)
-        } yield resp
+    HttpRoutes.of[F] { case GET -> Root / "hello" / name =>
+      for {
+        greeting <- H.hello(silly.HelloWorld.Name(name))
+        resp <- Ok(greeting)
+      } yield resp
     }
 
-  def catRoutes[F[_] : Sync](C: silly.Cat[F]): AuthedRoutes[auth.User, F] =
+  def catRoutes[F[_]: Sync](C: silly.Cat[F]): AuthedRoutes[auth.Userr, F] =
     val dsl = new Http4sDsl[F] {}
     import dsl.*
-    AuthedRoutes.of {
-      case GET -> Root / "cat" as auth =>
-        for {
-          cat <- C.cat
-          resp <- Ok(cat)
-        } yield resp
+    AuthedRoutes.of { case GET -> Root / "cat" as auth =>
+      for {
+        cat <- C.cat
+        resp <- Ok(cat)
+      } yield resp
     }

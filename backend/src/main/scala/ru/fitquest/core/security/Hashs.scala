@@ -4,11 +4,11 @@ import ru.fitquest.core.types.*
 
 import de.mkammerer.argon2.Argon2Factory
 
-object PasswordHasher:
+object Argon2Hasher:
   private val argon2 = Argon2Factory.create()
 
-  def hash(password: Password): Passhash =
-    Passhash(argon2.hash(10, 65536, 1, password.toCharArray()))
+  def hash(s: String): String =
+    argon2.hash(10, 65536, 1, s.toCharArray())
 
-  def verify(hash: Passhash, password: Password): Boolean =
+  def verify(hash: String, password: String): Boolean =
     argon2.verify(hash, password)
