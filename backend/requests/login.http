@@ -2,6 +2,27 @@ POST http://localhost:8080/api/user/login
 Content-Type: application/json
 
 {
-    "email": "johndoe@example.com",
+    "email": "john_doe@example.com",
     "password": "the-amazing-spider-password"
 }
+
+# Response 1:
+    # HTTP/1.1 200 OK
+    # Date: ...
+    # Connection: close
+    # Content-Type: application/json
+    # Content-Length: 313
+
+    # {
+    #   "acessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDYwOTk4NDcsImlhdCI6MTc0NjA5NjI0NywidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.20Oh8UyN4lREb70kcyylduTl30f4nblu4ioi7XPtZX8",
+    #   "refreshToken": "m_Sj69uAXaSHAu06DlqNqbKEjRT5qCVPFoBszLpc7HE52v3ZBcct2jbNu-cFxZyZEwuG485FY4eZSm3axrufgg"
+    # }
+
+# Response 2:
+    # HTTP/1.1 400 Bad Request
+    # Date: Thu, 01 May 2025 10:52:46 GMT
+    # Connection: close
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 19
+
+    # Password is invalid

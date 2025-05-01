@@ -22,7 +22,7 @@ case class User private (
     (for {
       h <- passhash
       w <- rawUser.password
-    } yield email == rawUser.email && Argon2Hasher.verify(h, w)).nonEmpty
+    } yield email == rawUser.email && Argon2Hasher.verify(h, w)).getOrElse(false)
 
 object User {
   def apply(
