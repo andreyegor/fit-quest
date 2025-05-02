@@ -7,8 +7,12 @@ import org.http4s.EntityEncoder
 import org.http4s.circe.*
 
 import ru.fitquest.core.types.*
+import ru.fitquest.core.security.Cookie
+import org.http4s.Request
+import org.http4s.RequestCookie
 
 case class Tokens(acessToken: AcessToken, refreshToken: RefreshToken)
+
 
 object Tokens:
   given tokensEncoder: Encoder[Tokens] = deriveEncoder[Tokens]

@@ -9,27 +9,30 @@ import org.http4s.circe.*
 
 import ru.fitquest.core.types._
 
-case class RawUser(
+case class NewUserRequest(
+    name: Name,
     email: Email,
     password: Option[Password],
     googleId: Option[GoogleId]
 )
 
-object RawUser:
+object NewUserRequest:
   def apply(
+      name: String,
       email: String,
       password: Option[String],
       googleId: Option[String]
-  ): Either[String, RawUser] =
+  ): Either[String, NewUserRequest] =
     (password, googleId) match
       case (None, None) =>
         Left("At least one of passhash or googleId must be defined")
       case _ =>
         for {
+          n <- Name(name)
           e <- Email(email)
           p <- password.traverse(Password(_))
           g <- googleId.traverse(GoogleId(_))
-        } yield RawUser(e, p, g)
-  given rawUserDecoder: Decoder[RawUser] = deriveDecoder[RawUser]
-  given rawUserEntityDecoder[F[_]: Concurrent]: EntityDecoder[F, RawUser] =
-    jsonOf[F, RawUser]
+        } yield NewUserRequest(n, e, p, g)
+  given rawNewUserDecoder: Decoder[NewUserRequest] = deriveDecoder[NewUserRequest]
+  given rawNewUserEntityDecoder[F[_]: Concurrent]: EntityDecoder[F, NewUserRequest] =
+    jsonOf[F, NewUserRequest]

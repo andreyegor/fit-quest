@@ -8,14 +8,14 @@ import cats.data.EitherT
 import ru.fitquest.core.database.{UserTable, SessionTable}
 import ru.fitquest.core.structures.session.*
 import ru.fitquest.core.structures.user.*
-import ru.fitquest.core.structures.user.RawUser
+import ru.fitquest.core.structures.user.UserRequest
 import ru.fitquest.core.types._
 import java.time.Instant
 import java.util.UUID
 
 trait Login[F[_]] {
-  def apply(rawUser: RawUser): EitherT[F, String, Tokens]
-  protected def auth(rawUser: RawUser): EitherT[F, String, User]
+  def apply(rawUser: UserRequest): EitherT[F, String, Tokens]
+  protected def auth(rawUser: UserRequest): EitherT[F, String, User]
 }
 
 object Login:
@@ -23,7 +23,7 @@ object Login:
       userTable: UserTable[F],
       sessionsTable: SessionTable[F]
   ): Login[F] = new Login[F] {
-    override def apply(rawUser: RawUser): EitherT[F, String, Tokens] = for {
+    override def apply(rawUser: UserRequest): EitherT[F, String, Tokens] = for {
       user <- auth(rawUser)
       now <- EitherT.liftF(Clock[F].realTimeInstant)
       access = AcessToken.generate(user)
@@ -33,7 +33,7 @@ object Login:
     } yield Tokens(access, refresh)
 
     override protected def auth(
-        rawUser: RawUser
+        rawUser: UserRequest
     ): EitherT[F, String, User] =
       for {
         user <- userTable

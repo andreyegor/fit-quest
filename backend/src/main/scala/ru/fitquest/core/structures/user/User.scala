@@ -18,7 +18,7 @@ case class User private (
     passhash: Option[Passhash],
     googleId: Option[GoogleId]
 ):
-  def verify(rawUser: RawUser): Boolean =
+  def verify(rawUser: UserRequest): Boolean =
     (for {
       h <- passhash
       w <- rawUser.password
@@ -37,7 +37,7 @@ object User {
     else
       Right(new User(userId, name, email, passhash, googleId))
 
-  def create(rawUser: RawNewUser): Either[String, User] =
+  def create(rawUser: NewUserRequest): Either[String, User] =
     apply(
       UserId.random,
       rawUser.name,

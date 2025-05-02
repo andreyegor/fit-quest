@@ -10,14 +10,14 @@ import ru.fitquest.core.structures.user.*
 import ru.fitquest.core.types.*
 
 trait Auth[F[_]](userTable: UserTable[F]) {
-  def apply(rawUser: RawUser): EitherT[F, String, User]
+  def apply(rawUser: UserRequest): EitherT[F, String, User]
 }
 
 object Auth:
   def impl[F[_]: Sync](userTable: UserTable[F]): Auth[F] =
     new Auth[F](userTable):
       override def apply(
-          rawUser: RawUser
+          rawUser: UserRequest
       ): EitherT[F, String, User] =
         for {
           user <- userTable

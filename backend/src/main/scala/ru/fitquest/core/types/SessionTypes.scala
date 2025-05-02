@@ -33,7 +33,7 @@ object RefreshToken:
 
   extension (t: RefreshToken) def value: String = t
   given Get[RefreshToken] = Get[String].map(RefreshToken(_))
-    given Encoder[RefreshToken] = Encoder[String].contramap[RefreshToken](_.value)
+  given Encoder[RefreshToken] = Encoder[String].contramap[RefreshToken](_.value)
 
 opaque type RefreshTokenHash = String
 object RefreshTokenHash:
