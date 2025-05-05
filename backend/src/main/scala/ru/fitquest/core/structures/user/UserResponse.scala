@@ -6,8 +6,6 @@ import io.circe.generic.semiauto.*
 import org.http4s.EntityEncoder
 import org.http4s.circe.*
 
-import ru.fitquest.core.types.*
-
 case class UserResponse(
     id: UserId,
     name: Name,

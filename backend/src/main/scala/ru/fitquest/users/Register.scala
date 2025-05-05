@@ -1,4 +1,4 @@
-package ru.fitquest.auth
+package ru.fitquest.users
 
 import cats.data.{OptionT, EitherT}
 import cats.effect.{Sync, Concurrent}
@@ -20,4 +20,4 @@ object Register:
           _ <- userTable.validateUnique(user)
           _ <- EitherT.liftF(userTable.add(user))
           resp = UserResponse.from(user)
-        } yield resp) 
+        } yield resp)

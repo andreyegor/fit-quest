@@ -1,11 +1,12 @@
-package ru.fitquest.core.types
+package ru.fitquest.core.structures.user
 
 import io.circe.Decoder
 import doobie.util.Get
 import doobie.postgres.implicits.*
 import java.util.UUID
-import ru.fitquest.core.security.Argon2Hasher
 import io.circe.Encoder
+
+import ru.fitquest.core.security.Argon2Hasher
 
 opaque type UserId = UUID
 object UserId:

@@ -1,0 +1,21 @@
+POST http://localhost:8080/api/auth/refresh
+Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY0NzEwMjIsImlhdCI6MTc0NjQ2NzQyMiwidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.9rvTshEKLSBMiaXzZKdH5rFT-jG3OCOzWwnDPt3e818; refreshToken=H3ljMu9YMzUS5oIs8430fYgi93elTExWqmSOTjSLYwtiatfgvqvBRrh21VPpmef7PqCOYjiVuVCHLqjtV6MOaA;
+
+# Response 1
+    # HTTP/1.1 200 OK
+    # Content-Length: 0
+    # Set-Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY0NzEwNzUsImlhdCI6MTc0NjQ2NzQ3NSwidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.dYtdJhLhCATv1UVl-GiZby7hh13tbSvvmZff_Lw813g; Max-Age=3600; Path=/api/; SameSite=Strict; Secure,refreshToken=z5ESEIEO1nf-IdzrpZleNRo_hW04f4DlALiY0zt2nyQD09W_zHU_1OY-44QTVRusGksG2PhyI423YamLsafL9A; Max-Age=604800; Path=/api/api/auth/refresh/; SameSite=Strict; Secure; HttpOnly
+
+# Response 2 когда токен не существует, использован, или просрочен
+    # HTTP/1.1 400 Bad Request
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 16
+
+    # Token is invalid
+
+# Response 3, когда токена нет в куках
+    # HTTP/1.1 400 Bad Request
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 23
+
+    # Refresh token not found

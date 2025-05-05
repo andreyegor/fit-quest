@@ -7,7 +7,6 @@ import doobie.implicits.*
 import doobie.postgres.implicits.*
 
 import ru.fitquest.core.structures.user.*
-import ru.fitquest.core.types.*
 import cats.instances.boolean
 import cats.data.EitherT
 import cats.data.OptionT
@@ -16,6 +15,7 @@ trait UserTable[F[_]](transactor: Transactor[F]) {
   def add(user: User): F[Unit]
   def update(user: User): F[Unit]
   def validateUnique(user: User): EitherT[F, String, Unit]
+  def getByUserId(userId: UserId): OptionT[F, User]
   def getByEmail(email: Email): OptionT[F, User]
 }
 
@@ -63,6 +63,17 @@ object UserTable:
           .transact(transactor)
 
         EitherT(resp.map(_.toLeft(())))
+
+      override def getByUserId(userId: UserId): OptionT[F, User] =
+        val resp = sql"""
+            SELECT user_id, name, email, password_hash, google_id
+            FROM users
+            WHERE user_id = ${userId.value}
+          """
+          .query[User]
+          .option
+          .transact(transactor)
+        OptionT(resp)
 
       override def getByEmail(email: Email): OptionT[F, User] =
         val resp = sql"""

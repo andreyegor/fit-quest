@@ -5,13 +5,13 @@ import io.circe.Encoder
 import io.circe.generic.semiauto.*
 import org.http4s.EntityEncoder
 import org.http4s.circe.*
-
-import ru.fitquest.core.types.*
-import ru.fitquest.core.security.Cookie
 import org.http4s.Request
 import org.http4s.RequestCookie
 
-case class Tokens(acessToken: AcessToken, refreshToken: RefreshToken)
+import ru.fitquest.core.security.Cookie
+
+
+case class Tokens(acessToken: AccessToken, refreshToken: RefreshToken)
 
 
 object Tokens:

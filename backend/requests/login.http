@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/user/login
+POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
@@ -8,15 +8,11 @@ Content-Type: application/json
 
 # Response 1:
     # HTTP/1.1 200 OK
-    # Date: ...
+    # Date: Fri, 02 May 2025 11:00:41 GMT
     # Connection: close
-    # Content-Type: application/json
-    # Content-Length: 313
+    # Content-Length: 0
+    # Set-Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDYxODcyNDAsImlhdCI6MTc0NjE4MzY0MCwidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.MXpZWD-HFrmizAo90Zg426svzfXDCHiM9mu9_5HRGmY; Max-Age=3600; Path=/api/; SameSite=Strict; Secure; HttpOnly,refreshToken=rp_r2FplN6KDsVY8RR6-i04h4zJKkPt8-YBv2-xzolvwaXxkS88g2WdOXqP7lqzg1gkatJyeNmaVfWDKpbIY4g; Max-Age=604800; Path=/api/; SameSite=Strict; Secure; HttpOnly
 
-    # {
-    #   "acessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDYwOTk4NDcsImlhdCI6MTc0NjA5NjI0NywidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.20Oh8UyN4lREb70kcyylduTl30f4nblu4ioi7XPtZX8",
-    #   "refreshToken": "m_Sj69uAXaSHAu06DlqNqbKEjRT5qCVPFoBszLpc7HE52v3ZBcct2jbNu-cFxZyZEwuG485FY4eZSm3axrufgg"
-    # }
 
 # Response 2:
     # HTTP/1.1 400 Bad Request

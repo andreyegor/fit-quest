@@ -1,13 +1,16 @@
-package ru.fitquest.core.types
+package ru.fitquest.core.structures.session
 
 import io.circe.Decoder
 import doobie.util.Get
 import doobie.postgres.implicits.*
 import java.util.UUID
 
-import ru.fitquest.core.structures.user.User
-import ru.fitquest.core.security.Argon2Hasher
-import ru.fitquest.core.security.{generateAccessToken, generateRefreshToken}
+import ru.fitquest.core.structures.user.*
+import ru.fitquest.core.security.Sha256Hasher
+import ru.fitquest.core.security.GenerateTokens.{
+  generateAccessToken,
+  generateRefreshToken
+}
 import io.circe.Encoder
 
 opaque type SessionId = UUID
@@ -18,13 +21,13 @@ object SessionId:
   extension (u: SessionId) def value: UUID = u
   given Get[SessionId] = Get[UUID].map(SessionId(_))
 
-opaque type AcessToken = String
-object AcessToken:
-  def apply(t: String): AcessToken = t
-  def generate(u: User): AcessToken = generateAccessToken(u)
+opaque type AccessToken = String
+object AccessToken:
+  def apply(t: String): AccessToken = t
+  def generate(u: User): AccessToken = generateAccessToken(u)
 
-  extension (t: AcessToken) def value: String = t
-  given Encoder[AcessToken] = Encoder[String].contramap[AcessToken](_.value)
+  extension (t: AccessToken) def value: String = t
+  given Encoder[AccessToken] = Encoder[String].contramap[AccessToken](_.value)
 
 opaque type RefreshToken = String
 object RefreshToken:
@@ -38,9 +41,9 @@ object RefreshToken:
 opaque type RefreshTokenHash = String
 object RefreshTokenHash:
   def apply(h: String): RefreshTokenHash = h
-  def from(t: RefreshToken): RefreshTokenHash = Argon2Hasher.hash(t)
+  def from(t: RefreshToken): RefreshTokenHash = Sha256Hasher.hash(t)
   extension (h: Passhash)
-    def verify(t: RefreshToken) = Argon2Hasher.verify(h, t)
+    def verify(t: RefreshToken) = Sha256Hasher.verify(h, t)
 
   extension (t: RefreshTokenHash) def value: String = t
   // given Conversion[RefreshToken, String] = _.value

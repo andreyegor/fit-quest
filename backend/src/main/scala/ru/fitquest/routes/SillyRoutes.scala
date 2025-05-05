@@ -4,10 +4,12 @@ import cats.effect.Sync
 import cats.implicits.*
 import org.http4s.{AuthedRoutes, HttpRoutes}
 import org.http4s.dsl.Http4sDsl
+import org.http4s.circe._
+import io.circe.Json
 
 import ru.fitquest.auth
 import ru.fitquest.silly
-import ru.fitquest.auth.Userr
+import ru.fitquest.core.structures.user.User
 
 object SillyRoutes:
   def helloWorldRoutes[F[_]: Sync](H: silly.HelloWorld[F]): HttpRoutes[F] =
@@ -20,12 +22,9 @@ object SillyRoutes:
       } yield resp
     }
 
-  def catRoutes[F[_]: Sync](C: silly.Cat[F]): AuthedRoutes[auth.Userr, F] =
+  def catRoutes[F[_]: Sync](C: silly.Cat): AuthedRoutes[User, F] =
     val dsl = new Http4sDsl[F] {}
     import dsl.*
-    AuthedRoutes.of { case GET -> Root / "cat" as auth =>
-      for {
-        cat <- C.cat
-        resp <- Ok(cat)
-      } yield resp
+    AuthedRoutes.of { case GET -> Root / "cat" as user =>
+        Ok(C(user))
     }

@@ -1,9 +1,10 @@
 package ru.fitquest.core.structures.session
 
-import ru.fitquest.core.types.*
 import java.util.UUID
 import java.time.{Instant, Duration}
 import java.time.temporal.{TemporalAmount}
+
+import ru.fitquest.core.structures.user.UserId
 
 case class Session(
     id: SessionId,
@@ -13,8 +14,10 @@ case class Session(
     expiresAt: Instant,
     deviceInfo: Option[String],
     isRevoked: Boolean
-)
-
+):
+  def isValid(now: Instant): Boolean =
+    isRevoked && expiresAt.compareTo(now) > 0
+//now получаем так как я хочу оставить эти функции чистыми
 object Session:
   def create(
       userId: UserId,

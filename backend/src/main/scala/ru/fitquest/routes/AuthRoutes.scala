@@ -3,49 +3,58 @@ package ru.fitquest.routes
 import cats.data.EitherT
 import cats.effect.Concurrent
 import cats.implicits.*
-import org.http4s.HttpRoutes
+import org.http4s.*
 import org.http4s.circe.CirceEntityDecoder.*
 import org.http4s.dsl.Http4sDsl
-import org.typelevel.log4cats.slf4j.Slf4jLogger
+import org.typelevel.log4cats.Logger
 
-import ru.fitquest.auth.*
-import ru.fitquest.core.structures.user.{NewUserRequest, UserRequest}
+import ru.fitquest.auth.{Login, Refresh}
+import ru.fitquest.core.structures.user.UserRequest
+import ru.fitquest.core.structures.session.{RefreshToken, Tokens}
 import ru.fitquest.core.security.Cookie
-import org.http4s.headers.Location
-import org.http4s.Uri
 
-object AuthRoutes:
-  def registerRoute[F[_]: Concurrent](R: Register[F]): HttpRoutes[F] =
-    val dsl = new Http4sDsl[F] {}
+object AuthRoutes {
+  def apply[F[_]: Concurrent](
+      L: Login[F],
+      R: Refresh[F]
+  ): HttpRoutes[F] = {
+    implicit val dsl = new Http4sDsl[F] {}
     import dsl.*
-    HttpRoutes.of[F] { case req @ POST -> Root / "users" =>
-      for {
-        rawNewUser <- req.as[NewUserRequest]
-        result <- R(rawNewUser).value
-        response <- result match {
-          case Right(user) => {
-            val locationHeader =
-              Location(Uri.unsafeFromString(s"/api/users/${user.id}"))
-            Created(user, locationHeader)
-          }
-          case Left(errorMessage) => Conflict(errorMessage)
-        }
-      } yield response
-    }
+    HttpRoutes
+      .of[F] {
+        case req @ POST -> Root / "auth" / "login" =>
+          for {
+            userReq <- req.as[UserRequest]
+            result <- L(userReq).value
+            resp <- result.fold(
+              err => BadRequest(err),
+              tokens => createTokenResponse(tokens, "refresh/")
+            )
+          } yield resp
 
-  def loginRoute[F[_]: Concurrent](L: Login[F]): HttpRoutes[F] =
-    val dsl = new Http4sDsl[F] {}
-    import dsl.*
-    HttpRoutes.of[F] { case req @ POST -> Root / "user" / "login" =>
-      for {
-        rawUser <- req.as[UserRequest]
-        result <- L(rawUser).value
-        response <- result match {
-          case Right(tokens) =>
-            val cookies = Cookie.fromTokens(tokens)
-            Ok().map(r => cookies.foldLeft(r)((r, c) => r.addCookie(c)))
-          case Left(errorMessage) =>
-            BadRequest(errorMessage) // TODO Unauthorized()?
-        }
-      } yield response
-    }
+        case req @ POST -> Root / "auth" / "refresh" =>
+          val result: EitherT[F, String, Tokens] =
+            Cookie
+              .fromRequest(req, Cookie.Name.RefreshToken)
+              .fold(EitherT.leftT[F, Tokens]("Refresh token not found"))(raw =>
+                R(RefreshToken(raw))
+              )
+
+          result.foldF(
+            err => BadRequest(err),
+            tokens => createTokenResponse(tokens, "/api/auth/refresh/")
+          )
+      }
+  }
+
+  private def createTokenResponse[F[_]: Concurrent](
+      tokens: Tokens,
+      refreshPath: String
+  )(implicit dsl: Http4sDsl[F]): F[Response[F]] = {
+    import dsl._
+    val accessCookie = Cookie.fromAcessToken(tokens.acessToken)
+    val refreshCookie =
+      Cookie.fromRefreshToken(tokens.refreshToken, refreshPath)
+    Ok().map(_.addCookie(accessCookie).addCookie(refreshCookie))
+  }
+}

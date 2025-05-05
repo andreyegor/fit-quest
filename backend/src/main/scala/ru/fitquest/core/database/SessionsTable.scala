@@ -2,26 +2,25 @@ package ru.fitquest.core.database
 
 import cats.effect.Sync
 import cats.implicits.*
+import cats.data.EitherT
+import cats.data.OptionT
 import doobie.*
 import doobie.implicits.*
 import doobie.postgres.implicits.*
 
 import ru.fitquest.core.structures.user.*
-import ru.fitquest.core.structures.session.Session
-import ru.fitquest.core.types.*
+import ru.fitquest.core.structures.session.*
 import cats.instances.boolean
-import cats.data.EitherT
-import cats.data.OptionT
 
-trait SessionTable[F[_]](transactor: Transactor[F]) {
+trait SessionsTable[F[_]](transactor: Transactor[F]) {
   def add(session: Session): F[Unit]
-  def revokeByUser(userId: UserId): F[Int] // например, при logout
-  def findByHash(hash: RefreshTokenHash): OptionT[F, Session]
+  def revoke(userId: UserId): F[Int] // например, при logout
+  def revokeAndGet(hash: RefreshTokenHash): OptionT[F, Session]
 }
 
-object SessionTable:
-  def impl[F[_]: Sync](transactor: Transactor[F]): SessionTable[F] =
-    new SessionTable[F](transactor):
+object SessionsTable:
+  def impl[F[_]: Sync](transactor: Transactor[F]): SessionsTable[F] =
+    new SessionsTable[F](transactor):
       override def add(session: Session): F[Unit] =
         sql"""
             INSERT INTO sessions (
@@ -37,7 +36,7 @@ object SessionTable:
           .transact(transactor)
           .void
 
-      override def revokeByUser(userId: UserId): F[Int] =
+      override def revoke(userId: UserId): F[Int] =
         sql"""
           UPDATE sessions
           SET revoked = true
@@ -45,13 +44,13 @@ object SessionTable:
         """.update.run
           .transact(transactor)
 
-      override def findByHash(hash: RefreshTokenHash): OptionT[F, Session] =
+      override def revokeAndGet(hash: RefreshTokenHash): OptionT[F, Session] =
         OptionT {
           sql"""
-            SELECT id, uid, tokenhash, issued, expires, device, revoked
-            FROM sessions
-            WHERE tokenhash = ${hash.value}
-            AND revoked = false
+            UPDATE sessions
+            SET is_revoked = true
+            WHERE token_hash = ${hash.value} AND is_revoked = false
+            RETURNING session_id, user_id, token_hash, issued_at, expires_at, device_info, is_revoked
           """
             .query[Session]
             .option

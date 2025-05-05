@@ -7,8 +7,6 @@ import io.circe.generic.semiauto.*
 import org.http4s.EntityDecoder
 import org.http4s.circe.*
 
-import ru.fitquest.core.types._
-
 case class UserRequest(
     email: Email,
     password: Option[Password],

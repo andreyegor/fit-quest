@@ -8,7 +8,6 @@ import io.circe.generic.semiauto._
 import org.http4s.{EntityDecoder, EntityEncoder}
 import org.http4s.circe._
 
-import ru.fitquest.core.types._
 import ru.fitquest.core.security.Argon2Hasher
 
 case class User private (
