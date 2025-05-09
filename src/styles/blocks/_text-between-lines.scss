@@ -1,0 +1,24 @@
+@use '../helpers' as *;
+
+.text-between-lines {
+  @include flex-center;
+
+  position: relative;
+  font-weight: 500;
+  color: var(--color-gray);
+
+  &::before {
+    @include abs-center;
+
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-gray);
+  }
+
+  & p {
+    position: relative;
+    background-color: var(--color-light);
+    padding-inline: 10px;
+  }
+}

@@ -1,0 +1,20 @@
+@use '../helpers' as *;
+
+.logo {
+  & img {
+    width: 60px;
+    aspect-ratio: 1;
+
+    @include tablet {
+      width: 50px;
+    }
+
+    @include mobile {
+      width: 40px;
+    }
+
+    @include mobile-s {
+      width: 30px;
+    }
+  }
+}

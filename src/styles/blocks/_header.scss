@@ -1,0 +1,25 @@
+@use '../helpers' as *;
+
+.header {
+  &__inner {
+    display: flex;
+    align-items: center;
+    column-gap: 60px;
+
+    background-color: var(--color-accent);
+    padding: 10px 20px;
+
+    @include tablet {
+      column-gap: 40px;
+    }
+
+    @include mobile {
+      column-gap: 20px;
+      padding: 8px 15px;
+    }
+
+    @include mobile-s {
+      padding: 5px 10px;
+    }
+  }
+}

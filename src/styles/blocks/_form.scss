@@ -1,0 +1,49 @@
+@use '../helpers' as *;
+
+.form {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 20px;
+  background-color: var(--color-light);
+  border: var(--border);
+  border-radius: 15px;
+  padding: 25px 50px;
+
+  @include laptop {
+    row-gap: 17px;
+    padding: 20px 40px;
+  }
+
+  @include mobile {
+    row-gap: 13px;
+    padding: 20px 30px;
+  }
+
+  @include mobile-s {
+    row-gap: 10px;
+    padding: 15px 20px;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__input, &__input-wrapper, &__submit-button, &__or-text {
+    width: 100%;
+  }
+
+  &__help {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    font-weight: 500;
+    color: var(--color-gray);
+
+    &-sign-up-link {
+      font-weight: 700;
+    }
+  }
+}

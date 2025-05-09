@@ -1,54 +1,61 @@
 @use 'functions' as *;
 
-$laptop: 1440.98;
-$tablet: 1023.98;
-$mobile: 767.98;
-$mobile-s: 480.98;
+@mixin desktop-above {
+  @media (width > 1660.98px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (width <= 1660.98px) {
+    @content;
+  }
+}
 
 @mixin laptop-above {
-  @media (width > rem($laptop)) {
+  @media (width > 1440.98px) {
     @content;
   }
 }
 
 @mixin laptop {
-  @media (width <= rem($laptop)) {
+  @media (width <= 1440.98px) {
     @content;
   }
 }
 
 @mixin tablet-above {
-  @media (width > rem($tablet)) {
+  @media (width > 1023.98px) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media (width <= rem($tablet)) {
+  @media (width <= 1023.98px) {
     @content;
   }
 }
 
 @mixin mobile-above {
-  @media (width > rem($mobile)) {
+  @media (width > 767.98px) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media (width <= rem($mobile)) {
+  @media (width <= 767.98px) {
     @content;
   }
 }
 
 @mixin mobile-s-above {
-  @media (width > rem($mobile-s)) {
+  @media (width > 480.98px) {
     @content;
   }
 }
 
 @mixin mobile-s {
-  @media (width <= rem($mobile-s)) {
+  @media (width <= 480.98px) {
     @content;
   }
 }

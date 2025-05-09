@@ -10,6 +10,90 @@
   <title>Fit Quest | Вход</title>
 </head>
 <body>
+<header class="header">
+  <div class="header__inner">
+    <a href="#" class="header__logo logo">
+      <img
+          src="../../../logo.svg"
+          alt="" width="60"
+          height="60" loading="lazy"
+      >
+    </a>
+  </div>
+</header>
 
+<main class="content">
+  <div class="welcome">
+    <div class="welcome__inner container">
+      <h1 class="welcome__title h2">
+        Шаг за шагом к вершине с FIT QUEST!
+      </h1>
+
+      <div class="welcome__body">
+        <div class="welcome__image"></div>
+
+        <div class="welcome__body-form-wrapper">
+          <h2 class="welcome__body-title h1 hidden-mobile">Вход</h2>
+          <form method="POST" class="welcome__body-form form">
+            <h3 class="form__title h5">
+              Войдите, чтобы продолжить
+            </h3>
+
+            <div class="form__input-wrapper input-wrapper">
+              <input type="text" class="form__input input" id="inputLogin" autocomplete="email username" placeholder="">
+              <label class="form__input-label" for="inputLogin">
+                Имя пользователя или Email
+              </label>
+            </div>
+
+            <div class="form__input-wrapper input-wrapper">
+              <input type="password" class="form__input input" id="inputPassword" autocomplete="password"
+                     placeholder="">
+              <label for="inputPassword">
+                Пароль
+              </label>
+              <span class="input-icon input-icon--password"></span>
+            </div>
+
+            <label for="checkboxRemember" class="form__checkbox checkbox">Запомнить меня
+              <input type="checkbox" class="checkbox__input" id="checkboxRemember">
+              <span class="checkbox__mark"></span>
+            </label>
+
+            <button class="form__submit-button button button--accent" type="submit">
+              <p class="h6">Войти</p>
+            </button>
+
+            <span class="form__or-text text-between-lines">
+              <p>или</p>
+            </span>
+
+            <button class="form__submit-button button" type="submit">
+              <p class="h6">Continue with Google</p>
+              <span class="button__icon">
+                <img src="../../../google.svg">
+              </span>
+            </button>
+
+            <div class="form__help">
+              <span>Нет аккаунта? <a href="#" class="form__help-sign-up-link link link--accent">Создайте</a></span>
+
+              <a href="#" class="form__help-link link">
+                Забыли пароль?
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content__background">
+    <img
+        src="../../../sign-in/background.svg"
+        alt="" width="1180"
+        height="761" loading="lazy"
+    >
+  </div>
+</main>
 </body>
 </html>

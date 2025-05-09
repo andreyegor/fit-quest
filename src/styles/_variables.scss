@@ -2,36 +2,47 @@
 
 :root {
   --color-light: #FFFFFF;
+  --color-dark: #2C2C2C;
 
-  --color-dark: #141414;
-  --color-dark-10: #1A1A1A;
-  --color-dark-15: #262626;
-  --color-dark-20: #333333;
-  --color-dark-40: #666666;
+  --color-accent: #A22EA0;
+  --color-accent-alt: #8B2689;
+  --color-accent-alt-2: #6D206B;
 
-  --color-gray-50: #7E7E81;
-  --color-gray-60: #98989A;
+  --color-gray: #B3B3B3;
+  --color-light-gray: #F2F2F2;
 
-  --color-accent: #FFD11A;
-  --color-red: #FF5500;
+  --color-red: #EA4335;
+  --color-red-alt: #D93D30;
+  --color-red-alt-2: #BD372B;
 
-  --border: #{rem(1)} solid var(--color-dark-15);
-
-  --gradient: linear-gradient(
-                  45deg,
-                  var(--color-dark-15) 64%,
-                  var(--color-accent) 136%
-  );
+  --color-green: #34A853;
+  --color-green-alt: #2B8E45;
+  --color-green-alt-2: #227639;
 
   --font-family-base: "Inter", sans-serif;
-  --font-family-accent: "Kumbh Sans", sans-serif;
 
-  --container-width: #{rem(1600)};
-  --container-padding-x: #{rem(16)};
+  --container-width: 1440px;
+  --container-padding-x: 15px;
 
-  --transition-duration: 0.2s;
+  --button-height: 54px;
+  --input-height: var(--button-height);
+
+  --border: var(--color-dark) solid 2px;
+  --border-gray: var(--color-gray) solid 1px;
+  --stroke: var(--color-dark) 2px;
+
+  --transition-duration: .2s;
 
   @include laptop {
-    --container-width: #{rem(1280)};
+    --container-width: 1220px;
+    --button-height: 44px;
+  }
+
+  @include tablet {
+    --button-height: 40px;
+  }
+
+  @include mobile {
+    --button-height: 35px;
   }
 }

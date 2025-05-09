@@ -1,0 +1,27 @@
+@use '../helpers' as *;
+
+.content {
+  //--backgroundSize: 1250px;
+  //background-image: url("../../../public/sign-in/background.svg");
+  //background-repeat: no-repeat;
+  //background-size: min(100vw, var(--backgroundSize));
+  //background-position: right bottom;
+  //@include desktop {
+  //  --backgroundSize: 1180px;
+  //}
+
+  position: relative;
+  padding-bottom: calc(60px - 60 * (1024px - 100vh) / 1024);
+
+  &__background {
+    --backgroundHeight: min(calc(100vw * 760/1180), 760px);
+    --bottomOffset: calc(100vh - var(--backgroundHeight) - 175px);
+
+    position: absolute;
+    bottom: min(0px, var(--bottomOffset));
+    right: 0;
+    z-index: -1;
+    height: var(--backgroundHeight);
+    aspect-ratio: 1180/760;
+  }
+}
