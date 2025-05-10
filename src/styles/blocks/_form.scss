@@ -42,6 +42,10 @@
     font-weight: 500;
     color: var(--color-gray);
 
+    &--center {
+      @include flex-center;
+    }
+
     &-sign-up-link {
       font-weight: 700;
     }

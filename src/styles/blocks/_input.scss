@@ -77,8 +77,8 @@
     display: none;
 
     &--password {
-      --openedURL: url("../../../eye-opened.svg");
-      --closedURL: url("../../../eye-closed.svg");
+      --openedURL: url("../../../../eye-opened.svg");
+      --closedURL: url("../../../../eye-closed.svg");
 
       background-image: var(--openedURL);
       background-position: center;

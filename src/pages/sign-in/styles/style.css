@@ -201,56 +201,56 @@ svg * {
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-Regular.woff2");
+  src: url("../../../../fonts/Inter-Regular.woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-Medium.woff2");
+  src: url("../../../../fonts/Inter-Medium.woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-SemiBold.woff2");
+  src: url("../../../../fonts/Inter-SemiBold.woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-Bold.woff2");
+  src: url("../../../../fonts/Inter-Bold.woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-ExtraBold.woff2");
+  src: url("../../../../fonts/Inter-ExtraBold.woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-ExtraBoldItalic.woff2");
+  src: url("../../../../fonts/Inter-ExtraBoldItalic.woff2");
   font-weight: 800;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-Black.woff2");
+  src: url("../../../../fonts/Inter-Black.woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../fonts/Inter-BlackItalic.woff2");
+  src: url("../../../../fonts/Inter-BlackItalic.woff2");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
@@ -270,7 +270,7 @@ svg * {
   --color-green-alt: #2B8E45;
   --color-green-alt-2: #227639;
   --font-family-base: "Inter", sans-serif;
-  --container-width: 1440px;
+  --container-width: 1660px;
   --container-padding-x: 15px;
   --button-height: 54px;
   --input-height: var(--button-height);
@@ -279,9 +279,14 @@ svg * {
   --stroke: var(--color-dark) 2px;
   --transition-duration: .2s;
 }
+@media (width <= 1660.98px) {
+  :root {
+    --container-width: 1440px;
+  }
+}
 @media (width <= 1440.98px) {
   :root {
-    --container-width: 1220px;
+    --container-width: 1180px;
     --button-height: 44px;
   }
 }
@@ -472,8 +477,8 @@ a[class] {
   display: none;
 }
 .input-icon--password {
-  --openedURL: url("../../../eye-opened.svg");
-  --closedURL: url("../../../eye-closed.svg");
+  --openedURL: url("../../../../eye-opened.svg");
+  --closedURL: url("../../../../eye-closed.svg");
   background-image: var(--openedURL);
   background-position: center;
   background-repeat: no-repeat;
@@ -634,7 +639,7 @@ a[class] {
   background-color: var(--color-accent);
 }
 .checkbox__input:checked ~ .checkbox__mark {
-  background-image: url("../../../tick-white.svg");
+  background-image: url("../../../../tick-white.svg");
   background-color: var(--color-accent);
   border-color: var(--color-accent);
 }
@@ -724,19 +729,60 @@ a[class] {
   }
 }
 
+.form {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 20px;
+  background-color: var(--color-light);
+  border: var(--border);
+  border-radius: 15px;
+  padding: 25px 50px;
+}
+@media (width <= 1440.98px) {
+  .form {
+    row-gap: 17px;
+    padding: 20px 40px;
+  }
+}
+@media (width <= 767.98px) {
+  .form {
+    row-gap: 13px;
+    padding: 20px 30px;
+  }
+}
+@media (width <= 480.98px) {
+  .form {
+    row-gap: 10px;
+    padding: 15px 20px;
+  }
+}
+.form__title {
+  font-weight: 600;
+}
+.form__input, .form__input-wrapper, .form__submit-button, .form__or-text {
+  width: 100%;
+}
+.form__help {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 500;
+  color: var(--color-gray);
+}
+.form__help--center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form__help-sign-up-link {
+  font-weight: 700;
+}
+
 .content {
   position: relative;
   padding-bottom: calc(60px - 60 * (1024px - 100vh) / 1024);
-}
-.content__background {
-  --backgroundHeight: min(calc(100vw * 760/1180), 760px);
-  --bottomOffset: calc(100vh - var(--backgroundHeight) - 175px);
-  position: absolute;
-  bottom: min(0px, var(--bottomOffset));
-  right: 0;
-  z-index: -1;
-  height: var(--backgroundHeight);
-  aspect-ratio: 1180/760;
 }
 
 .welcome {
@@ -812,7 +858,7 @@ a[class] {
 }
 @media (width <= 480.98px) {
   .welcome__body-form {
-    width: 270px;
+    width: 320px;
   }
 }
 .welcome__body-form-wrapper {
@@ -833,7 +879,7 @@ a[class] {
 .welcome__image {
   width: 420px;
   height: 540px;
-  background-image: url("../../../../sign-in/mascot-desktop.svg");
+  background-image: url("../../../../../sign-in/mascot-desktop.svg");
 }
 @media (width > 767.98px) {
   .welcome__image {
@@ -850,60 +896,31 @@ a[class] {
   .welcome__image {
     width: 300px;
     height: 125px;
-    background-image: url("../../../../sign-in/mascot-mobile.svg");
+    background-image: url("../../../../../sign-in/mascot-mobile.svg");
   }
 }
 @media (width <= 480.98px) {
   .welcome__image {
-    width: 240px;
+    width: 270px;
     height: 100px;
   }
 }
 
-.form {
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  flex-direction: column;
-  row-gap: 20px;
-  background-color: var(--color-light);
-  border: var(--border);
-  border-radius: 15px;
-  padding: 25px 50px;
-}
-@media (width <= 1440.98px) {
-  .form {
-    row-gap: 17px;
-    padding: 20px 40px;
-  }
-}
-@media (width <= 767.98px) {
-  .form {
-    row-gap: 13px;
-    padding: 20px 30px;
-  }
-}
-@media (width <= 480.98px) {
-  .form {
-    row-gap: 10px;
-    padding: 15px 20px;
-  }
-}
-.form__title {
-  font-weight: 600;
-}
-.form__input, .form__input-wrapper, .form__submit-button, .form__or-text {
+.footer {
+  position: absolute;
   width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
 }
-.form__help {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-weight: 500;
-  color: var(--color-gray);
-}
-.form__help-sign-up-link {
-  font-weight: 700;
+.footer__background {
+  --height: min(calc(100vw * 760/1180), 760px);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  height: var(--height);
+  aspect-ratio: 1180/760;
 }
 
 /*# sourceMappingURL=style.css.map */

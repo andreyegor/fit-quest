@@ -1,4 +1,4 @@
-@use '../helpers' as *;
+@use '../../../../styles/helpers/index' as *;
 
 .welcome {
   padding-top: 10px;
@@ -64,7 +64,7 @@
       }
 
       @include mobile-s {
-        width: 270px;
+        width: 320px;
       }
 
       &-wrapper {
@@ -89,7 +89,7 @@
   &__image {
     width: 420px;
     height: 540px;
-    background-image: url("../../../../sign-in/mascot-desktop.svg");
+    background-image: url("../../../../../sign-in/mascot-desktop.svg");
 
     @include mobile-above {
       align-self: end;
@@ -103,11 +103,11 @@
     @include mobile {
       width: 300px;
       height: 125px;
-      background-image: url("../../../../sign-in/mascot-mobile.svg");
+      background-image: url("../../../../../sign-in/mascot-mobile.svg");
     }
 
     @include mobile-s {
-      width: 240px;
+      width: 270px;
       height: 100px;
     }
   }
