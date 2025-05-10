@@ -1,0 +1,115 @@
+@use '../../../../styles/helpers/index' as *;
+
+.welcome {
+  padding-top: 10px;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+
+    @include tablet {
+      row-gap: 35px;
+    }
+
+    @include mobile-s-above {
+      text-align: center;
+    }
+
+    @include mobile {
+      row-gap: 10px;
+    }
+
+    @include mobile-s {
+      row-gap: 5px;
+    }
+  }
+
+  &__title {
+    font-style: italic;
+    font-weight: 800;
+  }
+
+  &__body {
+    --formWidth: 500px;
+
+    display: flex;
+    column-gap: 20px;
+
+    @include laptop {
+      --formWidth: 450px;
+    }
+
+    @include tablet {
+      --formWidth: 400px;
+    }
+
+    @include mobile-above {
+      justify-content: space-between;
+    }
+
+    @include mobile {
+      --formWidth: 450px;
+
+      flex-direction: column;
+      align-items: center;
+      row-gap: 15px;
+    }
+
+    @include mobile-s {
+      --formWidth: 320px;
+
+      row-gap: 10px;
+    }
+
+    &-form {
+      width: var(--formWidth);
+
+      &-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        @include tablet {
+          row-gap: 10px;
+        }
+      }
+    }
+
+    &-title {
+      position: relative;
+      left: var(--formWidth);
+      translate: -100% 0;
+
+      color: var(--color-light);
+      -webkit-text-stroke: var(--stroke);
+      align-self: start;
+    }
+  }
+
+  &__image {
+    width: 420px;
+    height: 540px;
+    background-image: url("../../../../../sign-in/mascot-desktop.svg");
+
+    @include mobile-above {
+      align-self: end;
+    }
+
+    @include tablet {
+      width: 350px;
+      height: 450px;
+    }
+
+    @include mobile {
+      width: 300px;
+      height: 125px;
+      background-image: url("../../../../../sign-in/mascot-mobile.svg");
+    }
+
+    @include mobile-s {
+      width: 270px;
+      height: 100px;
+    }
+  }
+}
