@@ -446,27 +446,27 @@ a[class] {
   color: var(--color-gray);
   background-color: var(--color-light);
 }
-.input-wrapper {
+.input__wrapper {
   --paddingX: 20px;
   --labelFocusFontSize: 12px;
   --iconSize: 20px;
   position: relative;
 }
 @media (width <= 1023.98px) {
-  .input-wrapper {
+  .input__wrapper {
     --paddingX: 17px;
     --labelFocusFontSize: 10px;
     --iconSize: 18px;
   }
 }
 @media (width <= 767.98px) {
-  .input-wrapper {
+  .input__wrapper {
     --paddingX: 12px;
     --labelFocusFontSize: 8px;
     --iconSize: 15px;
   }
 }
-.input-icon {
+.input__icon {
   position: absolute;
   top: 50%;
   translate: 0 -50%;
@@ -476,7 +476,7 @@ a[class] {
   cursor: pointer;
   display: none;
 }
-.input-icon--password {
+.input__icon--password {
   --openedURL: url("../../../../eye-opened.svg");
   --closedURL: url("../../../../eye-closed.svg");
   background-image: var(--openedURL);

@@ -47,7 +47,7 @@
     background-color: var(--color-light);
   }
 
-  &-wrapper {
+  &__wrapper {
     --paddingX: 20px;
     --labelFocusFontSize: 12px;
     --iconSize: 20px;
@@ -67,7 +67,7 @@
     }
   }
 
-  &-icon {
+  &__icon {
     @include abs-y;
     right: calc(var(--paddingX)/2);
     width: calc(var(--iconSize) + var(--paddingX));
