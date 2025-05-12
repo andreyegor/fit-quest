@@ -340,6 +340,7 @@ body {
   font-size: clamp(12px, 10.9803921569px + 0.2614379085vw, 16px);
   display: flex;
   flex-direction: column;
+  position: relative;
   font-family: var(--font-family-base);
   color: var(--color-dark);
   background-color: var(--color-light-gray);

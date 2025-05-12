@@ -33,12 +33,12 @@ class AbsolutePlacer {
         switch (this.position) {
             case "top":
                 this.rootElement.style.top = `max(${this.offset}px, calc(${
-                    this._isVirtualKeyboardOpen() ? `${contentHeight}px` : `min(${contentHeight}px, 100vh)`
+                    this._isVirtualKeyboardOpen() ? `${contentHeight}px` : `max(${contentHeight}px, 100vh)`
                 } - var(--height))`
                 break;
             case "bottom":
                 this.rootElement.style.bottom = `max(${this.offset}px, calc(${
-                    this._isVirtualKeyboardOpen() ? `${contentHeight}px` : `min(${contentHeight}px, 100vh)`
+                    this._isVirtualKeyboardOpen() ? `${contentHeight}px` : `max(${contentHeight}px, 100vh)`
                 } - var(--height))`
                 break;
         }

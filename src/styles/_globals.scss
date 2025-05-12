@@ -11,6 +11,7 @@ body {
 
   display: flex;
   flex-direction: column;
+  position: relative;
   font-family: var(--font-family-base);
   color: var(--color-dark);
   background-color: var(--color-light-gray);
