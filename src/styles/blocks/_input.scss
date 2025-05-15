@@ -87,8 +87,10 @@
     }
   }
 
-  &--failure {
+  &.error {
     border-color: var(--color-red);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 
     &:focus, &:not(:placeholder-shown) {
       border-color: var(--color-red);
@@ -103,8 +105,10 @@
     }
   }
 
-  &--success {
+  &.success {
     border-color: var(--color-green);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 
     &:focus, &:not(:placeholder-shown) {
       border-color: var(--color-green);

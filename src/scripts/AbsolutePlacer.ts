@@ -16,7 +16,7 @@ class AbsolutePlacer {
     _bindEvents(): void {
         this._eventHandler();
 
-        ['load', 'resize'].forEach(event => {
+        ['load', 'resize', 'scroll'].forEach(event => {
             window.addEventListener(event, () => this._eventHandler())
         })
     }

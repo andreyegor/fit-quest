@@ -34,39 +34,92 @@
 
         <div class="welcome__body-form-wrapper">
           <h2 class="welcome__body-title h1 hidden-mobile">Регистрация</h2>
-          <form method="POST" class="welcome__body-form form">
+          <form method="POST" class="welcome__body-form form" data-js-form novalidate>
             <h3 class="form__title h5">
               Зарегистрируйтесь, чтобы продолжить
             </h3>
 
-            <div class="form__input-wrapper input__wrapper">
-              <input type="text" class="form__input input" id="inputEmail" autocomplete="email" placeholder="">
-              <label class="form__input-label" for="inputEmail">
-                Email
-              </label>
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="text"
+                    class="form__input input"
+                    id="inputEmail"
+                    autocomplete="email"
+                    placeholder=""
+                    required
+                    pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                    maxlength="255"
+                    title="Поле должно содержать адрес электронной почты"
+                >
+                <label class="form__input-label" for="inputEmail">
+                  Email
+                </label>
+              </div>
+
+              <span class="form__info-field" data-js-form-infos></span>
             </div>
 
-            <div class="form__input-wrapper input__wrapper">
-              <input type="text" class="form__input input" id="inputUsername" autocomplete="username" placeholder="">
-              <label class="form__input-label" for="inputUsername">
-                Имя пользователя
-              </label>
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="text"
+                    class="form__input input"
+                    id="inputUsername"
+                    autocomplete="username"
+                    placeholder=""
+                    required
+                    minlength="3"
+                    maxlength="30"
+                    pattern="^[a-zA-Z0-9_.]{3,30}$"
+                    title="Введите имя пользователя на латинице. Допустимы цифры, заглавные буквы, символы нижнего подчеркивания и точки."
+                >
+                <label class="form__input-label" for="inputUsername">
+                  Имя пользователя
+                </label>
+              </div>
+              
+              <span class="form__info-field" data-js-form-infos></span>
             </div>
 
-            <div class="form__input-wrapper input__wrapper">
-              <input type="password" class="form__input input" id="inputPassword" autocomplete="password"
-                     placeholder="">
-              <label for="inputPassword">
-                Пароль
-              </label>
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="password"
+                    class="form__input input"
+                    id="inputPassword"
+                    autocomplete="password"
+                    placeholder=""
+                    required
+                    minlength="8"
+                    maxlength="64"
+                    title="Пароль должен содержать хотя бы одну цифру, заглавную букву и спецсимвол"
+                >
+                <label for="inputPassword">
+                  Пароль
+                </label>
+              </div>
+              <span class="form__info-field" data-js-form-infos></span>
             </div>
 
-            <div class="form__input-wrapper input__wrapper">
-              <input type="password" class="form__input input" id="inputPasswordAgain" autocomplete="password"
-                     placeholder="">
-              <label for="inputPasswordAgain">
-                Повторите пароль
-              </label>
+            <div class="form__field-wrapper input__wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="password"
+                    class="form__input input"
+                    id="inputPasswordAgain"
+                    autocomplete="password"
+                    placeholder=""
+                    required
+                    title="Введите пароль, который ввели в поле выше. Пароли должны совпадать"
+                    data-js-form-again
+                >
+                <label for="inputPasswordAgain">
+                  Повторите пароль
+                </label>
+              </div>
+
+              <span class="form__info-field" data-js-form-infos></span>
             </div>
 
             <button class="form__submit-button button button--accent" type="submit">

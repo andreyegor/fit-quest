@@ -30,7 +30,7 @@
     font-weight: 600;
   }
 
-  &__input, &__input-wrapper, &__submit-button, &__or-text {
+  &__input, &__field-wrapper, &__submit-button, &__or-text {
     width: 100%;
   }
 
@@ -48,6 +48,43 @@
 
     &-sign-up-link {
       font-weight: 700;
+    }
+  }
+
+  &__info-field {
+    @include fluid-text(16, 10);
+
+    --padding: 10px;
+
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-radius: 0 0 8px 8px;
+    font-weight: 500;
+    max-height: 0;
+    transition-duration: var(--transition-duration);
+
+    @include mobile {
+      --padding: 8px;
+
+      border-radius: 0 0 5px 5px;
+    }
+
+    &.error, &.success {
+      max-height: max-content;
+      padding: var(--padding);
+      border: var(--border-gray);
+      border-top: none;
+    }
+
+    &.error {
+      color: var(--color-red);
+      border-color: var(--color-red);
+    }
+
+    &.success {
+      color: var(--color-green);
+      border-color: var(--color-green);
     }
   }
 }

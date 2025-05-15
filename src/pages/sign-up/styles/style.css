@@ -485,28 +485,32 @@ a[class] {
   background-repeat: no-repeat;
   background-size: calc(100% - var(--paddingX));
 }
-.input--failure {
+.input.error {
+  border-color: var(--color-red);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input.error:focus, .input.error:not(:placeholder-shown) {
   border-color: var(--color-red);
 }
-.input--failure:focus, .input--failure:not(:placeholder-shown) {
-  border-color: var(--color-red);
-}
-.input--failure + label {
+.input.error + label {
   color: var(--color-red);
 }
-.input--failure:focus + label, .input--failure:not(:placeholder-shown) + label {
+.input.error:focus + label, .input.error:not(:placeholder-shown) + label {
   color: var(--color-red);
 }
-.input--success {
+.input.success {
+  border-color: var(--color-green);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input.success:focus, .input.success:not(:placeholder-shown) {
   border-color: var(--color-green);
 }
-.input--success:focus, .input--success:not(:placeholder-shown) {
-  border-color: var(--color-green);
-}
-.input--success + label {
+.input.success + label {
   color: var(--color-green);
 }
-.input--success:focus + label, .input--success:not(:placeholder-shown) + label {
+.input.success:focus + label, .input.success:not(:placeholder-shown) + label {
   color: var(--color-green);
 }
 
@@ -762,7 +766,7 @@ a[class] {
 .form__title {
   font-weight: 600;
 }
-.form__input, .form__input-wrapper, .form__submit-button, .form__or-text {
+.form__input, .form__field-wrapper, .form__submit-button, .form__or-text {
   width: 100%;
 }
 .form__help {
@@ -779,6 +783,37 @@ a[class] {
 }
 .form__help-sign-up-link {
   font-weight: 700;
+}
+.form__info-field {
+  font-size: clamp(10px, 8.4705882353px + 0.3921568627vw, 16px);
+  --padding: 10px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  border-radius: 0 0 8px 8px;
+  font-weight: 500;
+  max-height: 0;
+  transition-duration: var(--transition-duration);
+}
+@media (width <= 767.98px) {
+  .form__info-field {
+    --padding: 8px;
+    border-radius: 0 0 5px 5px;
+  }
+}
+.form__info-field.error, .form__info-field.success {
+  max-height: max-content;
+  padding: var(--padding);
+  border: var(--border-gray);
+  border-top: none;
+}
+.form__info-field.error {
+  color: var(--color-red);
+  border-color: var(--color-red);
+}
+.form__info-field.success {
+  color: var(--color-green);
+  border-color: var(--color-green);
 }
 
 .content {

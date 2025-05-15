@@ -34,25 +34,48 @@
 
         <div class="welcome__body-form-wrapper">
           <h2 class="welcome__body-title h1 hidden-mobile">Вход</h2>
-          <form method="POST" class="welcome__body-form form">
+          <form method="POST" class="welcome__body-form form" novalidate data-js-form>
             <h3 class="form__title h5">
               Войдите, чтобы продолжить
             </h3>
 
-            <div class="form__input-wrapper input__wrapper">
-              <input type="text" class="form__input input" id="inputLogin" autocomplete="email username" placeholder="">
-              <label class="form__input-label" for="inputLogin">
-                Имя пользователя или Email
-              </label>
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="text"
+                    class="form__input input"
+                    id="inputLogin"
+                    autocomplete="email username"
+                    placeholder=""
+                    maxlength="255"
+                    required
+                >
+                <label class="form__input-label" for="inputLogin">
+                  Имя пользователя или Email
+                </label>
+              </div>
+
+              <span class="form__info-field" data-js-form-infos></span>
             </div>
 
-            <div class="form__input-wrapper input__wrapper">
-              <input type="password" class="form__input input" id="inputPassword" autocomplete="password"
-                     placeholder="">
-              <label for="inputPassword">
-                Пароль
-              </label>
-              <span class="input__icon input__icon--password"></span>
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="password"
+                    class="form__input input"
+                    id="inputPassword"
+                    autocomplete="password"
+                    placeholder=""
+                    maxlength="64"
+                    required
+                >
+                <label for="inputPassword">
+                  Пароль
+                </label>
+                <span class="input__icon input__icon--password"></span>
+              </div>
+
+              <span class="form__info-field" data-js-form-infos></span>
             </div>
 
             <label for="checkboxRemember" class="form__checkbox checkbox">Запомнить меня
