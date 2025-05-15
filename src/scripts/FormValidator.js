@@ -1,4 +1,4 @@
-import contentHeightSetter from "./contentHeightSetter.js";
+import contentHeightSetter from "./ContentHeightSetter.ts";
 
 class FormValidator {
     selectors = {
