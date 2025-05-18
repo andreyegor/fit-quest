@@ -28,7 +28,7 @@ object AuthRoutes {
             result <- L(userReq).value
             resp <- result.fold(
               err => BadRequest(err),
-              tokens => createTokenResponse(tokens, "refresh/")
+              tokens => createTokenResponse(tokens, "auth/refresh/")
             )
           } yield resp
 
@@ -42,7 +42,7 @@ object AuthRoutes {
 
           result.foldF(
             err => BadRequest(err),
-            tokens => createTokenResponse(tokens, "/api/auth/refresh/")
+            tokens => createTokenResponse(tokens, "auth/refresh/")
           )
       }
   }
@@ -52,7 +52,7 @@ object AuthRoutes {
       refreshPath: String
   )(implicit dsl: Http4sDsl[F]): F[Response[F]] = {
     import dsl._
-    val accessCookie = Cookie.fromAcessToken(tokens.acessToken)
+    val accessCookie = Cookie.fromAcessToken(tokens.accessToken)
     val refreshCookie =
       Cookie.fromRefreshToken(tokens.refreshToken, refreshPath)
     Ok().map(_.addCookie(accessCookie).addCookie(refreshCookie))

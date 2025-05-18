@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/mobile/auth/refresh
+Content-Type: application/json
+
+{
+  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY2MzY2MDMsImlhdCI6MTc0NjYzMzAwMywidXNlcklkIjoiN2ZhMmE5ZGQtMWEyZi00ZGM2LTg3MzItOTkwM2Y2ZDE3MDEwIn0.kb-8_CsQWuWLasLAphoASEoaazfBR6hj4z1wb55V_J0",
+  "refreshToken": "Kr-YJimAJ_M2v6G-WX_Ro1iNNeNvqsq9h6Bi1NfP5mc5lZMnWYybr7GyP0aXf4KLj3gPiHlMRbwrK5FDuSSqGQ"
+}

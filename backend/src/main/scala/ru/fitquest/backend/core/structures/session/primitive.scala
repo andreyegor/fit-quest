@@ -28,6 +28,7 @@ object AccessToken:
 
   extension (t: AccessToken) def value: String = t
   given Encoder[AccessToken] = Encoder[String].contramap[AccessToken](_.value)
+    given Decoder[AccessToken] = Decoder[String].map(AccessToken(_))
 
 opaque type RefreshToken = String
 object RefreshToken:
@@ -37,6 +38,7 @@ object RefreshToken:
   extension (t: RefreshToken) def value: String = t
   given Get[RefreshToken] = Get[String].map(RefreshToken(_))
   given Encoder[RefreshToken] = Encoder[String].contramap[RefreshToken](_.value)
+  given Decoder[RefreshToken] = Decoder[String].map(RefreshToken(_))
 
 opaque type RefreshTokenHash = String
 object RefreshTokenHash:

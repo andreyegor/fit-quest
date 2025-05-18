@@ -14,12 +14,9 @@ case class UserResponse(
 )
 
 object UserResponse {
-  // Circe encoder to convert UserResponse to JSON
-  import io.circe.Encoder
-  import io.circe.generic.semiauto.deriveEncoder
-
-  given tokensEncoder: Encoder[UserResponse] = deriveEncoder[UserResponse]
-  given tokensEntityEncoder[F[_]: Concurrent]: EntityEncoder[F, UserResponse] =
+  given userResponseEncoder: Encoder[UserResponse] = deriveEncoder[UserResponse]
+  given userResponseEntityEncoder[F[_]: Concurrent]
+      : EntityEncoder[F, UserResponse] =
     jsonEncoderOf[F, UserResponse]
 
   def from(u: User): UserResponse =

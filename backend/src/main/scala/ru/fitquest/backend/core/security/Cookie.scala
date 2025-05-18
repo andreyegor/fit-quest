@@ -16,14 +16,14 @@ object Cookie:
       maxAgeSeconds: Long,
       httpOnly:Boolean = false,
       secure:Boolean = true,
-      extraPath: String = "/"
+      extraPath: String = ""
   ): ResponseCookie =
     ResponseCookie(
       name = name.value,
       content = value,
       httpOnly = httpOnly,
       secure = true,
-      path = Some("/api" + extraPath),
+      path = Some("/api/" + extraPath),
       maxAge = Some(maxAgeSeconds),
       sameSite = Some(SameSite.Strict)
     )

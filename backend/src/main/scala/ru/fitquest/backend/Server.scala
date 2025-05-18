@@ -19,7 +19,8 @@ import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 import ru.fitquest.backend.routes.*
 import ru.fitquest.backend.users
-
+import ru.fitquest.backend.mobile.routes.MobileAuthRoutes
+import org.http4s.CacheDirective.public
 
 object Server:
   def run[F[_]: Async]: F[Nothing] = {
@@ -41,21 +42,29 @@ object Server:
       loginAlg = auth.Login.impl[F](authenticate, sessionsTable)
       refreshAlg = auth.Refresh.impl[F](sessionsTable)
 
-      publicRoutes =
+      webPublicRoutes =
         SillyRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
           UsersRoutes[F](registerAlg) <+>
-          AuthRoutes(loginAlg, refreshAlg)
+          AuthRoutes[F](loginAlg, refreshAlg)
+      mobilePublicRoutes = MobileAuthRoutes[F](loginAlg, refreshAlg)
 
-      protectedRoutes =
+      webProtectedRoutes =
         SillyRoutes.catRoutes[F](catAlg)
-
+      // mobileProtectedRoutes = TODO
+      
+      publicRoutes = webPublicRoutes <+> mobilePublicRoutes
+      protectedRoutes = webProtectedRoutes //<+>  mobileProtectedRoutes 
+      
       routes = publicRoutes <+> authMiddleware(protectedRoutes)
 
       httpApp: HttpApp[F] = Router("/api" -> routes).orNotFound
 
       appWithErrorHandling = withErrorLogging(httpApp)
 
-      finalApp = Http4sMiddleware.Logger.httpApp(logHeaders = true, logBody = true)(
+      finalApp = Http4sMiddleware.Logger.httpApp(
+        logHeaders = true,
+        logBody = true
+      )(
         appWithErrorHandling
       )
 
