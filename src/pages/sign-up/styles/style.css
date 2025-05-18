@@ -735,31 +735,32 @@ a[class] {
 }
 
 .form {
+  --rowGap: 20px;
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
-  row-gap: 20px;
   background-color: var(--color-light);
   border: var(--border);
   border-radius: 15px;
   padding: 25px 50px;
+  row-gap: var(--rowGap);
 }
 @media (width <= 1440.98px) {
   .form {
-    row-gap: 17px;
+    --rowGap: 17px;
     padding: 20px 40px;
   }
 }
 @media (width <= 767.98px) {
   .form {
-    row-gap: 13px;
+    --rowGap: 13px;
     padding: 20px 30px;
   }
 }
 @media (width <= 480.98px) {
   .form {
-    row-gap: 10px;
+    --rowGap: 10px;
     padding: 15px 20px;
   }
 }
@@ -786,33 +787,44 @@ a[class] {
 }
 .form__info-field {
   font-size: clamp(10px, 8.4705882353px + 0.3921568627vw, 16px);
-  --padding: 10px;
   display: block;
   width: 100%;
   text-align: left;
-  border-radius: 0 0 8px 8px;
   font-weight: 500;
-  max-height: 0;
   transition-duration: var(--transition-duration);
 }
+.form__info-field:empty {
+  display: none;
+}
+.form__info-field.error, .form__info-field.success {
+  padding: var(--padding);
+}
+.form__info-field.error {
+  color: var(--color-red);
+}
+.form__info-field.success {
+  color: var(--color-green);
+}
+.form__field-wrapper .form__info-field {
+  --padding: 10px;
+  max-height: 0;
+  border-radius: 0 0 8px 8px;
+}
 @media (width <= 767.98px) {
-  .form__info-field {
+  .form__field-wrapper .form__info-field {
     --padding: 8px;
     border-radius: 0 0 5px 5px;
   }
 }
-.form__info-field.error, .form__info-field.success {
+.form__field-wrapper .form__info-field.error, .form__field-wrapper .form__info-field.success {
   max-height: max-content;
-  padding: var(--padding);
   border: var(--border-gray);
   border-top: none;
 }
-.form__info-field.error {
-  color: var(--color-red);
+.form__field-wrapper .form__info-field.error {
   border-color: var(--color-red);
 }
-.form__info-field.success {
-  color: var(--color-green);
+.form__field-wrapper .form__info-field.success {
   border-color: var(--color-green);
 }
 

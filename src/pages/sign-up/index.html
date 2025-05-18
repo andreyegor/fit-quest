@@ -45,6 +45,7 @@
                     type="text"
                     class="form__input input"
                     id="inputEmail"
+                    name="email"
                     autocomplete="email"
                     placeholder=""
                     required
@@ -69,6 +70,7 @@
                     autocomplete="username"
                     placeholder=""
                     required
+                    name="username"
                     minlength="3"
                     maxlength="30"
                     pattern="^[a-zA-Z0-9_.]{3,30}$"
@@ -88,6 +90,7 @@
                     type="password"
                     class="form__input input"
                     id="inputPassword"
+                    name="password"
                     autocomplete="password"
                     placeholder=""
                     required
@@ -108,7 +111,7 @@
                     type="password"
                     class="form__input input"
                     id="inputPasswordAgain"
-                    autocomplete="password"
+                    name="passwordAgain"
                     placeholder=""
                     required
                     title="Введите пароль, который ввели в поле выше. Пароли должны совпадать"
@@ -121,6 +124,8 @@
 
               <span class="form__info-field" data-js-form-infos></span>
             </div>
+
+            <span class="form__info-field" data-js-form-infos></span>
 
             <button class="form__submit-button button button--accent" type="submit">
               <p class="h6">Зарегистрироваться</p>

@@ -44,13 +44,16 @@
                 <input
                     type="text"
                     class="form__input input"
-                    id="inputLogin"
-                    autocomplete="email username"
+                    id="inputEmail"
+                    name="email"
+                    autocomplete="email"
                     placeholder=""
-                    maxlength="255"
                     required
+                    pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                    maxlength="255"
+                    title="Поле должно содержать адрес электронной почты"
                 >
-                <label class="form__input-label" for="inputLogin">
+                <label class="form__input-label" for="inputEmail">
                   Имя пользователя или Email
                 </label>
               </div>
@@ -62,13 +65,16 @@
               <div class="input__wrapper">
                 <input
                     type="password"
+                    name="password"
                     class="form__input input"
                     id="inputPassword"
                     autocomplete="password"
                     placeholder=""
+                    minlength="8"
                     maxlength="64"
                     required
                 >
+                <!-- TODO: minlength стоит убрать, но бэк возвращает 500 если длина меньше 8 -->
                 <label for="inputPassword">
                   Пароль
                 </label>
@@ -78,10 +84,12 @@
               <span class="form__info-field" data-js-form-infos></span>
             </div>
 
-            <label for="checkboxRemember" class="form__checkbox checkbox">Запомнить меня
-              <input type="checkbox" class="checkbox__input" id="checkboxRemember">
-              <span class="checkbox__mark"></span>
-            </label>
+<!--            <label for="checkboxRemember" class="form__checkbox checkbox">Запомнить меня-->
+<!--              <input type="checkbox" class="checkbox__input" id="checkboxRemember">-->
+<!--              <span class="checkbox__mark"></span>-->
+<!--            </label>-->
+
+            <span class="form__info-field" data-js-form-infos></span>
 
             <button class="form__submit-button button button--accent" type="submit">
               <p class="h6">Войти</p>

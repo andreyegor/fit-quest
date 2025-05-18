@@ -1,28 +1,30 @@
 @use '../helpers' as *;
 
 .form {
+  --rowGap: 20px;
+
   display: flex;
   align-items: start;
   justify-content: center;
   flex-direction: column;
-  row-gap: 20px;
   background-color: var(--color-light);
   border: var(--border);
   border-radius: 15px;
   padding: 25px 50px;
+  row-gap: var(--rowGap);
 
   @include laptop {
-    row-gap: 17px;
+    --rowGap: 17px;
     padding: 20px 40px;
   }
 
   @include mobile {
-    row-gap: 13px;
+    --rowGap: 13px;
     padding: 20px 30px;
   }
 
   @include mobile-s {
-    row-gap: 10px;
+    --rowGap: 10px;
     padding: 15px 20px;
   }
 
@@ -54,15 +56,34 @@
   &__info-field {
     @include fluid-text(16, 10);
 
-    --padding: 10px;
-
     display: block;
     width: 100%;
     text-align: left;
-    border-radius: 0 0 8px 8px;
     font-weight: 500;
-    max-height: 0;
     transition-duration: var(--transition-duration);
+
+    &:empty {
+      display: none;
+    }
+
+    &.error, &.success {
+      padding: var(--padding);
+    }
+
+    &.error {
+      color: var(--color-red);
+    }
+
+    &.success {
+      color: var(--color-green);
+    }
+  }
+
+  &__field-wrapper &__info-field {
+    --padding: 10px;
+
+    max-height: 0;
+    border-radius: 0 0 8px 8px;
 
     @include mobile {
       --padding: 8px;
@@ -71,19 +92,17 @@
     }
 
     &.error, &.success {
+      //visibility: ;
       max-height: max-content;
-      padding: var(--padding);
       border: var(--border-gray);
       border-top: none;
     }
 
     &.error {
-      color: var(--color-red);
       border-color: var(--color-red);
     }
 
     &.success {
-      color: var(--color-green);
       border-color: var(--color-green);
     }
   }
