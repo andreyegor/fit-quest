@@ -32,7 +32,7 @@ object Cookie:
     request.cookies.find(_.name == name.value).map(_.content)
 
   def fromAcessToken(token: session.AccessToken): ResponseCookie =
-    make(Name.AccessToken, token.value, 3600)
+    make(Name.AccessToken, token.value, 3600, httpOnly = true)
 
   def fromRefreshToken(token: session.RefreshToken, extraPath:String): ResponseCookie =
     make(Name.RefreshToken, token.value, 7*24*60*60, httpOnly = true, extraPath = extraPath)

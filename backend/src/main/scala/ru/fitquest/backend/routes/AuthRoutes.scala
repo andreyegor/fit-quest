@@ -28,7 +28,7 @@ object AuthRoutes {
             result <- L(userReq).value
             resp <- result.fold(
               err => BadRequest(err),
-              tokens => createTokenResponse(tokens, "auth/refresh/")
+              tokens => createTokenResponse(tokens, "auth/refresh")
             )
           } yield resp
 
@@ -42,7 +42,7 @@ object AuthRoutes {
 
           result.foldF(
             err => BadRequest(err),
-            tokens => createTokenResponse(tokens, "auth/refresh/")
+            tokens => createTokenResponse(tokens, "auth/refresh")
           )
       }
   }
