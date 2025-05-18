@@ -1,6 +1,6 @@
 type absolutePosition = "top" | "bottom"
 
-class AbsolutePlacer {
+class AbsolutePos {
     private offset: number
     private position: absolutePosition
     private rootElement: HTMLElement | null
@@ -23,10 +23,10 @@ class AbsolutePlacer {
 
     _eventHandler(): void {
         if (!this.rootElement) {
-            throw new Error("AbsolutePlacer: root element doesn't exist")
+            throw new Error("AbsolutePos: root element doesn't exist")
         }
         if (!getComputedStyle(this.rootElement).getPropertyValue('--height') && ["top", "bottom"].includes(this.position)) {
-            console.warn("AbsolutePlacer: it seems you don't have a --height css-variable. It can cause problems")
+            console.warn("AbsolutePos: it seems you don't have a --height css-variable. It can cause problems")
         }
         const contentHeight: number = this._getContentHeight()
 
@@ -65,4 +65,4 @@ class AbsolutePlacer {
     };
 }
 
-export default AbsolutePlacer;
+export default AbsolutePos;

@@ -1,4 +1,4 @@
-class PasswordInputToggler {
+class PasswordEyeToggle {
     private selectors = {
         root: '.input[type=password]',
         wrapper: '.input__wrapper',
@@ -44,4 +44,4 @@ class PasswordInputToggler {
     }
 }
 
-export default PasswordInputToggler
+export default PasswordEyeToggle

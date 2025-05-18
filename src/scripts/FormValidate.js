@@ -1,6 +1,6 @@
-import contentHeightSetter from "./ContentHeightSetter.ts";
+import setContentHeight from "./setContentHeight.ts";
 
-class FormValidator {
+class FormValidate {
     selectors = {
         form: "[data-js-form]",
         infoField: "[data-js-form-infos]",
@@ -14,9 +14,15 @@ class FormValidator {
         valueMissing: (element) => "Заполните это поле" + (element.minLength > 0 ? `. Минимум символов - ${element.minLength}` : "")
     }
 
-    constructor(patterns={}, submitMethod=() => {}) {
-        this.patterns = patterns
+    /**
+     * @param {string} redirectURL
+     * @param {Object.<string, RegExp>} patterns
+     * @param {() => Promise} submitMethod
+     */
+    constructor(submitMethod=() => {}, redirectURL="", patterns={}) {
         this.submitMethod = submitMethod
+        this.redirectURL = redirectURL
+        this.patterns = patterns
         this.bindEvents()
     }
 
@@ -26,7 +32,7 @@ class FormValidator {
         if (errorMessages.length > 0) {
             fieldErrorsElement.classList.add("error")
             fieldControlElement.classList.add("error")
-            contentHeightSetter.setHeight(fieldErrorsElement, errorMessages.join("<br>"))
+            setContentHeight(fieldErrorsElement, errorMessages.join("<br>"))
         }
         else {
             fieldErrorsElement.classList.remove('error')
@@ -84,7 +90,9 @@ class FormValidator {
         }
     }
 
-    onSubmit(event) {
+    async onSubmit(event) {
+        event.preventDefault()
+
         const { target } = event
         const isFormElement = target.matches(this.selectors.form)
         if (!isFormElement) { return }
@@ -104,10 +112,26 @@ class FormValidator {
         })
 
         if (!isFormValid) {
-            event.preventDefault()
             firstInvalidFieldControl.focus()
         } else {
-            this.submitMethod()
+            const formData = new FormData(document.querySelector(this.selectors.form))
+            const creds = Object.fromEntries(formData)
+
+            const response = await this.submitMethod(creds)
+            const infoFieldElements = document.querySelectorAll(this.selectors.infoField)
+            const infoFieldLastElement = infoFieldElements[infoFieldElements.length - 1]
+            infoFieldLastElement.classList.remove("success", "error")
+
+            console.log(response)
+            if (response.status === "ok") {
+                infoFieldLastElement.classList.add("success")
+                if (this.redirectURL) {
+                    window.location.replace(this.redirectURL)
+                }
+            } else {
+                infoFieldLastElement.classList.add("error")
+            }
+            infoFieldLastElement.textContent = response.message
         }
     }
 
@@ -124,4 +148,4 @@ class FormValidator {
     }
 }
 
-export default FormValidator
+export default FormValidate
