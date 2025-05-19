@@ -11,5 +11,4 @@ function setContentHeight(rootElement: HTMLElement, innerHTML: string): void {
     rootElement.style.height = `calc(${nextHeight}px + var(--padding) * 2)`;
 }
 
-
 export default setContentHeight

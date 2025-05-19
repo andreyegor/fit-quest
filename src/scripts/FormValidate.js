@@ -122,7 +122,6 @@ class FormValidate {
             const infoFieldLastElement = infoFieldElements[infoFieldElements.length - 1]
             infoFieldLastElement.classList.remove("success", "error")
 
-            console.log(response)
             if (response.status === "ok") {
                 infoFieldLastElement.classList.add("success")
                 if (this.redirectURL) {

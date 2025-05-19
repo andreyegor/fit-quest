@@ -1,11 +1,9 @@
-type absolutePosition = "top" | "bottom"
-
 class AbsolutePos {
     private offset: number
-    private position: absolutePosition
+    private position: "top" | "bottom"
     private rootElement: HTMLElement | null
 
-    constructor(rootSelector: string, position: absolutePosition, offset: number) {
+    constructor(rootSelector: string, position: "top" | "bottom", offset: number) {
         this.offset = offset
         this.position = position
         this.rootElement = document.querySelector(rootSelector)
@@ -28,7 +26,8 @@ class AbsolutePos {
         if (!getComputedStyle(this.rootElement).getPropertyValue('--height') && ["top", "bottom"].includes(this.position)) {
             console.warn("AbsolutePos: it seems you don't have a --height css-variable. It can cause problems")
         }
-        const contentHeight: number = this._getContentHeight()
+        const contentHeight: number = document.body.offsetHeight
+        console.log(`content height: ${contentHeight}`)
 
         switch (this.position) {
             case "top":
@@ -42,14 +41,6 @@ class AbsolutePos {
                 } - var(--height))`
                 break;
         }
-    }
-
-    _getContentHeight(): number {
-        const body = document.body,
-            html = document.documentElement;
-
-        return Math.max(body.scrollHeight, body.offsetHeight,
-            html.clientHeight, html.scrollHeight, html.offsetHeight)
     }
 
     private _isVirtualKeyboardOpen(): boolean {

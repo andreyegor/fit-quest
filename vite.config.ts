@@ -27,12 +27,7 @@ export default defineConfig({
         proxy: {
             "/api/": {
                 target: "http://localhost:8080",
-                changeOrigin: true,
-                configure: (proxy) => {
-                    proxy.on('proxyReq', (_proxyReq, req) => {
-                        console.log(`[proxy] ${req.method} ${req.url}`);
-                    });
-                },
+                changeOrigin: true
             },
         },
     }
