@@ -1,6 +1,6 @@
 import AbsolutePos from "../../scripts/AbsolutePos.ts";
 import PasswordEyeToggle from "../../scripts/PasswordEyeToggle.ts";
-import FormValidate from "../../scripts/FormValidate.js";
+import FormValidate from "../../scripts/FormValidate.ts";
 import ApiRequests from "../../scripts/ApiRequests.ts";
 
 new AbsolutePos(".footer__background", "top", 175)
