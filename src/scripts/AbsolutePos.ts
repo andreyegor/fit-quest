@@ -27,8 +27,6 @@ class AbsolutePos {
             console.warn("AbsolutePos: it seems you don't have a --height css-variable. It can cause problems")
         }
         const contentHeight: number = document.body.offsetHeight
-        console.log(`content height: ${contentHeight}`)
-
         switch (this.position) {
             case "top":
                 this.rootElement.style.top = `max(${this.offset}px, calc(${
