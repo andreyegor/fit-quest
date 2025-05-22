@@ -1,11 +1,11 @@
 package ru.fitquest.android.health
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import java.time.Instant
 
-import ru.fitquest.android.api.toDto
 import ru.fitquest.android.auth.AuthService
 import ru.fitquest.android.auth.TokensManager
 import ru.fitquest.android.api.ApiService
@@ -20,9 +20,10 @@ class TrainingSyncWorker(
     private val tokensManager = TokensManager(context)
 
     override suspend fun doWork(): Result {
+        Log.d("TrainingSyncWorker", "doWork do work")
         try {
             val lastSync = prefs.lastSyncTime
-            val newTrainings = repo.getNewTrainings(lastSync)
+            val newTrainings = repo.getNewTrainingsDto(lastSync)
 
             if (newTrainings.isEmpty()) return Result.success()
 
@@ -30,13 +31,16 @@ class TrainingSyncWorker(
                 AuthService.refresh(tokensManager)
             }
 
-            val dtoList = newTrainings.map { it.toDto() }
-
-            val request = {accessToken:String -> ApiService.api.uploadTrainings("Bearer $accessToken", dtoList)}
+            val request = { accessToken: String ->
+                ApiService.api.uploadTrainings(
+                    "Bearer $accessToken",
+                    newTrainings
+                )
+            }
 
             var response = request(tokensManager.getAccess() ?: return Result.retry()).execute()
 
-            if (response.code() == 401){
+            if (response.code() == 401) {
                 AuthService.refresh(tokensManager)
                 response = request(tokensManager.getAccess() ?: return Result.retry()).execute()
             }

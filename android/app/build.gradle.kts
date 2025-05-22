@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "ru.fitquest.android"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ru.fitquest.android"
-        minSdk = 28
+        minSdk = 35
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -46,7 +46,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.connect.client.v110alpha05)
+    implementation(libs.androidx.connect.client.v110rc01)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.security.crypto)

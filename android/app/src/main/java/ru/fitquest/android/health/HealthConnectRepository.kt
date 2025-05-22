@@ -2,23 +2,29 @@ package ru.fitquest.android.health
 
 import android.content.Context
 import androidx.health.connect.client.HealthConnectClient
-import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.records.ExerciseSessionRecord
+import androidx.health.connect.client.request.ReadRecordsRequest
 import androidx.health.connect.client.time.TimeRangeFilter
+
 import java.time.Instant
 
-class HealthConnectRepository(private val context: Context) {
+class HealthConnectRepository(context: Context) {
+    private val client = HealthConnectClient.getOrCreate(context)
 
-    private val healthConnectClient = HealthConnectClient.getOrCreate(context)
+    suspend fun getNewTrainingsDto(since: Instant): List<TrainingDto> {
+        return getNewTrainings(since).mapNotNull { exercise ->
+            TrainingDto.fromExerciseSessionRecord(exercise, client)
+        }
+    }
 
-    suspend fun getNewTrainings(since: Instant): List<ExerciseSessionRecord> {
-        val request = ReadRecordsRequest<ExerciseSessionRecord>(
-            timeRangeFilter = TimeRangeFilter.after(since),
-            ascendingOrder = true,
-            pageSize = 10
+    private suspend fun getNewTrainings(since: Instant): List<ExerciseSessionRecord> {
+        val response = client.readRecords(
+            ReadRecordsRequest(
+                recordType = ExerciseSessionRecord::class,
+                timeRangeFilter = TimeRangeFilter.after(since),
+                ascendingOrder = true
+            )
         )
-        val response = healthConnectClient.readRecords(request)
-
         return response.records
     }
 }
