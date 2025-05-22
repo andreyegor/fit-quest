@@ -21,18 +21,22 @@ object Middleware:
     val dsl = Http4sDsl[F]; import dsl.*
 
     val authUser = Kleisli { (req: Request[F]) =>
+      val maybeTokenFromCookie: Option[String] =
+        Cookie.fromRequest(req, Cookie.Name.AccessToken)
+
+      val maybeTokenFromHeader: Option[String] =
+        req.headers
+          .get[headers.Authorization]
+          .collect { case headers.Authorization(Credentials.Token(AuthScheme.Bearer, t)) => t }
+
+      val maybeToken: F[Option[String]] =
+        maybeTokenFromCookie
+          .orElse(maybeTokenFromHeader)
+          .pure[F]
+
       for {
-        maybeIn <- Cookie
-          .fromRequest(req, Cookie.Name.AccessToken)
-          .fold(
-            req
-              .as[Json]
-              .map(json => json.hcursor.get[String]("accessToken").toOption)
-          )(token => Some(token).pure[F])
-        eitherToken = maybeIn match {
-          case Some(t) => Right(AccessToken(t))
-          case None    => Left("Missing access token")
-        }
+        token <- maybeToken
+        eitherToken  = token.toRight("Missing access token").map(AccessToken(_))
         res <- eitherToken match {
           case Right(token) => auth.authenticateToken(token).value
           case Left(err)    => Left[String, User](err).pure[F]
@@ -42,8 +46,7 @@ object Middleware:
 
     val onFailure: AuthedRoutes[String, F] = Kleisli { _ =>
       val challenge = Challenge("Bearer", "", Map.empty)
-      val wwwAuth = headers.`WWW-Authenticate`(challenge)
-      OptionT.liftF(Unauthorized(wwwAuth))
+      OptionT.liftF(Unauthorized(headers.`WWW-Authenticate`(challenge)))
     }
 
     AuthMiddleware(authUser, onFailure)
