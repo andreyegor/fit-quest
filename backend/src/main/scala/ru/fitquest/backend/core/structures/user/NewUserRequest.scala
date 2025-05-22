@@ -10,27 +10,23 @@ import org.http4s.circe.*
 case class NewUserRequest(
     name: Name,
     email: Email,
-    password: Option[Password],
-    googleId: Option[GoogleId]
+    password: Password
 )
 
 object NewUserRequest:
   def apply(
       name: String,
       email: String,
-      password: Option[String],
-      googleId: Option[String]
+      password: String
   ): Either[String, NewUserRequest] =
-    (password, googleId) match
-      case (None, None) =>
-        Left("At least one of passhash or googleId must be defined")
-      case _ =>
-        for {
-          n <- Name(name)
-          e <- Email(email)
-          p <- password.traverse(Password(_))
-          g <- googleId.traverse(GoogleId(_))
-        } yield NewUserRequest(n, e, p, g)
-  given rawNewUserDecoder: Decoder[NewUserRequest] = deriveDecoder[NewUserRequest]
-  given rawNewUserEntityDecoder[F[_]: Concurrent]: EntityDecoder[F, NewUserRequest] =
+    for {
+      n <- Name(name)
+      e <- Email(email)
+      p <- Password(password)
+    } yield NewUserRequest(n, e, p)
+
+  given rawNewUserDecoder: Decoder[NewUserRequest] =
+    deriveDecoder[NewUserRequest]
+  given rawNewUserEntityDecoder[F[_]: Concurrent]
+      : EntityDecoder[F, NewUserRequest] =
     jsonOf[F, NewUserRequest]

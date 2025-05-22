@@ -24,12 +24,11 @@ object UserTable:
     new UserTable[F](transactor):
       override def add(user: User): F[Unit] =
         sql"""
-        INSERT INTO users (user_id, name, email, password_hash, google_id)
+        INSERT INTO users (user_id, name, email, password_hash)
         VALUES ( ${user.userId.value}, 
                  ${user.name.value}, 
                  ${user.email.value}, 
-                 ${user.passwordHash.map(_.value)}, 
-                 ${user.googleId.map(_.value)})
+                 ${user.passwordHash.value})
         """.update.run
           .transact(transactor)
           .void
@@ -39,8 +38,7 @@ object UserTable:
         UPDATE users
         SET name = ${user.name.value}, 
         email = ${user.email.value}, 
-        password_hash = ${user.passwordHash.map(_.value)}, 
-        google_id = ${user.googleId.map(_.value)}
+        password_hash = ${user.passwordHash.value}
         WHERE user_id = ${user.userId.value}
         """.update.run
           .transact(transactor)
@@ -51,10 +49,6 @@ object UserTable:
         SELECT 
           CASE 
           WHEN EXISTS (SELECT 1 FROM users WHERE email = ${user.email.value}) THEN 'User with this email already exists'
-          WHEN ${user.googleId.map(
-            _.value
-          )} IS NOT NULL AND EXISTS (SELECT 1 FROM users WHERE google_id = ${user.googleId
-            .map(_.value)}) THEN 'User with this Google ID already exists'
           ELSE NULL
           END
         """
@@ -66,7 +60,7 @@ object UserTable:
 
       override def getByUserId(userId: UserId): OptionT[F, User] =
         val resp = sql"""
-            SELECT user_id, name, email, password_hash, google_id
+            SELECT user_id, name, email, password_hash
             FROM users
             WHERE user_id = ${userId.value}
           """
@@ -77,7 +71,7 @@ object UserTable:
 
       override def getByEmail(email: Email): OptionT[F, User] =
         val resp = sql"""
-            SELECT user_id, name, email, password_hash, google_id
+            SELECT user_id, name, email, password_hash
             FROM users
             WHERE email = ${email.value}
           """

@@ -1,6 +1,5 @@
 GET http://localhost:8080/api/cat
-Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY0NzEwNzUsImlhdCI6MTc0NjQ2NzQ3NSwidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.dYtdJhLhCATv1UVl-GiZby7hh13tbSvvmZff_Lw813g
-
+Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDc5NDAwNDgsImlhdCI6MTc0NzkzNjQ0OCwidXNlcklkIjoiNGI0MTY3ZTMtNzIxNy00MGY2LWEzZmQtZjk3OWViYWZlNzM4In0.qyY1WLi-iqGgFWfISw6jT7KGHdwEIEuvy27xbuIJr3s;refreshToken=I9BeEIngbDXRSiHsrH_GdC63OjqYtXePYXDd3_7LP07oDAC9GXPUuY087xuvLwXl4I8e6mupHo6NqJ8Z5AU7TQ; Max-Age=604800;
 # Response 1 просто пример аутентифицированного запроса
     # HTTP/1.1 200 OK
     # Content-Type: application/json

@@ -9,8 +9,7 @@ import org.http4s.circe.*
 case class UserResponse(
     id: UserId,
     name: Name,
-    email: Email,
-    googleId: Option[GoogleId]
+    email: Email
 )
 
 object UserResponse {
@@ -24,6 +23,5 @@ object UserResponse {
       id = u.userId,
       name = u.name,
       email = u.email,
-      googleId = u.googleId
     )
 }

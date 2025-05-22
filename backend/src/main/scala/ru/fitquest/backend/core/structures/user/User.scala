@@ -14,34 +14,18 @@ case class User private (
     userId: UserId,
     name: Name,
     email: Email,
-    passwordHash: Option[PasswordHash],
-    googleId: Option[GoogleId]
+    passwordHash: PasswordHash
 ):
   def verify(rawUser: UserRequest): Boolean =
-    (for {
-      h <- passwordHash
-      p <- rawUser.password
-    } yield email == rawUser.email && h.verify(p)).getOrElse(false)
+    email == rawUser.email && passwordHash.verify(rawUser.password)
 
 object User {
-  def apply(
-      userId: UserId,
-      name: Name,
-      email: Email,
-      passhash: Option[PasswordHash],
-      googleId: Option[GoogleId]
-  ): Either[String, User] =
-    if (passhash.isEmpty && googleId.isEmpty)
-      Left("At least one of passhash or googleId must be defined")
-    else
-      Right(new User(userId, name, email, passhash, googleId))
 
-  def create(rawUser: NewUserRequest): Either[String, User] =
+  def create(rawUser: NewUserRequest): User =
     apply(
       UserId.random,
       rawUser.name,
       rawUser.email,
-      rawUser.password.map(PasswordHash.from),
-      rawUser.googleId
+      PasswordHash.from(rawUser.password)
     )
 }

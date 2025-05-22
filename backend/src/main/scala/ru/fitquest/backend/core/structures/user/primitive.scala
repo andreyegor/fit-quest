@@ -61,13 +61,3 @@ object PasswordHash:
   extension (p: PasswordHash) def value: String = p
   given Conversion[PasswordHash, String] = _.value
   given Get[PasswordHash] = Get[String].map(PasswordHash(_))
-
-opaque type GoogleId = String
-object GoogleId:
-  def apply(g: String): Either[String, GoogleId] = Right(g) // TODO проверка
-
-  extension (g: GoogleId) def value: String = g
-  given Conversion[GoogleId, String] = _.value
-  given Decoder[GoogleId] = Decoder[String].emap(GoogleId(_))
-  given Encoder[GoogleId] = Encoder[String].contramap[GoogleId](_.value)
-  given Get[GoogleId] = Get[String].temap(GoogleId(_).left.map(_.toString))

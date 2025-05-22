@@ -15,8 +15,8 @@ object Register:
   def impl[F[_]: Sync](userTable: UserTable[F]): Register[F] =
     new Register[F](userTable):
       def apply(rawNewUser: NewUserRequest): EitherT[F, String, UserResponse] =
+        val user = User.create(rawNewUser)
         for {
-          user <- EitherT.fromEither[F](User.create(rawNewUser))
           _ <- userTable.validateUnique(user)
           _ <- EitherT.liftF(userTable.add(user))
           resp = UserResponse.from(user)
