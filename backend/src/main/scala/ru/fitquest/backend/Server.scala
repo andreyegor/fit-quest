@@ -21,6 +21,9 @@ import ru.fitquest.backend.routes.*
 import ru.fitquest.backend.users
 import ru.fitquest.backend.mobile.routes.MobileAuthRoutes
 import org.http4s.CacheDirective.public
+import ru.fitquest.backend.mobile.routes.MobileExercisesRoutes
+import ru.fitquest.backend.exercises.AddExercises
+import ru.fitquest.backend.core.database.ExercisesTable
 
 object Server:
   def run[F[_]: Async]: F[Nothing] = {
@@ -30,17 +33,21 @@ object Server:
       transactor <- postgres[F]
       userTable = core.database.UserTable.impl(transactor)
       sessionsTable = core.database.SessionsTable.impl(transactor)
+      exercisesTable = core.database.ExercisesTable.impl(transactor)
 
       authenticate = auth.Authenticate.impl(userTable)
       authMiddleware = auth.Middleware(authenticate)
-
-      helloWorldAlg = silly.HelloWorld.impl[F]
-      catAlg = silly.Cat.impl[F]
 
       registerAlg = users.Register.impl[F](userTable)
 
       loginAlg = auth.Login.impl[F](authenticate, sessionsTable)
       refreshAlg = auth.Refresh.impl[F](sessionsTable)
+
+      helloWorldAlg = silly.HelloWorld.impl[F]
+      catAlg = silly.Cat.impl[F]
+
+      addExercisesAlg = exercises.AddExercises.impl[F](exercisesTable)
+      getExercisesAlg = exercises.GetExercises.impl[F](exercisesTable)
 
       webPublicRoutes =
         SillyRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
@@ -49,12 +56,15 @@ object Server:
       mobilePublicRoutes = MobileAuthRoutes[F](loginAlg, refreshAlg)
 
       webProtectedRoutes =
-        SillyRoutes.catRoutes[F](catAlg)
-      // mobileProtectedRoutes = TODO
-      
+        SillyRoutes.catRoutes[F](catAlg) <+>
+          ExercisesRoutes.GetExercises[F](getExercisesAlg)
+      mobileProtectedRoutes = MobileExercisesRoutes.AddExercises[F](
+        addExercisesAlg
+      )
+
       publicRoutes = webPublicRoutes <+> mobilePublicRoutes
-      protectedRoutes = webProtectedRoutes //<+>  mobileProtectedRoutes 
-      
+      protectedRoutes = webProtectedRoutes <+> mobileProtectedRoutes
+
       routes = publicRoutes <+> authMiddleware(protectedRoutes)
 
       httpApp: HttpApp[F] = Router("/api" -> routes).orNotFound

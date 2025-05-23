@@ -1,0 +1,3 @@
+GET http://localhost:8080/api/exercises?types=a,b,c
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgwMzMwODMsImlhdCI6MTc0ODAyOTQ4MywidXNlcklkIjoiMTZlMDVkMTAtMDcyNS00ZWI2LTg5NWUtNTA0ZWU4MWI5YzA0In0.OM5Ed51GKj9M2xOMvyxBD3MAIcQ1MQ3y9IEPpyqjk0E
+Content-Type: application/json

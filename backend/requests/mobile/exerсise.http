@@ -1,0 +1,34 @@
+POST http://localhost:8080/api/mobile/exercises/add
+Authorization: Bearer eyJ0eXAjOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgwMzMwODMsImlhdCI6MTc0ODAyOTQ4MywidXNlcklkIjoiMTZlMDVkMTAtMDcyNS00ZWI2LTg5NWUtNTA0ZWU4MWI5YzA0In0.OM5Ed51GKj9M2xOMvyxBD3MAIcQ1MQ3y9IEPpyqjk0E
+Content-Type: application/json
+
+//TODO 404 -> 401 when route not found
+//TODO Mailformed json now throws 500 почему-то 
+[
+    {
+        "endTime": "2025-05-06T13:51:00Z",
+        "metrics": {
+            "distanceMeters": 0.0,
+            "caloriesKcal": 0.0
+        },
+        "series": {
+            "speedSeries": [],
+            "heartRateSeries": []
+        },
+        "startTime": "2025-05-06T12:21:00Z",
+        "exerciseType": "cycling"
+    },
+    {
+        "endTime": "2025-05-08T13:51:00Z",
+        "metrics": {
+            "distanceMeters": 0.0,
+            "steps": 0.0
+        },
+        "series": {
+            "speedSeries": [],
+            "heartRateSeries": []
+        },
+        "startTime": "2025-05-08T12:21:00Z",
+        "exerciseType": "walking"
+    }
+]
