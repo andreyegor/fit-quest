@@ -1,0 +1,143 @@
+@use '../helpers' as *;
+
+.calendar-button {
+  --colorAccent: var(--color-light);
+  --colorSecondary: var(--color-dark);
+  --colorHover: var(--color-light-gray);
+  --colorActive: var(--color-gray);
+
+  --innerHeight: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border);
+  outline: none;
+  border-color: var(--colorSecondary);
+  background-color: var(--colorAccent);
+  color: var(--colorSecondary);
+  transition-duration: var(--transition-duration);
+  cursor: default;
+
+  column-gap: 20px;
+  padding: 6px 10px;
+  border-radius: 8px;
+
+  @include tablet {
+    --innerHeight: 30px;
+
+    column-gap: 15px;
+    border-radius: 7px;
+    padding-inline: 7.5px;
+  }
+
+  @include mobile {
+    --innerHeight: 25px;
+
+    padding: 5px 5px;
+    column-gap: 10px;
+    border-radius: 6px;
+    border-width: 1px;
+  }
+
+  &__arrow {
+    position: relative;
+    display: flex;
+    width: var(--innerHeight);
+    aspect-ratio: 1;
+    border-radius: 6px;
+    transition-duration: var(--transition-duration);
+    cursor: pointer;
+
+    @include hover {
+      background-color: var(--colorHover);
+    }
+
+    &:active {
+      background-color: var(--colorActive);
+    }
+
+    @include mobile {
+      border-radius: 4px;
+    }
+
+    &:not(:last-child)::after,
+    &:last-child::before {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-color: currentColor;
+
+      translate: 10px 0;
+
+      @include tablet {
+        translate: 7.5px 0;
+      }
+
+      @include mobile {
+        translate: 5px 0;
+      }
+    }
+
+    &:last-child::before {
+      translate: -10px 0;
+
+      @include tablet {
+        translate: -7.5px;
+      }
+
+      @include mobile {
+        translate: -5px 0;
+      }
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      & * {
+        stroke: var(--colorSecondary);
+      }
+    }
+  }
+
+  &__time-period {
+    @include fluid-text(26, 16);
+
+    font-weight: 800;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: var(--innerHeight);
+    padding-inline: 10px;
+    border-radius: 6px;
+    transition-duration: var(--transition-duration);
+    cursor: pointer;
+
+    @include hover {
+      background-color: var(--colorHover);
+    }
+
+    &:active {
+      background-color: var(--colorActive);
+    }
+
+    @include tablet {
+      font-weight: 700;
+    }
+
+    @include mobile {
+      border-radius: 4px;
+    }
+  }
+
+  &--accent {
+    --colorAccent: var(--color-accent);
+    --colorSecondary: var(--color-light-gray);
+    --colorHover: var(--color-accent-alt);
+    --colorActive: var(--color-accent-alt-2);
+
+
+    border: none;
+  }
+}
