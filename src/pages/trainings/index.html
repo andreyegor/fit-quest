@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="icon" href="../../../logo.ico" type="image/x-icon">
+  <script type="module" src="main.ts" defer></script>
+  <title>Fit Quest | Мои тренировки</title>
+</head>
+<body>
+<header class="header">
+  <div class="header__inner container">
+    <ul class="header__list">
+      <li class="header__item">
+        <a href="#" class="header__logo logo">
+          <img
+              src="../../../logo.jpg"
+              alt="" width="60"
+              height="60" loading="lazy"
+          >
+        </a>
+      </li>
+
+      <li class="header__item">
+        <a href="#" class="header__link">Новости</a>
+      </li>
+
+      <li class="header__item">
+        <a href="./" class="header__link is-active">Тренировки</a>
+      </li>
+
+      <li class="header__item">
+        <button class="header__user-button user-button">
+          <span class="user-button__icon"></span>
+          <span class="user-button__name">1eshiy</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main class="content">
+  <div class="trainings">
+    <div class="trainings__inner container">
+      <div class="trainings__header">
+        <h1 class="trainings__title h2">Мои тренировки</h1>
+        <button class="trainings__calendar-button calendar-button calendar-button--accent">
+          <span class="calendar-button__arrow">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M31.6667 20L8.33341 20" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+              <path d="M20 31.6667L8.33333 20L20 8.33333" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="calendar-button__time-period">
+            Июнь
+          </span>
+          <span class="calendar-button__arrow">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.3335 20H31.6668" stroke="white" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+              <path d="M20.0002 8.33333L31.6669 20L20.0002 31.6667" stroke="white" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div class="trainings__summary">
+        <img
+            src="../../../trainings/mascot.png" class="trainings__summary-image"
+            alt="" width="520"
+            height="200" loading="lazy"
+        >
+        <div class="trainings__summary-wrapper">
+          <h2 class="trainings__summary-title">Результаты за период</h2>
+          <ul class="trainings__summary-list">
+            <li class="trainings__summary-item">
+              <span class="trainings__summary-type">Шаги</span>
+              <span class="trainings__summary-value">133.763 шага</span>
+            </li>
+            <li class="trainings__summary-item">
+              <span class="trainings__summary-type">Дистанция</span>
+              <span class="trainings__summary-value">103,5 км</span>
+            </li>
+            <li class="trainings__summary-item">
+              <span class="trainings__summary-type">Среднее время</span>
+              <span class="trainings__summary-value">32 минуты</span>
+            </li>
+            <li class="trainings__summary-item">
+              <span class="trainings__summary-type">Средняя скорость</span>
+              <span class="trainings__summary-value">10 км/ч</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ul class="trainings__list">
+        <li class="trainings__item training">
+          <span class="training__preview"></span>
+          <div class="training__description">
+            <div class="training__title">
+              <div class="training__title-date-wrapper">
+                <time class="training__title-date">24/06/2024</time>
+                <div class="training__title-time-period time-period">
+                  <span class="time-period__start">13:05</span>
+                  <span class="time-period__end">14:21</span>
+                </div>
+              </div>
+              <span class="training__title-type-time">
+                Ходьба, 130 минут
+              </span>
+            </div>
+            <ul class="training__additional-list">
+              <li class="training__additional-item">
+                <span class="training__additional-type h5">- Дистанция:
+                  <span class="training__additional-value h5">13,2 км</span>
+                </span>
+              </li>
+              <li class="training__additional-item">
+                <span class="training__additional-type h5">- Средний пульс:
+                  <span class="training__additional-value h5">999 уд/мин</span>
+                </span>
+
+              </li>
+            </ul>
+          </div>
+          <ul class="training__charts-list hidden-mobile">
+            <li class="training__charts-item">
+              <canvas class="chart"></canvas>
+            </li>
+            <li class="training__charts-item">
+              <canvas class="chart"></canvas>
+            </li>
+            <li class="training__charts-item">
+              <canvas class="chart"></canvas>
+            </li>
+          </ul>
+        </li>
+        <li class="trainings__item training training--accent">
+          <div class="training__preview">
+            <span class="training__preview-icon"></span>
+          </div>
+          <div class="training__description">
+            <div class="training__title">
+              <div class="training__title-date-wrapper">
+                <time class="training__title-date">24/06/2024</time>
+                <div class="training__title-time-period time-period">
+                  <span class="time-period__start">13:05</span>
+                  <span class="time-period__end">14:21</span>
+                </div>
+              </div>
+              <span class="training__title-type-time">
+                Бег, 176 минут
+              </span>
+            </div>
+            <ul class="training__additional-list">
+              <li class="training__additional-item">
+                <span class="training__additional-type h5">- Дистанция:
+                  <span class="training__additional-value h5">13,2 км</span>
+                </span>
+
+              </li>
+              <li class="training__additional-item">
+                <span class="training__additional-type h5">- Средний пульс:
+                  <span class="training__additional-value h5">999 уд/мин</span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <ul class="training__charts-list hidden-mobile">
+            <li class="training__charts-item chart"></li>
+            <li class="training__charts-item chart"></li>
+            <li class="training__charts-item chart"></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
