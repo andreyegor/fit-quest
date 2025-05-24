@@ -5,20 +5,33 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="icon" href="../../../logo.ico" type="image/x-icon">
   <script type="module" src="main.ts" defer></script>
   <title>Fit Quest | Вход</title>
 </head>
 <body>
 <header class="header">
-  <div class="header__inner">
-    <a href="#" class="header__logo logo">
-      <img
-          src="../../../logo.svg"
-          alt="" width="60"
-          height="60" loading="lazy"
-      >
-    </a>
+  <div class="header__inner container">
+    <ul class="header__list">
+      <li class="header__item">
+        <a href="#" class="header__logo logo">
+          <img
+              src="../../../logo.jpg"
+              alt="" width="60"
+              height="60" loading="lazy"
+          >
+        </a>
+      </li>
+
+      <li class="header__item">
+        <a href="../feed/index.html" class="header__link">Новости</a>
+      </li>
+
+      <li class="header__item">
+        <a href="../trainings/index.html" class="header__link is-active">Тренировки</a>
+      </li>
+    </ul>
   </div>
 </header>
 
@@ -33,7 +46,7 @@
         <div class="welcome__image"></div>
 
         <div class="welcome__body-form-wrapper">
-          <h2 class="welcome__body-title h1 hidden-mobile">Вход</h2>
+<!--          <h2 class="welcome__body-title h1 hidden-mobile">Вход</h2>-->
           <form method="POST" class="welcome__body-form form" novalidate data-js-form>
             <h3 class="form__title h5">
               Войдите, чтобы продолжить
@@ -84,10 +97,10 @@
               <span class="form__info-field" data-js-form-infos></span>
             </div>
 
-<!--            <label for="checkboxRemember" class="form__checkbox checkbox">Запомнить меня-->
-<!--              <input type="checkbox" class="checkbox__input" id="checkboxRemember">-->
-<!--              <span class="checkbox__mark"></span>-->
-<!--            </label>-->
+            <label for="checkboxRemember" class="form__checkbox checkbox">Запомнить меня
+              <input type="checkbox" class="checkbox__input" id="checkboxRemember">
+              <span class="checkbox__mark"></span>
+            </label>
 
             <span class="form__info-field" data-js-form-infos></span>
 
@@ -95,23 +108,23 @@
               <p class="h6">Войти</p>
             </button>
 
-            <span class="form__or-text text-between-lines">
-              <p>или</p>
-            </span>
+<!--            <span class="form__or-text text-between-lines">-->
+<!--              <p>или</p>-->
+<!--            </span>-->
 
-            <button class="form__submit-button button" type="submit">
-              <p class="h6">Продолжить через Google</p>
-              <span class="button__icon">
-                <img src="../../../google.svg">
-              </span>
-            </button>
+<!--            <button class="form__submit-button button" type="submit">-->
+<!--              <p class="h6">Продолжить через Google</p>-->
+<!--              <span class="button__icon">-->
+<!--                <img src="../../../google.svg">-->
+<!--              </span>-->
+<!--            </button>-->
 
-            <div class="form__help form__help--center">
+            <div class="form__help">
               <span>Нет аккаунта? <a href="../sign-up/index.html" class="form__help-sign-up-link link link--accent">Создайте</a></span>
 
-<!--              <a href="#" class="form__help-link link">-->
-<!--                Забыли пароль?-->
-<!--              </a>-->
+              <a href="#" class="form__help-link link">
+                Забыли пароль?
+              </a>
             </div>
           </form>
         </div>
@@ -120,13 +133,15 @@
   </div>
 </main>
 
-<footer class="footer__background-wrapper">
-  <div class="footer__background">
-    <img
-        src="../../../sign-in/background.svg"
-        alt="" width="1180"
-        height="761" loading="lazy"
-    >
+<footer class="footer">
+  <div class="footer__background-wrapper">
+    <div class="footer__background">
+      <img
+          src="../../../sign-in/background.svg"
+          alt="" width="1180"
+          height="761" loading="lazy"
+      >
+    </div>
   </div>
 </footer>
 </body>

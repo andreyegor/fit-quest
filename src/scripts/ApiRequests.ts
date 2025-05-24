@@ -17,10 +17,10 @@ export class ApiRequests {
                 }
             )
             if (response.ok) {
-                await this.login({
-                    email: email,
-                    password: password
-                })
+                // await this.login({
+                //     email: email,
+                //     password: password
+                // })
                 return {
                     status: "ok",
                     message: "Регистрация прошла успешно",
@@ -57,7 +57,6 @@ export class ApiRequests {
                     body: JSON.stringify(creds)
                 })
             if (response.ok) {
-                await this.refresh()
                 return {
                     status: "ok",
                     message: "Вход успешно выполнен"

@@ -4,6 +4,8 @@
   & img {
     width: 60px;
     aspect-ratio: 1;
+    border-radius: 10px;
+    border: 3px solid var(--color-light);
 
     @include tablet {
       width: 50px;

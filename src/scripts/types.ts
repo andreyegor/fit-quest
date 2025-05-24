@@ -9,7 +9,8 @@ export type RegisterCredentials = {
 
 export type LoginCredentials = {
     email: string,
-    password: string
+    password: string,
+    // rememberMe: boolean
 }
 
 export type FormInputElement = HTMLInputElement | HTMLTextAreaElement;

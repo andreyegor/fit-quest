@@ -208,9 +208,23 @@ svg * {
 }
 @font-face {
   font-family: "Inter";
+  src: url("../../../../fonts/Inter-RegularItalic.woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
   src: url("../../../../fonts/Inter-Medium.woff2");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../../../../fonts/Inter-MediumItalic.woff2");
+  font-weight: 500;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
@@ -222,9 +236,23 @@ svg * {
 }
 @font-face {
   font-family: "Inter";
+  src: url("../../../../fonts/Inter-SemiBoldItalic.woff2");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
   src: url("../../../../fonts/Inter-Bold.woff2");
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../../../../fonts/Inter-BoldItalic.woff2");
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 @font-face {
@@ -690,11 +718,13 @@ a[class] {
   padding-inline: 10px;
 }
 
+.header {
+  background-color: var(--color-accent);
+}
 .header__inner {
   display: flex;
   align-items: center;
   column-gap: 60px;
-  background-color: var(--color-accent);
   padding: 10px 20px;
 }
 @media (width <= 1023.98px) {
@@ -713,10 +743,76 @@ a[class] {
     padding: 5px 10px;
   }
 }
+.header__list {
+  font-size: clamp(11px, 8.7058823529px + 0.5882352941vw, 20px);
+  display: flex;
+  width: 100%;
+  column-gap: 30px;
+  justify-content: start;
+  align-items: center;
+  color: var(--color-light);
+  letter-spacing: 1px;
+  font-weight: 900;
+}
+@media (width <= 1023.98px) {
+  .header__list {
+    column-gap: 25px;
+    font-weight: 800;
+  }
+}
+@media (width <= 767.98px) {
+  .header__list {
+    column-gap: 15px;
+  }
+}
+.header__item {
+  display: flex;
+}
+.header__item:last-child:has(.user-button) {
+  margin-left: auto;
+}
+.header__link {
+  position: relative;
+}
+@media (any-hover: hover) {
+  .header__link:hover::after {
+    width: 100%;
+  }
+}
+@media (any-hover: none) {
+  .header__link:active::after {
+    width: 100%;
+  }
+}
+.header__link::after {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  content: "";
+  display: block;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition-duration: 0.2s;
+}
+@media (width <= 1440.98px) {
+  .header__link::after {
+    height: 1px;
+  }
+}
+.header__link.is-active::after {
+  width: 100%;
+}
+.header__logo {
+  flex-shrink: 0;
+}
 
 .logo img {
   width: 60px;
   aspect-ratio: 1;
+  border-radius: 10px;
+  border: 3px solid var(--color-light);
 }
 @media (width <= 1023.98px) {
   .logo img {
@@ -828,11 +924,6 @@ a[class] {
   border-color: var(--color-green);
 }
 
-.content {
-  position: relative;
-  padding-bottom: calc(60px - 60 * (1024px - 100vh) / 1024);
-}
-
 .welcome {
   padding-top: 10px;
 }
@@ -926,7 +1017,7 @@ a[class] {
 }
 .welcome__image {
   width: 420px;
-  height: 540px;
+  height: 390px;
   background-image: url("../../../../../sign-in/mascot-desktop.svg");
 }
 @media (width > 767.98px) {
