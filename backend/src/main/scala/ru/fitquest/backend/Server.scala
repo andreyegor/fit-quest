@@ -67,7 +67,7 @@ object Server:
 
       routes = publicRoutes <+> authMiddleware(protectedRoutes)
 
-      httpApp: HttpApp[F] = Router("/api" -> routes).orNotFound
+      httpApp = Router("/api" -> routes).orNotFound
 
       appWithErrorHandling = withErrorLogging(httpApp)
 
@@ -99,13 +99,17 @@ object Server:
     }
   }
 
-  private def postgres[F[_]: Async]: Resource[F, HikariTransactor[F]] = for {
-    ce <- ExecutionContexts.fixedThreadPool[F](32)
-    xa <- HikariTransactor.newHikariTransactor[F](
-      "org.postgresql.Driver",
-      "jdbc:postgresql:docker",
-      "docker",
-      "docker",
-      ce
-    )
-  } yield xa
+  private def postgres[F[_]: Async]: Resource[F, HikariTransactor[F]] =
+    val dbUrl = sys.env.getOrElse("DB_URL", "jdbc:postgresql:docker")
+    val dbUser = sys.env.getOrElse("DB_USER", "docker")
+    val dbPassword = sys.env.getOrElse("DB_PASSWORD", "docker")
+    for {
+      ce <- ExecutionContexts.fixedThreadPool[F](32)
+      xa <- HikariTransactor.newHikariTransactor[F](
+        "org.postgresql.Driver",
+        dbUrl,
+        dbUser,
+        dbPassword,
+        ce
+      )
+    } yield xa

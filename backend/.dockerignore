@@ -1,7 +1,17 @@
 .dockerignore
 
-.bloop
-.bsp
-.idea
-.metal
-.vscode
+.bloop/
+.bsp/
+.idea/
+.metals/
+.vscode/
+
+target/
+
+requests/
+
+*.log
+*.tmp
+*.swp
+
+src/test/

@@ -1,3 +1,5 @@
+import sbtassembly.AssemblyPlugin.autoImport._
+
 val Http4sVersion = "0.23.30"
 val MunitVersion = "1.1.0"
 val LogbackVersion = "1.5.18"
@@ -29,11 +31,17 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-parser" % CirceVersion,
       "com.github.jwt-scala" %% "jwt-circe" % JwtVersion,
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
-      "de.mkammerer" % "argon2-jvm" % Argon2JvmVersion,
+      "de.mkammerer" % "argon2-jvm" % Argon2JvmVersion
     ),
     testFrameworks += new TestFramework("munit.Framework"),
     javacOptions ++= Seq("-encoding", "UTF-8"),
     scalacOptions ++= Seq("-encoding", "UTF-8")
   )
+
+assemblyMergeStrategy in assembly := {
+  case PathList("module-info.class") => MergeStrategy.discard
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x                             => MergeStrategy.first
+}
 
 enablePlugins(JavaServerAppPackaging)
