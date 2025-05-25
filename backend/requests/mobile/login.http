@@ -10,8 +10,8 @@ Content-Type: application/json
 # Content-Type: application/json
 # Content-Length: 313
 # {
-#   "acessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY2MzAwNjIsImlhdCI6MTc0NjYyNjQ2MiwidXNlcklkIjoiN2ZhMmE5ZGQtMWEyZi00ZGM2LTg3MzItOTkwM2Y2ZDE3MDEwIn0.9TFUwmWTAmOtyRdDNihcqhINI9_xbGR6esE_YP-mQvM",
-#   "refreshToken": "fqU3PHa4OSBihQwfpHYq4NBFUlwy1kZryMhkwgGsrrJyHqW9KkOzjgeKozh-HRYZG1Yp_UKcOrA-7JTqHCmIfw"
+#   "acessToken": "_",
+#   "refreshToken": "_"
 # }
 
 # Response 2:

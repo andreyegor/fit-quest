@@ -1,5 +1,5 @@
 GET http://fit-quest.ru/api/cat
-Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgxOTgxNjgsImlhdCI6MTc0ODE5NDU2OCwidXNlcklkIjoiYmMxNDJjYzctMjc4Yi00NWZmLWE0NzItOGE5ZDVjOTQwYmJmIn0.8hIl_eg9w-tIbh9oywouGw_BRUu0SVGvM8zcY3_O_lQ
+Cookie: accessToken=_;
 # Response 1 просто пример аутентифицированного запроса
     # HTTP/1.1 200 OK
     # Content-Type: application/json

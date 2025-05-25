@@ -1,10 +1,10 @@
 POST http://fit-quest.ru/api/auth/refresh
-Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgxMjQ1MDAsImlhdCI6MTc0ODEyMDkwMCwidXNlcklkIjoiNDE1NDNmY2QtYmU1NC00ZDM0LTg0NjUtZDhhNzVmYzI4ODZjIn0.zQcY9uI4ZK7nNXC6BCe98hO9zHoNf2n58No65aFGZz0;refreshToken=SjIs_GlX6M1yo97DXijdnvxxoRwivp1pL7SOeoevuZCfx9qdJV5dfkhUVsXYTCpiHkCWWt8Pd4Aqh8YDZ_7uYw;
+Cookie: accessToken=_;refreshToken=_;
 
 # Response 1
     # HTTP/1.1 200 OK
     # Content-Length: 0
-    # Set-Cookie: accessToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDY0NzEwNzUsImlhdCI6MTc0NjQ2NzQ3NSwidXNlcklkIjoiMWYzZjQ5YjAtZjYxYS00OThlLWEwNjYtYjhkNTQ4ZDIwMTFlIn0.dYtdJhLhCATv1UVl-GiZby7hh13tbSvvmZff_Lw813g; Max-Age=3600; Path=/api/; SameSite=Strict; Secure,refreshToken=z5ESEIEO1nf-IdzrpZleNRo_hW04f4DlALiY0zt2nyQD09W_zHU_1OY-44QTVRusGksG2PhyI423YamLsafL9A; Max-Age=604800; Path=/api/api/auth/refresh/; SameSite=Strict; Secure; HttpOnly
+    # Set-Cookie: accessToken=_; Max-Age=3600; Path=/api/; SameSite=Strict; Secure,refreshToken=_; Max-Age=604800; Path=/api/api/auth/refresh/; SameSite=Strict; Secure; HttpOnly
 
 # Response 2 когда токен не существует, использован, или просрочен
     # HTTP/1.1 400 Bad Request

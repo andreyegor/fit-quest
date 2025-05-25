@@ -1,5 +1,5 @@
 POST http://fit-quest.ru/api/mobile/exercises/add
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgyMDAwODQsImlhdCI6MTc0ODE5NjQ4NCwidXNlcklkIjoiNjFlNjRjM2UtMGIwMS00YjU0LTlkNGUtYzZjMzgyNzIzNGM0In0.5xgHHWs2Eu-HR5xvquk2wuRZq6QZJC4WZay2ijpDlzU
+Authorization: Bearer _
 Content-Type: application/json
 
 //TODO 404 -> 401 when route not found
