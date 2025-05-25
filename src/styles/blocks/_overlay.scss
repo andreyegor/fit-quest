@@ -13,11 +13,26 @@
   align-items: center;
   //align-items: start;
   justify-content: center;
+  cursor: pointer;
 
   z-index: 2;
 
+  &.is-active {
+    display: flex;
+  }
+
+  &--big {
+    height: 100%;
+
+    .overlay__inner {
+      @include abs-x;
+      top: 5%;
+    }
+  }
+
   &__inner {
     position: relative;
+    cursor: default;
   }
 
   &__close-button {

@@ -42,7 +42,7 @@
               <a href="/settings" class="">Настройки</a>
             </li>
             <li class="dropmenu__option">
-              Выйти
+              <a href="/login" class="" id="logoutButton">Выйти</a>
             </li>
           </ul>
         </button>
@@ -105,52 +105,58 @@
         </div>
       </div>
       <ul class="trainings__list">
-        <li class="trainings__item training">
-          <span class="training__preview"></span>
-          <div class="training__description">
-            <div class="training__title">
-              <div class="training__title-date-wrapper">
-                <time class="training__title-date">24/06/2024</time>
-                <div class="training__title-time-period time-period">
-                  <span class="time-period__start">13:05</span>
-                  <span class="time-period__end">14:21</span>
-                </div>
-              </div>
-              <span class="training__title-type-time">
-                Ходьба, 130 минут
-              </span>
-            </div>
-            <ul class="training__additional-list">
-              <li class="training__additional-item">
-                <span class="training__additional-type h5">- Дистанция:
-                  <span class="training__additional-value h5">13,2 км</span>
-                </span>
-              </li>
-              <li class="training__additional-item">
-                <span class="training__additional-type h5">- Средний пульс:
-                  <span class="training__additional-value h5">999 уд/мин</span>
-                </span>
+<!--        <li class="trainings__item training">-->
+<!--          <div class="training__preview">-->
+<!--            <img-->
+<!--                src="../../../../../trainings/walking.svg"-->
+<!--                alt="" width="175"-->
+<!--                height="175" loading="lazy"-->
+<!--            >-->
+<!--          </div>-->
+<!--          <div class="training__description">-->
+<!--            <div class="training__title">-->
+<!--              <div class="training__title-date-wrapper">-->
+<!--                <time class="training__title-date">24/06/2024</time>-->
+<!--                <div class="training__title-time-period time-period">-->
+<!--                  <span class="time-period__start">13:05</span>-->
+<!--                  <span class="time-period__end">14:21</span>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <span class="training__title-type-time">-->
+<!--                Ходьба, 130 минут-->
+<!--              </span>-->
+<!--            </div>-->
+<!--            <ul class="training__additional-list">-->
+<!--              <li class="training__additional-item">-->
+<!--                <span class="training__additional-type h5">- Дистанция:-->
+<!--                  <span class="training__additional-value h5">13,2 км</span>-->
+<!--                </span>-->
+<!--              </li>-->
+<!--              <li class="training__additional-item">-->
+<!--                <span class="training__additional-type h5">- Средний пульс:-->
+<!--                  <span class="training__additional-value h5">999 уд/мин</span>-->
+<!--                </span>-->
 
-              </li>
-            </ul>
-          </div>
-          <ul class="training__charts-list hidden-mobile">
-            <li class="training__charts-item">
-              <canvas class="chart"></canvas>
-            </li>
-            <li class="training__charts-item">
-              <canvas class="chart"></canvas>
-            </li>
-            <li class="training__charts-item">
-              <canvas class="chart"></canvas>
-            </li>
-          </ul>
-        </li>
-        <li class="trainings__item trainings__more">
-          <button class="trainings__more-button button button--accent">
-            <span class="h5">Тренировки за Май</span>
-          </button>
-        </li>
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <ul class="training__charts-list hidden-mobile">-->
+<!--            <li class="training__charts-item">-->
+<!--              <canvas class="chart"></canvas>-->
+<!--            </li>-->
+<!--            <li class="training__charts-item">-->
+<!--              <canvas class="chart"></canvas>-->
+<!--            </li>-->
+<!--            <li class="training__charts-item">-->
+<!--              <canvas class="chart"></canvas>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </li>-->
+<!--        <li class="trainings__item trainings__more">-->
+<!--          <button class="trainings__more-button button button&#45;&#45;accent">-->
+<!--            <span class="h5">Тренировки за Май</span>-->
+<!--          </button>-->
+<!--        </li>-->
       </ul>
     </div>
   </div>
@@ -162,46 +168,37 @@
 
     <div class="training__overlay-title training__title">
       <div class="training__title-date-wrapper">
-        <time class="training__title-date">24/06/2024</time>
+        <time class="training__title-date">
+<!--          24/06/2024-->
+        </time>
         <div class="training__title-time-period time-period">
-          <span class="time-period__start">13:05</span>
-          <span class="time-period__end">14:21</span>
+          <span class="time-period__start">
+<!--            13:05-->
+          </span>
+          <span class="time-period__end">
+<!--            14:21-->
+          </span>
         </div>
       </div>
       <span class="training__title-type-time">
-                Ходьба, 130 минут
-              </span>
+<!--        Ходьба, 130 минут-->
+      </span>
     </div>
 
     <div class="training__overlay-summary">
       <h2 class="trainings__summary-title training__overlay-summary-title">Результаты</h2>
       <ul class="trainings__summary-list training__overlay-summary-list">
-        <li class="trainings__summary-item training__overlay-summary-item">
-          <span class="trainings__summary-type">Шаги</span>
-          <span class="trainings__summary-value">133.763 шага</span>
-        </li>
-        <li class="trainings__summary-item training__overlay-summary-item">
-          <span class="trainings__summary-type">Дистанция</span>
-          <span class="trainings__summary-value">103,5 км</span>
-        </li>
-        <li class="trainings__summary-item training__overlay-summary-item">
-          <span class="trainings__summary-type">Среднее время</span>
-          <span class="trainings__summary-value">32 минуты</span>
-        </li>
-        <li class="trainings__summary-item training__overlay-summary-item">
-          <span class="trainings__summary-type">Средняя скорость</span>
-          <span class="trainings__summary-value">10 км/ч</span>
-        </li>
+<!--        <li class="trainings__summary-item training__overlay-summary-item">-->
+<!--          <span class="trainings__summary-type">Шаги</span>-->
+<!--          <span class="trainings__summary-value">133.763 шага</span>-->
+<!--        </li>-->
       </ul>
     </div>
 
     <ul class="training__overlay-charts-list">
-      <li class="training__overlay-charts-item">
-        <canvas class="chart"></canvas>
-      </li>
-      <li class="training__overlay-charts-item">
-        <canvas class="chart"></canvas>
-      </li>
+<!--      <li class="training__overlay-charts-item">-->
+<!--        <canvas class="chart"></canvas>-->
+<!--      </li>-->
     </ul>
   </div>
 </div>

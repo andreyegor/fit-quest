@@ -44,16 +44,18 @@
   }
 
   &__preview {
+    @include flex-center();
+
     grid-area: preview;
 
     width: 300px;
     aspect-ratio: 1;
     border-radius: 20px;
     background-color: var(--colorAccent);
-    background-image: var(--previewURL);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 175px;
+    //background-image: var(--previewURL);
+    //background-repeat: no-repeat;
+    //background-position: center;
+    //background-size: 175px;
 
     @include desktop {
       width: 250px;
@@ -70,6 +72,23 @@
       width: 100px;
       background-size: 55px;
       border-radius: 12px;
+    }
+
+    img {
+      width: 175px;
+      aspect-ratio: 1;
+
+      @include desktop {
+        width: 145px;
+      }
+
+      @include tablet {
+        width: 115px;
+      }
+
+      @include mobile {
+        width: 55px;
+      }
     }
   }
 
