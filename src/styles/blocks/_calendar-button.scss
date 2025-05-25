@@ -112,15 +112,15 @@
     padding-inline: 10px;
     border-radius: 6px;
     transition-duration: var(--transition-duration);
-    cursor: pointer;
-
-    @include hover {
-      background-color: var(--colorHover);
-    }
-
-    &:active {
-      background-color: var(--colorActive);
-    }
+    //cursor: pointer;
+    //
+    //@include hover {
+    //  background-color: var(--colorHover);
+    //}
+    //
+    //&:active {
+    //  background-color: var(--colorActive);
+    //}
 
     @include tablet {
       font-weight: 700;

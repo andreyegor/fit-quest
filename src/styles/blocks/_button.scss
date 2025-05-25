@@ -15,6 +15,9 @@
   color: var(--color-dark);
   background-color: var(--color-light);
 
+  transition-duration: calc(var(--transition-duration) / 2);
+  cursor: pointer;
+
   @include tablet {
     padding: 14px;
   }

@@ -1,0 +1,42 @@
+@use '../helpers' as *;
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+
+  width: 40px;
+  aspect-ratio: 1;
+
+  @include hover {
+    &::before,
+    &::after {
+      background-color: var(--color-dark);
+    }
+  }
+
+  @include mobile {
+    width: 30px;
+  }
+
+  &::before,
+  &::after {
+    @include abs-center;
+    rotate: 45deg;
+
+    content: "";
+    width: 50%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--color-gray);
+    transition-duration: var(--transition-duration);
+
+    @include mobile {
+      height: 1px;
+    }
+  }
+
+  &::after {
+    rotate: -45deg;
+  }
+}

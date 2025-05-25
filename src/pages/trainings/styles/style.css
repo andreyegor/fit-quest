@@ -102,6 +102,10 @@ button {
   font: inherit;
 }
 
+*:where(:hover, :active, :focus) {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   /**
     Пригодится в большинстве ситуаций
@@ -440,6 +444,8 @@ a[class] {
   border-radius: 10px;
   color: var(--color-dark);
   background-color: var(--color-light);
+  transition-duration: calc(var(--transition-duration) / 2);
+  cursor: pointer;
 }
 @media (width <= 1023.98px) {
   .button {
@@ -652,37 +658,43 @@ a[class] {
   }
 }
 .user-button__options {
-  --borderRadius: 10px;
-  --paddingBlock: 5px;
   position: absolute;
   bottom: -2px;
   left: 0;
   translate: 0 100%;
   z-index: 1;
+}
+
+.dropmenu.is-active .dropmenu__options {
+  border-width: 1px;
+}
+.dropmenu__options {
+  --borderRadius: 10px;
+  --paddingBlock: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   border-radius: var(--borderRadius);
-  border: 1px solid var(--color-accent);
+  border: 0px solid var(--color-accent);
   background-color: var(--color-light);
   transition-duration: var(--transition-duration);
   overflow: hidden;
   height: 0;
 }
 @media (width <= 1023.98px) {
-  .user-button__options {
+  .dropmenu__options {
     --borderRadius: 8px;
     --paddingBlock: 4px;
   }
 }
 @media (width <= 767.98px) {
-  .user-button__options {
+  .dropmenu__options {
     --borderRadius: 6px;
     --paddingBlock: 3px;
   }
 }
-.user-button__options-setting {
+.dropmenu__option {
   font-size: clamp(10px, 8.4705882353px + 0.3921568627vw, 16px);
   width: 100%;
   font-weight: 700;
@@ -691,29 +703,29 @@ a[class] {
   transition-duration: var(--transition-duration);
 }
 @media (any-hover: hover) {
-  .user-button__options-setting:hover {
+  .dropmenu__option:hover {
     background-color: var(--color-light-gray);
   }
 }
 @media (any-hover: none) {
-  .user-button__options-setting:active {
+  .dropmenu__option:active {
     background-color: var(--color-light-gray);
   }
 }
 @media (width <= 767.98px) {
-  .user-button__options-setting {
+  .dropmenu__option {
     font-weight: 600;
   }
 }
-.user-button__options-setting:first-child {
+.dropmenu__option:first-child {
   border-top-left-radius: var(--borderRadius);
   border-top-right-radius: var(--borderRadius);
 }
-.user-button__options-setting:last-child {
+.dropmenu__option:last-child {
   border-bottom-left-radius: var(--borderRadius);
   border-bottom-right-radius: var(--borderRadius);
 }
-.user-button__options-setting:not(:last-child)::after {
+.dropmenu__option:not(:last-child)::after {
   display: block;
   content: "";
   height: 1px;
@@ -721,12 +733,12 @@ a[class] {
   translate: 0 5px;
 }
 @media (width <= 1023.98px) {
-  .user-button__options-setting:not(:last-child)::after {
+  .dropmenu__option:not(:last-child)::after {
     translate: 0 4px;
   }
 }
 @media (width <= 767.98px) {
-  .user-button__options-setting:not(:last-child)::after {
+  .dropmenu__option:not(:last-child)::after {
     translate: 0 3px;
   }
 }
@@ -864,20 +876,6 @@ a[class] {
   padding-inline: 10px;
   border-radius: 6px;
   transition-duration: var(--transition-duration);
-  cursor: pointer;
-}
-@media (any-hover: hover) {
-  .calendar-button__time-period:hover {
-    background-color: var(--colorHover);
-  }
-}
-@media (any-hover: none) {
-  .calendar-button__time-period:active {
-    background-color: var(--colorHover);
-  }
-}
-.calendar-button__time-period:active {
-  background-color: var(--colorActive);
 }
 @media (width <= 1023.98px) {
   .calendar-button__time-period {
@@ -926,6 +924,72 @@ a[class] {
 .content {
   position: relative;
   padding-bottom: calc(60px - 60 * (1024px - 100vh) / 1024);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.overlay__inner {
+  position: relative;
+}
+.overlay__close-button {
+  position: absolute;
+  right: var(--padding);
+  top: var(--padding);
+  z-index: 3;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 40px;
+  aspect-ratio: 1;
+}
+@media (any-hover: hover) {
+  .close-button:hover::before, .close-button:hover::after {
+    background-color: var(--color-dark);
+  }
+}
+@media (any-hover: none) {
+  .close-button:active::before, .close-button:active::after {
+    background-color: var(--color-dark);
+  }
+}
+@media (width <= 767.98px) {
+  .close-button {
+    width: 30px;
+  }
+}
+.close-button::before, .close-button::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  rotate: 45deg;
+  content: "";
+  width: 50%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--color-gray);
+  transition-duration: var(--transition-duration);
+}
+@media (width <= 767.98px) {
+  .close-button::before, .close-button::after {
+    height: 1px;
+  }
+}
+.close-button::after {
+  rotate: -45deg;
 }
 
 .trainings__inner {
@@ -1050,6 +1114,7 @@ a[class] {
   font-size: clamp(20px, 14.9019607843px + 1.3071895425vw, 40px);
   position: relative;
   font-weight: 900;
+  text-align: center;
 }
 @media (width <= 1023.98px) {
   .trainings__summary-title {
@@ -1174,6 +1239,15 @@ a[class] {
     row-gap: 5px;
   }
 }
+.trainings__more {
+  width: 50%;
+  align-self: center;
+  padding-top: 5px;
+}
+.trainings__more-button {
+  width: 100%;
+}
+
 .training {
   --previewURL: url("../../../../../trainings/walk.svg");
   --colorAccent: var(--color-dark);
@@ -1350,6 +1424,146 @@ a[class] {
   }
 }
 .training__charts-item canvas {
+  width: 100%;
+  aspect-ratio: 1;
+}
+.training__overlay {
+  --padding: 40px;
+  background-color: var(--color-light);
+  border: var(--border);
+  border-radius: 40px;
+  padding: var(--padding);
+  row-gap: 30px;
+  display: flex;
+  flex-direction: column;
+}
+@media (width <= 1023.98px) {
+  .training__overlay {
+    --padding: 30px;
+    row-gap: 25px;
+    border-radius: 30px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay {
+    --padding: 15px;
+    row-gap: 20px;
+    border-radius: 15px;
+  }
+}
+.training__overlay-summary {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  row-gap: 20px;
+}
+@media (width <= 1023.98px) {
+  .training__overlay-summary {
+    row-gap: 15px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay-summary {
+    row-gap: 10px;
+  }
+}
+.training__overlay-summary-title::after {
+  content: none;
+}
+.training__overlay-summary-item {
+  padding-inline: 20px;
+}
+@media (width <= 1023.98px) {
+  .training__overlay-summary-item {
+    padding-inline: 15px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay-summary-item {
+    padding-inline: 10px;
+  }
+}
+.training__overlay-summary-item:first-child::before {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-dark);
+  position: absolute;
+  top: -10px;
+  left: 0;
+}
+@media (width <= 1023.98px) {
+  .training__overlay-summary-item:first-child::before {
+    top: -7.5px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay-summary-item:first-child::before {
+    top: -5px;
+  }
+}
+.training__overlay-summary-item:last-child::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-dark);
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+}
+@media (width <= 1023.98px) {
+  .training__overlay-summary-item:last-child::after {
+    bottom: -7.5px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay-summary-item:last-child::after {
+    bottom: -5px;
+  }
+}
+.training__overlay-charts-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+@media (width <= 1023.98px) {
+  .training__overlay-charts-list {
+    gap: 20px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay-charts-list {
+    gap: 10px;
+  }
+}
+@media (width <= 480.98px) {
+  .training__overlay-charts-list {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+.training__overlay-charts-item {
+  position: relative;
+  width: 340px;
+  aspect-ratio: 1;
+  background-color: var(--color-gray);
+}
+@media (width <= 1023.98px) {
+  .training__overlay-charts-item {
+    width: 250px;
+  }
+}
+@media (width <= 767.98px) {
+  .training__overlay-charts-item {
+    width: 200px;
+  }
+}
+@media (width <= 480.98px) {
+  .training__overlay-charts-item {
+    width: 250px;
+  }
+}
+.training__overlay-charts-item canvas {
   width: 100%;
   aspect-ratio: 1;
 }

@@ -33,15 +33,15 @@
       </li>
 
       <li class="header__item">
-        <button class="header__user-button user-button">
+        <button class="header__user-button user-button dropmenu">
           <span class="user-button__icon"></span>
           <span class="user-button__name">1eshiy</span>
 
-          <ul class="user-button__options">
-            <li class="user-button__options-setting">
-              Настройки
+          <ul class="user-button__options dropmenu__options">
+            <li class="dropmenu__option">
+              <a href="/settings" class="">Настройки</a>
             </li>
-            <li class="user-button__options-setting">
+            <li class="dropmenu__option">
               Выйти
             </li>
           </ul>
@@ -146,47 +146,65 @@
             </li>
           </ul>
         </li>
-        <li class="trainings__item training training--accent">
-          <div class="training__preview">
-            <span class="training__preview-icon"></span>
-          </div>
-          <div class="training__description">
-            <div class="training__title">
-              <div class="training__title-date-wrapper">
-                <time class="training__title-date">24/06/2024</time>
-                <div class="training__title-time-period time-period">
-                  <span class="time-period__start">13:05</span>
-                  <span class="time-period__end">14:21</span>
-                </div>
-              </div>
-              <span class="training__title-type-time">
-                Бег, 176 минут
-              </span>
-            </div>
-            <ul class="training__additional-list">
-              <li class="training__additional-item">
-                <span class="training__additional-type h5">- Дистанция:
-                  <span class="training__additional-value h5">13,2 км</span>
-                </span>
-
-              </li>
-              <li class="training__additional-item">
-                <span class="training__additional-type h5">- Средний пульс:
-                  <span class="training__additional-value h5">999 уд/мин</span>
-                </span>
-              </li>
-            </ul>
-          </div>
-          <ul class="training__charts-list hidden-mobile">
-            <li class="training__charts-item chart"></li>
-            <li class="training__charts-item chart"></li>
-            <li class="training__charts-item chart"></li>
-          </ul>
+        <li class="trainings__item trainings__more">
+          <button class="trainings__more-button button button--accent">
+            <span class="h5">Тренировки за Май</span>
+          </button>
         </li>
       </ul>
     </div>
   </div>
 </main>
+
+<div class="overlay">
+  <div class="overlay__inner training__overlay">
+    <button class="overlay__close-button close-button"></button>
+
+    <div class="training__overlay-title training__title">
+      <div class="training__title-date-wrapper">
+        <time class="training__title-date">24/06/2024</time>
+        <div class="training__title-time-period time-period">
+          <span class="time-period__start">13:05</span>
+          <span class="time-period__end">14:21</span>
+        </div>
+      </div>
+      <span class="training__title-type-time">
+                Ходьба, 130 минут
+              </span>
+    </div>
+
+    <div class="training__overlay-summary">
+      <h2 class="trainings__summary-title training__overlay-summary-title">Результаты</h2>
+      <ul class="trainings__summary-list training__overlay-summary-list">
+        <li class="trainings__summary-item training__overlay-summary-item">
+          <span class="trainings__summary-type">Шаги</span>
+          <span class="trainings__summary-value">133.763 шага</span>
+        </li>
+        <li class="trainings__summary-item training__overlay-summary-item">
+          <span class="trainings__summary-type">Дистанция</span>
+          <span class="trainings__summary-value">103,5 км</span>
+        </li>
+        <li class="trainings__summary-item training__overlay-summary-item">
+          <span class="trainings__summary-type">Среднее время</span>
+          <span class="trainings__summary-value">32 минуты</span>
+        </li>
+        <li class="trainings__summary-item training__overlay-summary-item">
+          <span class="trainings__summary-type">Средняя скорость</span>
+          <span class="trainings__summary-value">10 км/ч</span>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="training__overlay-charts-list">
+      <li class="training__overlay-charts-item">
+        <canvas class="chart"></canvas>
+      </li>
+      <li class="training__overlay-charts-item">
+        <canvas class="chart"></canvas>
+      </li>
+    </ul>
+  </div>
+</div>
 
 </body>
 </html>

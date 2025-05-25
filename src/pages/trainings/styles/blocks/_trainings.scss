@@ -122,6 +122,7 @@
 
       position: relative;
       font-weight: 900;
+      text-align: center;
 
       @include tablet {
         font-weight: 800;
@@ -222,6 +223,7 @@
 
     display: flex;
     flex-direction: column;
+    //align-items: center;
     row-gap: 20px;
 
     @include desktop {
@@ -241,7 +243,13 @@
     }
   }
 
-  &__item {
-    //width: max-content;
+  &__more {
+    width: 50%;
+    align-self: center;
+    padding-top: 5px;
+
+    &-button {
+      width: 100%;
+    }
   }
 }

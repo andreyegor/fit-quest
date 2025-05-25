@@ -105,6 +105,10 @@ button {
   font: inherit;
 }
 
+*:where(:hover, :active, :focus) {
+  -webkit-tap-highlight-color: transparent;
+}
+
 html {
   /**
     Пригодится в большинстве ситуаций

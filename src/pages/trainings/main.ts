@@ -1,1 +1,3 @@
-// высоту user-button задавай через scrollHeight
+import dropmenuToggle from "../../scripts/dropmenuToggle.ts";
+
+dropmenuToggle()
