@@ -1,5 +1,5 @@
-POST http://localhost:8080/api/mobile/exercises/add
-Authorization: Bearer eyJ0eXAjOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgwMzMwODMsImlhdCI6MTc0ODAyOTQ4MywidXNlcklkIjoiMTZlMDVkMTAtMDcyNS00ZWI2LTg5NWUtNTA0ZWU4MWI5YzA0In0.OM5Ed51GKj9M2xOMvyxBD3MAIcQ1MQ3y9IEPpyqjk0E
+POST http://fit-quest.ru/api/mobile/exercises/add
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDgyMDAwODQsImlhdCI6MTc0ODE5NjQ4NCwidXNlcklkIjoiNjFlNjRjM2UtMGIwMS00YjU0LTlkNGUtYzZjMzgyNzIzNGM0In0.5xgHHWs2Eu-HR5xvquk2wuRZq6QZJC4WZay2ijpDlzU
 Content-Type: application/json
 
 //TODO 404 -> 401 when route not found
@@ -12,8 +12,8 @@ Content-Type: application/json
             "caloriesKcal": 0.0
         },
         "series": {
-            "speedSeries": [],
-            "heartRateSeries": []
+            "speedSeries": [1.0, 2.0, 3.0],
+            "heartRateSeries": [4.0, 5.0, 6.0]
         },
         "startTime": "2025-05-06T12:21:00Z",
         "exerciseType": "cycling"
@@ -21,14 +21,13 @@ Content-Type: application/json
     {
         "endTime": "2025-05-08T13:51:00Z",
         "metrics": {
-            "distanceMeters": 0.0,
-            "steps": 0.0
+            "distanceMeters": 0.0
         },
         "series": {
-            "speedSeries": [],
-            "heartRateSeries": []
+            "speedSeries": [7.0, 8.0, 9.0],
+            "heartRateSeries": [10.0, 11.0, 12.0]
         },
         "startTime": "2025-05-08T12:21:00Z",
-        "exerciseType": "walking"
+        "exerciseType": "cycling"
     }
 ]
