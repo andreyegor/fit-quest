@@ -14,3 +14,28 @@ export type LoginCredentials = {
 }
 
 export type FormInputElement = HTMLInputElement | HTMLTextAreaElement;
+
+export type trainingElementData = {
+    date: string,
+    type: string,
+    duration: number,
+    start: string,
+    end: string,
+    metrics: string[][],
+    series: {
+        [key: string]: number[]
+    },
+    previewURL: string
+}
+
+export type rawTrainingData = {
+    endTime: string,
+    metrics: {
+        [key: string]: number
+    },
+    series: {
+        [key: string]: number[]
+    },
+    startTime: string,
+    exerciseType: "running" | "walking" | "cycling" | "swimming"
+}

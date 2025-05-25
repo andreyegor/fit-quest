@@ -118,6 +118,36 @@ export class ApiRequests {
             }
         }
     }
+
+    public static async logout(): Promise<ApiResponse> {
+        try {
+            const response: Response = await fetch("/api/auth/logout",
+                {
+                    method: "POST",
+                    credentials: "include",
+                })
+
+            if (response.ok) {
+                return {
+                    status: "ok",
+                    message: "Выход успешно выполнен"
+                }
+            } else {
+                const message: string = await response.text()
+                console.error(`[Log] Error ${response.status} ${ message ? `: ${message}` : ""}`)
+                return {
+                    status: "fail",
+                    message: "Что-то пошло не так..."
+                }
+            }
+        } catch (e: any) {
+            console.error(`[Log] Network error${e.message ? `: ${e.message}` : ''}`)
+            return {
+                status: "fail",
+                message: "Произошла сетевая ошибка"
+            }
+        }
+    }
 }
 
 export default ApiRequests
