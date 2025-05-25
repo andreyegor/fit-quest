@@ -27,3 +27,4 @@ CREATE TABLE exercises (
   series JSONB
 );
 CREATE INDEX idx_exercises_user_id ON exercises(user_id);
+CREATE INDEX idx_exercises_user_start_time ON exercises(user_id, start_time DESC);

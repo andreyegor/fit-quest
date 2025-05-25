@@ -100,7 +100,7 @@ object Server:
   }
 
   private def postgres[F[_]: Async]: Resource[F, HikariTransactor[F]] =
-    val dbUrl = sys.env.getOrElse("DB_URL", "jdbc:postgresql:docker")
+    val dbUrl = sys.env.getOrElse("DB_URL", "jdbc:postgresql:mydb")
     val dbUser = sys.env.getOrElse("DB_USER", "docker")
     val dbPassword = sys.env.getOrElse("DB_PASSWORD", "docker")
     for {

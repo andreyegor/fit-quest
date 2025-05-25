@@ -63,7 +63,7 @@ object ExercisesTable:
         }
 
         val pagination: Fragment = (from, to) match {
-          case (Some(f), Some(t)) => fr"OFFSET $f LIMIT ${t - f}"
+          case (Some(f), Some(t)) => fr"OFFSET $f LIMIT $t"
           case (Some(f), None)    => fr"OFFSET $f"
           case (None, Some(t))    => fr"LIMIT $t"
           case _                  => Fragment.empty
@@ -74,7 +74,7 @@ object ExercisesTable:
           SELECT exercise_id, user_id, exercise_type, start_time, end_time,  metrics, series
           FROM exercises
           WHERE user_id = ${userId.value}
-          """ ++ filter ++ pagination
+          """ ++ filter ++ fr"ORDER BY start_time DESC" ++ pagination
 
         query.query[Exercise].to[List].transact(transactor)
       }
