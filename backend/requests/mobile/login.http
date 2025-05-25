@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/mobile/auth/login
+POST http://fit-quest.ru/api/mobile/auth/login
 Content-Type: application/json
 
 {
