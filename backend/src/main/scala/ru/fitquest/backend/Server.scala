@@ -57,7 +57,8 @@ object Server:
 
       webProtectedRoutes =
         SillyRoutes.catRoutes[F](catAlg) <+>
-          ExercisesRoutes.GetExercises[F](getExercisesAlg)
+          ExercisesRoutes.GetExercises[F](getExercisesAlg) <+>
+          AuthRoutes.statusRoutes[F]
       mobileProtectedRoutes = MobileExercisesRoutes.AddExercises[F](
         addExercisesAlg
       )

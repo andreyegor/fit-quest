@@ -12,6 +12,9 @@ import ru.fitquest.backend.auth.{Login, Refresh}
 import ru.fitquest.backend.core.structures.user.UserRequest
 import ru.fitquest.backend.core.structures.session.{RefreshToken, Tokens}
 import ru.fitquest.backend.core.security.Cookie
+import cats.effect.kernel.Sync
+import ru.fitquest.backend.core.structures.user.User
+import ru.fitquest.backend.core.structures.user.UserResponse
 
 object AuthRoutes {
   def apply[F[_]: Concurrent](
@@ -46,6 +49,11 @@ object AuthRoutes {
           )
       }
   }
+
+  def statusRoutes[F[_]: Concurrent]: AuthedRoutes[User, F] =
+    val dsl = new Http4sDsl[F] {}
+    import dsl.*
+    AuthedRoutes.of { case GET -> Root / "auth" / "status" as user => Ok(UserResponse.from(user))}
 
   private def createTokenResponse[F[_]: Concurrent](
       tokens: Tokens,
