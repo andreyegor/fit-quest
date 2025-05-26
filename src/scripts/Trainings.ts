@@ -50,9 +50,9 @@ class Trainings {
         overlayBig: "overlay--big"
     }
     private previewURLs = {
-        running: "../../../trainings/running.svg",
-        walking: "../../../trainings/walking.svg",
-        cycling: "../../../trainings/cycling.svg", // TODO: Вернуть пути на место
+        running: "/icons/running.svg",
+        walking: "/icons/walking.svg",
+        cycling: "/icons/cycling.svg",
         swimming: "/icons/swimming.svg"
     }
     private translations = {
