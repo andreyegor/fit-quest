@@ -1,34 +1,17 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import fg from 'fast-glob';
-
-function getHtmlInputs() {
-    const entries = fg.sync('src/pages/**/index.html');
-    const input: Record<string, string> = {};
-
-    entries.forEach((entry) => {
-        const name = entry
-            .replace(/^src\/pages\//, '') // убираем начальный путь
-            .replace(/\/index\.html$/, ''); // убираем index.html
-
-        input[name || 'main'] = resolve(__dirname, entry);
-    });
-
-    return input;
-}
 
 export default defineConfig({
+    root: 'src',
+    publicDir: '../public',
     build: {
+        outDir: '../dist',
         rollupOptions: {
-            input: getHtmlInputs()
-        }
-    },
-    server: {
-        proxy: {
-            '/api': {
-                target: 'http://fit-quest.ru',
-                changeOrigin: true,
-            }
+            input: {
+                trainings: resolve(__dirname, 'src/trainings/index.html'),
+                'sign-in': resolve(__dirname, 'src/sign-in/index.html'),
+                'sign-up': resolve(__dirname, 'src/sign-up/index.html'),
+            },
         },
-    }
+    },
 });
