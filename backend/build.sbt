@@ -26,12 +26,13 @@ lazy val root = (project in file("."))
       "org.tpolecat" %% "doobie-core" % DoobieVersion,
       "org.tpolecat" %% "doobie-hikari" % DoobieVersion,
       "org.tpolecat" %% "doobie-postgres" % DoobieVersion,
-      "org.scorexfoundation" %% "scrypto" % ScryptoVersion,
       "io.circe" %% "circe-generic" % CirceVersion,
       "io.circe" %% "circe-parser" % CirceVersion,
       "com.github.jwt-scala" %% "jwt-circe" % JwtVersion,
       "ch.qos.logback" % "logback-classic" % LogbackVersion,
-      "de.mkammerer" % "argon2-jvm" % Argon2JvmVersion
+      "de.mkammerer" % "argon2-jvm" % Argon2JvmVersion,
+      "org.fusesource.jansi" % "jansi" % "2.4.1"
+
     ),
     testFrameworks += new TestFramework("munit.Framework"),
     javacOptions ++= Seq("-encoding", "UTF-8"),
@@ -39,9 +40,14 @@ lazy val root = (project in file("."))
   )
 
 assemblyMergeStrategy in assembly := {
-  case PathList("module-info.class") => MergeStrategy.discard
-  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
-  case x                             => MergeStrategy.first
+  case PathList("META-INF", "MANIFEST.MF") => MergeStrategy.discard
+  case PathList("META-INF", "services", _*) => MergeStrategy.concat
+  case "reference.conf" => MergeStrategy.concat
+  case "application.conf" => MergeStrategy.concat
+  case _ => MergeStrategy.first
 }
+
+
+Compile / run / fork := true
 
 enablePlugins(JavaServerAppPackaging)
