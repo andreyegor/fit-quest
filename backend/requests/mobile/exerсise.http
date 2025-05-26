@@ -1,4 +1,4 @@
-POST http://fit-quest.ru/api/mobile/exercises/add
+POST https://fit-quest.ru/api/mobile/exercises/add
 Authorization: Bearer _
 Content-Type: application/json
 

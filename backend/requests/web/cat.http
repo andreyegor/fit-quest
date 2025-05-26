@@ -1,5 +1,5 @@
-GET http://fit-quest.ru/api/cat
-Cookie: accessToken=_;
+GET https://fit-quest.ru/api/cat
+Cookie: _;
 # Response 1 просто пример аутентифицированного запроса
     # HTTP/1.1 200 OK
     # Content-Type: application/json
