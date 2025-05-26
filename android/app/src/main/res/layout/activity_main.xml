@@ -4,29 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:padding="32dp">
+    android:padding="32dp"
+    tools:context=".MainActivity">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/logout_button"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/button_bg"
         android:text="Выйти"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sync_button"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="352dp"
-        android:background="@drawable/button_bg"
         android:text="Синхронизировать"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:text="Дата последней синхронизации: Не синхронизировано"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/sync_button"
         app:layout_constraintEnd_toEndOf="parent"

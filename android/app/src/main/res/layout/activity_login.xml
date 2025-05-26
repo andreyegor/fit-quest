@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:padding="32dp">
+    android:padding="32dp"
+    tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/title"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Нужно ввести штуки"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,45 +21,67 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/email"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:background="@drawable/edit_text_bg"
-        android:hint="Почта"
-        android:inputType="textEmailAddress"
-        android:padding="16dp"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintEnabled="true"
+        app:hintTextColor="?attr/colorOnSurface"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@id/title">
 
-    <EditText
-        android:id="@+id/password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Почта"
+            android:inputType="textEmailAddress"
+            android:padding="16dp"
+            android:textColor="?attr/colorOnBackground"
+            android:textColorHint="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@drawable/edit_text_bg"
-        android:hint="Пароль"
-        android:inputType="textPassword"
-        android:padding="16dp"
+        app:boxBackgroundMode="outline"
+        app:boxStrokeColor="?attr/colorPrimary"
+        app:hintEnabled="true"
+        app:hintTextColor="?attr/colorOnSurface"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@id/email_layout">
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Пароль"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            android:textColor="?attr/colorOnBackground"
+            android:textColorHint="?attr/colorOnSurface" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:background="@drawable/button_bg"
         android:text="Войти"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@id/password_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

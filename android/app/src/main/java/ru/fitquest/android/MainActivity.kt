@@ -1,12 +1,12 @@
 package ru.fitquest.android
 
-import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
@@ -18,9 +18,6 @@ import androidx.work.WorkManager
 import kotlinx.coroutines.launch
 import ru.fitquest.android.auth.TokensManager
 import ru.fitquest.android.health.TrainingSyncWorker
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.TimeUnit
 import androidx.core.net.toUri
 import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
@@ -31,12 +28,15 @@ import androidx.health.connect.client.records.SpeedRecord
 import androidx.health.connect.client.records.StepsRecord
 import androidx.lifecycle.lifecycleScope
 
+import ru.fitquest.android.health.SyncPreferences
+import java.time.Instant
+
 class MainActivity : AppCompatActivity() {
     private lateinit var lastSyncText: TextView
     private lateinit var logoutButton: Button
     private lateinit var syncButton: Button
 
-    val healthPermissions = setOf(
+    private val healthPermissions = setOf(
         HealthPermission.getReadPermission(ExerciseSessionRecord::class),
 
         HealthPermission.getReadPermission(DistanceRecord::class),
@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
@@ -80,9 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         syncButton.setOnClickListener {
-            Log.d("MainActivity", "Sync button clicked")
             lifecycleScope.launch {
-                Log.d("MainActivity", "Sync button clicked")
                 ensureHealthPermissions()
             }
 
@@ -128,8 +128,6 @@ class MainActivity : AppCompatActivity() {
             return
         }
         if (needed.isNotEmpty()) {
-
-            Log.d("Permissions", "pppp: ${needed.joinToString()}")
             permissionLauncher.launch(needed)
         } else {
             runImmediateSync()
@@ -143,11 +141,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateLastSyncText() {
-        val prefs = getSharedPreferences("training_sync", Context.MODE_PRIVATE)
-        val ts = prefs.getLong("last_sync_time", -1L)
-        val text = if (ts != -1L) {
-            val fmt = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
-            "Дата последней синхронизации: ${fmt.format(Date(ts))}"
+        val prefs = SyncPreferences(this)
+        val ts = prefs.lastSyncTime
+        val text = if (ts != Instant.ofEpochMilli(0L)) {
+            "Дата последней синхронизации: $ts"
         } else {
             "Дата последней синхронизации: Не синхронизировано"
         }

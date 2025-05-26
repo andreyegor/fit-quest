@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.google.gson.Gson
 import java.time.Instant
 
 import ru.fitquest.android.auth.AuthService
@@ -25,7 +26,9 @@ class TrainingSyncWorker(
             val lastSync = prefs.lastSyncTime
             val newTrainings = repo.getNewTrainingsDto(lastSync)
 
-            if (newTrainings.isEmpty()) return Result.success()
+            if (newTrainings.isEmpty()) {
+                prefs.lastSyncTime = Instant.now()
+                return Result.success()}
 
             if (tokensManager.getAccess() == null) {
                 AuthService.refresh(tokensManager)
@@ -37,6 +40,7 @@ class TrainingSyncWorker(
                     newTrainings
                 )
             }
+            Log.d("TrainingJSON", Gson().toJson(newTrainings))
 
             var response = request(tokensManager.getAccess() ?: return Result.retry()).execute()
 

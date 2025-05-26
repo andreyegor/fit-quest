@@ -16,13 +16,11 @@ import androidx.health.connect.client.units.Length
 import java.time.Instant
 
 data class TrainingDto(
-    val type: String,
-    val title: String?,
-    val notes: String?,
+    val exerciseType: String,
     val startTime: String,
     val endTime: String,
     val metrics: Map<String, Double>,
-    val series: Map<String, List<DataPoint>>,
+    val series: Map<String, List<Double>>,
     val route: List<LocationPoint>?
 ) {
     companion object {
@@ -38,19 +36,21 @@ data class TrainingDto(
                 metricsMap[metric] = value
             }
 
-            val seriesMap = mutableMapOf<String, List<DataPoint>>()
+            //TODO ЗАПЛАТКА
+            //В этой реализации игнорируется timestamp{} который, наверное, важен
+            //Сделано так как бэк уже готов и фрон работает со старыми данными
+            // НО переделать
+            val seriesMap = mutableMapOf<String, List<Double>>()
             for (series in config.series) {
                 val points = SeriesProviders.get(series, client, record)
-                seriesMap[series] = points
+                seriesMap[series] = points.map { it.value }
             }
 
             val routePoints: List<LocationPoint>? =
                 if (config.includeRoute) null else null
 
             return TrainingDto(
-                type = config.type,
-                title = record.title,
-                notes = record.notes,
+                exerciseType = config.type,
                 startTime = record.startTime.toString(),
                 endTime = record.endTime.toString(),
                 metrics = metricsMap,

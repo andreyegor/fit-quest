@@ -50,4 +50,5 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.security.crypto)
+    implementation(libs.material)
 }

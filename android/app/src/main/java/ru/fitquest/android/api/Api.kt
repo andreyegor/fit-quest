@@ -21,7 +21,7 @@ interface Api {
     @POST("auth/logout")
     fun logout(@Header("Authorization") accessToken: String): Call<Void>
 
-    @POST("trainings/upload")
+    @POST("exercises/add")
     fun uploadTrainings(
         @Header("Authorization") accessToken: String,
         @Body trainings: List<TrainingDto>
