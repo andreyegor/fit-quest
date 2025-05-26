@@ -1,0 +1,20 @@
+GET http://fit-quest.ru/api/cat
+Cookie: accessToken=_;
+# Response 1 просто пример аутентифицированного запроса
+    # HTTP/1.1 200 OK
+    # Content-Type: application/json
+    # Content-Length: 133
+
+    # {
+    #   "message": "Кот специально для John Doe",
+    #   "cat": " /\_/\                  
+    #           ( o.o )                   
+    #            > ^ <"
+    # }
+
+# Response 2
+    # HTTP/1.1 401 Unauthorized
+    # Date: Mon, 05 May 2025 18:00:04 GMT
+    # Connection: close
+    # Content-Length: 0
+    # WWW-Authenticate: Bearer realm=""

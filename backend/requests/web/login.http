@@ -1,0 +1,24 @@
+POST http://fit-quest.ru/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john_doe@example.com",
+    "password": "the-amazing-spider-password"
+}
+
+# Response 1:
+    # HTTP/1.1 200 OK
+    # Date: Fri, 02 May 2025 11:00:41 GMT
+    # Connection: close
+    # Content-Length: 0
+    # Set-Cookie: accessToken=_; Max-Age=3600; Path=/api/; SameSite=Strict; Secure; HttpOnly,refreshToken=_; Max-Age=604800; Path=/api/; SameSite=Strict; Secure; HttpOnly
+
+
+# Response 2:
+    # HTTP/1.1 400 Bad Request
+    # Date: Thu, 01 May 2025 10:52:46 GMT
+    # Connection: close
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 19
+
+    # Password is invalid

@@ -1,0 +1,33 @@
+POST http://fit-quest.ru/api/mobile/exercises/add
+Authorization: Bearer _
+Content-Type: application/json
+
+//TODO 404 -> 401 when route not found
+//TODO Mailformed json now throws 500 почему-то 
+[
+    {
+        "endTime": "2025-05-06T13:51:00Z",
+        "metrics": {
+            "distanceMeters": 0.0,
+            "caloriesKcal": 0.0
+        },
+        "series": {
+            "speedSeries": [1.0, 2.0, 3.0],
+            "heartRateSeries": [4.0, 5.0, 6.0]
+        },
+        "startTime": "2025-05-06T12:21:00Z",
+        "exerciseType": "cycling"
+    },
+    {
+        "endTime": "2025-05-08T13:51:00Z",
+        "metrics": {
+            "distanceMeters": 0.0
+        },
+        "series": {
+            "speedSeries": [7.0, 8.0, 9.0],
+            "heartRateSeries": [10.0, 11.0, 12.0]
+        },
+        "startTime": "2025-05-08T12:21:00Z",
+        "exerciseType": "cycling"
+    }
+]

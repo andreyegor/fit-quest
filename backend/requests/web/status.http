@@ -1,0 +1,2 @@
+GET http://fit-quest.ru/api/auth/status
+Cookie: accessToken=_;

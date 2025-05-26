@@ -1,0 +1,32 @@
+POST http://fit-quest.ru/api/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john_doe@example.com",
+    "password": "the-amazing-spider-password"
+}
+
+# Response 1:
+    # HTTP/1.1 201 Created
+    # Date: Thu, 01 May 2025 11:38:03 GMT
+    # Connection: close
+    # Content-Type: application/json
+    # Location: /api/users/7c0118e3-48fc-4a72-800a-6464495b77de
+    # Content-Length: 114
+
+    # {
+    #   "id": "7c0118e3-48fc-4a72-800a-6464495b77de",
+    #   "name": "John Doe",
+    #   "email": "john_doe@example.com",
+    #   "googleId": null
+    # }
+
+# Response 2:
+    # HTTP/1.1 409 Conflict
+    # Date: ...
+    # Connection: close
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 35
+
+    # User with this email already exists

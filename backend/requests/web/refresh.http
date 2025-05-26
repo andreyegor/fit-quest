@@ -1,0 +1,21 @@
+POST http://fit-quest.ru/api/auth/refresh
+Cookie: accessToken=_;refreshToken=_;
+
+# Response 1
+    # HTTP/1.1 200 OK
+    # Content-Length: 0
+    # Set-Cookie: accessToken=_; Max-Age=3600; Path=/api/; SameSite=Strict; Secure,refreshToken=_; Max-Age=604800; Path=/api/api/auth/refresh/; SameSite=Strict; Secure; HttpOnly
+
+# Response 2 когда токен не существует, использован, или просрочен
+    # HTTP/1.1 400 Bad Request
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 16
+
+    # Token is invalid
+
+# Response 3, когда токена нет в куках
+    # HTTP/1.1 400 Bad Request
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 23
+
+    # Refresh token not found

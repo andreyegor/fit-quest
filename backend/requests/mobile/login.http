@@ -1,0 +1,22 @@
+POST http://fit-quest.ru/api/mobile/auth/login
+Content-Type: application/json
+
+{
+    "email": "john_doe@example.com",
+    "password": "the-amazing-spider-password"
+}
+
+# HTTP/1.1 200 OK
+# Content-Type: application/json
+# Content-Length: 313
+# {
+#   "acessToken": "_",
+#   "refreshToken": "_"
+# }
+
+# Response 2:
+    # HTTP/1.1 400 Bad Request
+    # Content-Type: text/plain; charset=UTF-8
+    # Content-Length: 19
+
+    # Password is invalid

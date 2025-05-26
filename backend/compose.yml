@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - "./docker-init/db:/docker-entrypoint-initdb.d"
+    environment:
+      - "POSTGRES_USER=docker"
+      - "POSTGRES_PASSWORD=docker"
+      - "POSTGRES_DB=mydb"
+    ports:
+      - "5432:5432"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080
+
+  app:
+    image: andreyegor/backend:latest
+    depends_on:
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/mydb
+      DB_USER: docker
+      DB_PASSWORD: docker
+    ports:
+      - "8080:8080"

@@ -1,0 +1,7 @@
+POST http://fit-quest.ru/api/mobile/auth/refresh
+Content-Type: application/json
+
+{
+  "accessToken": "_",
+  "refreshToken": "_"
+}
