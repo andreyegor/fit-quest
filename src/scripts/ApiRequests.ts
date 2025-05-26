@@ -1,11 +1,11 @@
-import { ApiResponse, RegisterCredentials, LoginCredentials } from "./types.ts";
+import {ApiResponse, RegisterCredentials, LoginCredentials, UserInfo} from "./types.ts";
 
 export class ApiRequests {
     public static register = async (creds: RegisterCredentials): Promise<ApiResponse> => {
-        const { email, username, password } = creds
+        const {email, username, password} = creds
 
         try {
-            const response: Response = await fetch("/api/users",
+            const response: Response = await fetch("https://fit-quest.ru/api/users",
                 {
                     method: "POST",
                     credentials: "include",
@@ -17,10 +17,6 @@ export class ApiRequests {
                 }
             )
             if (response.ok) {
-                // await this.login({
-                //     email: email,
-                //     password: password
-                // })
                 return {
                     status: "ok",
                     message: "Регистрация прошла успешно",
@@ -33,7 +29,7 @@ export class ApiRequests {
                 }
             } else {
                 const message: string = await response.text()
-                console.error(`[Log] Error ${response.status} ${ message ? `: ${message}` : ""}`)
+                console.error(`[Log] Error ${response.status} ${message ? `: ${message}` : ""}`)
                 return {
                     status: "fail",
                     message: "Что-то пошло не так..."
@@ -50,13 +46,20 @@ export class ApiRequests {
 
     public static login = async (creds: LoginCredentials): Promise<ApiResponse> => {
         try {
-            const response: Response = await fetch("/api/auth/login",
+            const response: Response = await fetch("https://fit-quest.ru/api/auth/login",
                 {
                     method: "POST",
                     credentials: "include",
                     body: JSON.stringify(creds)
                 })
             if (response.ok) {
+                const userInfo = await this.getUserInfo()
+                if (userInfo) {
+                    sessionStorage.setItem("username", userInfo.name)
+                    sessionStorage.setItem("userEmail", userInfo.email)
+                    sessionStorage.setItem("userId", userInfo.id)
+                }
+
                 return {
                     status: "ok",
                     message: "Вход успешно выполнен"
@@ -66,10 +69,9 @@ export class ApiRequests {
                     status: "fail",
                     message: "Почта или пароль введены неверно"
                 }
-            }
-            else {
+            } else {
                 const message: string = await response.text()
-                console.error(`[Log] Error ${response.status} ${ message ? `: ${message}` : ""}`)
+                console.error(`[Log] Error ${response.status} ${message ? `: ${message}` : ""}`)
                 return {
                     status: "fail",
                     message: "Что-то пошло не так..."
@@ -86,7 +88,7 @@ export class ApiRequests {
 
     public static async refresh(): Promise<ApiResponse> {
         try {
-            const response: Response = await fetch("/api/auth/refresh",
+            const response: Response = await fetch("https://fit-quest.ru/api/auth/refresh",
                 {
                     method: "POST",
                     credentials: "include"
@@ -104,7 +106,7 @@ export class ApiRequests {
                 }
             } else {
                 const message: string = await response.text()
-                console.error(`[Log] Error ${response.status} ${ message ? `: ${message}` : ""}`)
+                console.error(`[Log] Error ${response.status} ${message ? `: ${message}` : ""}`)
                 return {
                     status: "fail",
                     message: `Error ${response.status} ${message ? `: ${message}` : ""}`
@@ -121,20 +123,23 @@ export class ApiRequests {
 
     public static async logout(): Promise<ApiResponse> {
         try {
-            const response: Response = await fetch("/api/auth/logout",
+            const response: Response = await fetch("https://fit-quest.ru/api/auth/logout",
                 {
                     method: "POST",
                     credentials: "include",
                 })
 
             if (response.ok) {
+                localStorage.removeItem("username")
+                localStorage.removeItem("userEmail")
+                localStorage.removeItem("userId")
                 return {
                     status: "ok",
                     message: "Выход успешно выполнен"
                 }
             } else {
                 const message: string = await response.text()
-                console.error(`[Log] Error ${response.status} ${ message ? `: ${message}` : ""}`)
+                console.error(`[Log] Error ${response.status} ${message ? `: ${message}` : ""}`)
                 return {
                     status: "fail",
                     message: "Что-то пошло не так..."
@@ -146,6 +151,22 @@ export class ApiRequests {
                 status: "fail",
                 message: "Произошла сетевая ошибка"
             }
+        }
+    }
+
+    public static async getUserInfo(): Promise<UserInfo | null> {
+        try {
+            const response = await fetch("https://fit-quest.ru/api/auth/status", {method: "GET", credentials: "include"})
+            if (response.ok) {
+                return response.json()
+            } else {
+                const message: string = await response.text()
+                console.error(`[Log] Error ${response.status} ${message ? `: ${message}` : ""}`)
+                return null
+            }
+        } catch (e: any) {
+            console.error(`[Log] Network error${e.message ? `: ${e.message}` : ''}`)
+            return null
         }
     }
 }

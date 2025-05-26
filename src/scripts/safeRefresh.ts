@@ -5,7 +5,7 @@ async function safeRefresh(): Promise<boolean> {
     const response: ApiResponse = await ApiRequests.refresh()
     if (response.status === "fail") {
         sessionStorage.setItem("redirectURL", window.location.href)
-        window.location.href = "/src/pages/sign-in/index.html"
+        window.location.href = "/sign-in/"
         return false
     } return true
 }

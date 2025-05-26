@@ -13,9 +13,16 @@ export type LoginCredentials = {
     // rememberMe: boolean
 }
 
+export type UserInfo = {
+    id: string,
+    name: string
+    email: string,
+}
+
 export type FormInputElement = HTMLInputElement | HTMLTextAreaElement;
 
 export type trainingElementData = {
+    id: number,
     date: string,
     type: string,
     duration: number,
@@ -25,7 +32,9 @@ export type trainingElementData = {
     series: {
         [key: string]: number[]
     },
-    previewURL: string
+    previewURL: string,
+    rawStart: Date,
+    rawEnd: Date
 }
 
 export type rawTrainingData = {
