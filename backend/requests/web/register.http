@@ -1,4 +1,4 @@
-POST http://fit-quest.ru/api/users
+POST https://fit-quest.ru/api/users
 Content-Type: application/json
 
 {
