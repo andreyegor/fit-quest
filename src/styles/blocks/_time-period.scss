@@ -1,7 +1,7 @@
 @use '../helpers' as *;
 
 .time-period {
-  @include fluid-text(26, 14);
+  @include fluid-text(26, 12);
 
   font-weight: 900;
   display: flex;

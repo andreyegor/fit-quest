@@ -1,7 +1,7 @@
-@use '../../../../styles/helpers' as *;
+@use '../../../styles/helpers/index' as *;
 
 .training {
-  --previewURL: url("../../../../../trainings/walk.svg");
+  --previewURL: url("/icons/walking.svg");
   --colorAccent: var(--color-dark);
   --colorSecondary: var(--color-light);
   --colorHover: var(--color-gray);
@@ -20,25 +20,30 @@
 
   @include hover {
     background-color: var(--colorHover);
+
+    & .training__charts-item {
+      background-color: rgb(151, 151, 151);
+    }
   }
 
   @include tablet {
     column-gap: 35px;
     row-gap: 15px;
-    padding: 20px 25px 20px 20px;
+    padding: 20px 45px 20px 20px;
   }
 
   @include mobile {
     grid-template-areas: "preview description";
-    padding: 15px 20px 15px 15px;
+    padding: 15px 40px 15px 15px;
   }
 
   @include mobile-s {
     column-gap: 20px;
+    padding: 15px 30px 15px 15px;
   }
 
   &--accent {
-    --previewURL: url("../../../../../trainings/run.svg");
+    --previewURL: url("/icons/running.svg");
     --colorAccent: var(--color-accent);
     --colorSecondary: var(--color-light);
   }
@@ -143,7 +148,7 @@
       position: absolute;
       top: 0;
       right: -10px;
-      translate: 100% calc(-1 * fluid(26, 14) / 2 + 2px);
+      translate: 100% calc(-1 * fluid(26, 12) / 2 + 6px);
 
       @include mobile {
         right: -5px;
@@ -196,15 +201,17 @@
       display: flex;
       width: 90px;
       aspect-ratio: 1;
-      background-color: var(--color-gray);
+      border: var(--border-gray);
+      background-color: rgb(228, 228, 228);
+      transition-duration: var(--transition-duration);
 
       @include tablet {
         width: 70px;
       }
 
       canvas {
-        width: 100%;
-        aspect-ratio: 1;
+        width: 100% !important;
+        height: 100% !important;
       }
     }
   }
@@ -328,7 +335,6 @@
         position: relative;
         width: 340px;
         aspect-ratio: 1;
-        background-color: var(--color-gray);
 
         @include tablet {
           width: 250px;

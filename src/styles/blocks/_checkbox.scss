@@ -61,7 +61,7 @@
   }
 
   &__input:checked ~ &__mark {
-    background-image: url("../../../../tick-white.svg");
+    background-image: url("/icons/tick-white.svg");
     background-color: var(--color-accent);
     border-color: var(--color-accent);
   }

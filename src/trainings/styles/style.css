@@ -205,84 +205,84 @@ svg * {
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-Regular.woff2");
+  src: url("/fonts/Inter-Regular.woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-RegularItalic.woff2");
+  src: url("/fonts/Inter-RegularItalic.woff2");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-Medium.woff2");
+  src: url("/fonts/Inter-Medium.woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-MediumItalic.woff2");
+  src: url("/fonts/Inter-MediumItalic.woff2");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-SemiBold.woff2");
+  src: url("/fonts/Inter-SemiBold.woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-SemiBoldItalic.woff2");
+  src: url("/fonts/Inter-SemiBoldItalic.woff2");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-Bold.woff2");
+  src: url("/fonts/Inter-Bold.woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-BoldItalic.woff2");
+  src: url("/fonts/Inter-BoldItalic.woff2");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-ExtraBold.woff2");
+  src: url("/fonts/Inter-ExtraBold.woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-ExtraBoldItalic.woff2");
+  src: url("/fonts/Inter-ExtraBoldItalic.woff2");
   font-weight: 800;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-Black.woff2");
+  src: url("/fonts/Inter-Black.woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url("../../../../fonts/Inter-BlackItalic.woff2");
+  src: url("/fonts/Inter-BlackItalic.woff2");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
@@ -631,7 +631,7 @@ a[class] {
   aspect-ratio: 1;
   border-radius: 10px;
   background-color: var(--color-light);
-  background-image: url("../../../../user.svg");
+  background-image: url("/icons/user.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 75%;
@@ -696,6 +696,7 @@ a[class] {
 }
 .dropmenu__option {
   font-size: clamp(10px, 8.4705882353px + 0.3921568627vw, 16px);
+  display: block;
   width: 100%;
   font-weight: 700;
   color: var(--color-accent);
@@ -896,7 +897,7 @@ a[class] {
 }
 
 .time-period {
-  font-size: clamp(14px, 10.9411764706px + 0.7843137255vw, 26px);
+  font-size: clamp(12px, 8.431372549px + 0.9150326797vw, 26px);
   font-weight: 900;
   display: flex;
   flex-direction: column;
@@ -1071,7 +1072,6 @@ a[class] {
   display: flex;
   align-items: center;
   flex-direction: column;
-  row-gap: 20px;
 }
 @media (width <= 1023.98px) {
   .trainings__summary {
@@ -1090,8 +1090,8 @@ a[class] {
   }
 }
 .trainings__summary-image {
-  width: 520px;
-  aspect-ratio: 520/200;
+  height: 150px;
+  aspect-ratio: 100/100;
 }
 @media (width <= 1023.98px) {
   .trainings__summary-image {
@@ -1254,7 +1254,7 @@ a[class] {
   }
 }
 .trainings__more {
-  width: 50%;
+  width: max-content;
   align-self: center;
   padding-top: 5px;
 }
@@ -1263,7 +1263,7 @@ a[class] {
 }
 
 .training {
-  --previewURL: url("../../../../../trainings/walk.svg");
+  --previewURL: url("/icons/walking.svg");
   --colorAccent: var(--color-dark);
   --colorSecondary: var(--color-light);
   --colorHover: var(--color-gray);
@@ -1281,32 +1281,39 @@ a[class] {
   .training:hover {
     background-color: var(--colorHover);
   }
+  .training:hover .training__charts-item {
+    background-color: rgb(151, 151, 151);
+  }
 }
 @media (any-hover: none) {
   .training:active {
     background-color: var(--colorHover);
+  }
+  .training:active .training__charts-item {
+    background-color: rgb(151, 151, 151);
   }
 }
 @media (width <= 1023.98px) {
   .training {
     column-gap: 35px;
     row-gap: 15px;
-    padding: 20px 25px 20px 20px;
+    padding: 20px 45px 20px 20px;
   }
 }
 @media (width <= 767.98px) {
   .training {
     grid-template-areas: "preview description";
-    padding: 15px 20px 15px 15px;
+    padding: 15px 40px 15px 15px;
   }
 }
 @media (width <= 480.98px) {
   .training {
     column-gap: 20px;
+    padding: 15px 30px 15px 15px;
   }
 }
 .training--accent {
-  --previewURL: url("../../../../../trainings/run.svg");
+  --previewURL: url("/icons/running.svg");
   --colorAccent: var(--color-accent);
   --colorSecondary: var(--color-light);
 }
@@ -1405,7 +1412,7 @@ a[class] {
   position: absolute;
   top: 0;
   right: -10px;
-  translate: 100% calc(-1 * clamp(14px, 10.9411764706px + 0.7843137255vw, 26px) / 2 + 2px);
+  translate: 100% calc(-1 * clamp(12px, 8.431372549px + 0.9150326797vw, 26px) / 2 + 6px);
 }
 @media (width <= 767.98px) {
   .training__title-time-period {
@@ -1448,7 +1455,9 @@ a[class] {
   display: flex;
   width: 90px;
   aspect-ratio: 1;
-  background-color: var(--color-gray);
+  border: var(--border-gray);
+  background-color: rgb(228, 228, 228);
+  transition-duration: var(--transition-duration);
 }
 @media (width <= 1023.98px) {
   .training__charts-item {
@@ -1456,8 +1465,8 @@ a[class] {
   }
 }
 .training__charts-item canvas {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 100% !important;
+  height: 100% !important;
 }
 .training__overlay {
   --padding: 40px;
@@ -1578,7 +1587,6 @@ a[class] {
   position: relative;
   width: 340px;
   aspect-ratio: 1;
-  background-color: var(--color-gray);
 }
 @media (width <= 1023.98px) {
   .training__overlay-charts-item {

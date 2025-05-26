@@ -1,4 +1,4 @@
-@use '../../../../styles/helpers' as *;
+@use '../../../styles/helpers/index' as *;
 
 .trainings {
   &__inner {
@@ -68,7 +68,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    row-gap: 20px;
+    //row-gap: 20px;
 
     @include tablet {
       justify-self: center;
@@ -84,8 +84,10 @@
     }
 
     &-image {
-      width: 520px;
-      aspect-ratio: 520/200;
+      //width: 520px;
+      height: 150px;
+      aspect-ratio: 100/100;
+      //aspect-ratio: 520/200;
 
       @include tablet {
         display: none;
@@ -244,7 +246,7 @@
   }
 
   &__more {
-    width: 50%;
+    width: max-content;
     align-self: center;
     padding-top: 5px;
 
