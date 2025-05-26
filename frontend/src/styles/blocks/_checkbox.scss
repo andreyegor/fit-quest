@@ -1,0 +1,68 @@
+@use '../helpers' as *;
+
+.checkbox {
+  --checkboxWidth: 20px;
+  --labelOffsetX: 8px;
+  --tickWidth: 14px;
+
+  font-weight: 500;
+  color: var(--color-gray);
+
+  position: relative;
+  padding-left: calc(var(--checkboxWidth) + var(--labelOffsetX));
+  user-select: none;
+
+  @include tablet {
+    --checkboxWidth: 17px;
+    --tickWidth: 12px;
+  }
+
+  @include mobile {
+    --checkboxWidth: 15px;
+    --labelOffsetX: 7px;
+    --tickWidth: 10px;
+  }
+
+  &:has(&__input:checked) {
+    color: var(--color-dark);
+  }
+
+  &__input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  &__mark {
+    @include abs-y;
+    left: 0;
+
+    width: var(--checkboxWidth);
+    aspect-ratio: 1;
+    border: var(--border-gray);
+    border-radius: 3px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: var(--tickWidth);
+    background-color: var(--color-light);
+
+    transition-duration: var(--transition-duration);
+  }
+
+  @include hover {
+    .checkbox__mark {
+      border-color: var(--color-accent);
+    }
+  }
+
+  &__input:active ~ &__mark {
+    background-color: var(--color-accent);
+  }
+
+  &__input:checked ~ &__mark {
+    background-image: url("/icons/tick-white.svg");
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}

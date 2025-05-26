@@ -1,0 +1,125 @@
+@use '../helpers' as *;
+
+.input {
+  position: relative;
+
+  font-family: var(--font-family-base);
+  font-weight: 600;
+  color: var(--color-dark);
+
+  height: var(--input-height);
+  border: var(--border-gray);
+  border-radius: 8px;
+  padding-left: var(--paddingX);
+  padding-right: calc(var(--paddingX) * 3/2 + var(--iconSize));
+
+  outline: none;
+  background-color: var(--color-light);
+
+  @include hover {
+    border-color: var(--color-accent);
+  }
+
+  @include mobile {
+    border-radius: 6px;
+  }
+
+  &:focus, &:not(:placeholder-shown) {
+    border-color: var(--color-accent);
+  }
+
+  &:focus + label, &:not(:placeholder-shown) + label {
+    font-size: var(--labelFocusFontSize);
+    color: var(--color-accent);
+    top: 0;
+  }
+
+  & + label {
+    @include abs-y;
+
+    pointer-events: none;
+
+    font-weight: 600;
+    padding-inline: 4px;
+    left: var(--paddingX);
+
+    color: var(--color-gray);
+    background-color: var(--color-light);
+  }
+
+  &__wrapper {
+    --paddingX: 20px;
+    --labelFocusFontSize: 12px;
+    --iconSize: 20px;
+
+    position: relative;
+
+    @include tablet {
+      --paddingX: 17px;
+      --labelFocusFontSize: 10px;
+      --iconSize: 18px;
+    }
+
+    @include mobile {
+      --paddingX: 12px;
+      --labelFocusFontSize: 8px;
+      --iconSize: 15px;
+    }
+  }
+
+  &__icon {
+    @include abs-y;
+    right: calc(var(--paddingX)/2);
+    width: calc(var(--iconSize) + var(--paddingX));
+    aspect-ratio: 1;
+    cursor: pointer;
+
+    display: none;
+
+    &--password {
+      --openedURL: url("/icons/eye-opened.svg");
+      --closedURL: url("/icons/eye-closed.svg");
+
+      background-image: var(--openedURL);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: calc(100% - var(--paddingX));
+    }
+  }
+
+  &.error {
+    border-color: var(--color-red);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:focus, &:not(:placeholder-shown) {
+      border-color: var(--color-red);
+    }
+
+    & + label {
+      color: var(--color-red);
+    }
+
+    &:focus + label, &:not(:placeholder-shown) + label {
+      color: var(--color-red);
+    }
+  }
+
+  &.success {
+    border-color: var(--color-green);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:focus, &:not(:placeholder-shown) {
+      border-color: var(--color-green);
+    }
+
+    & + label {
+      color: var(--color-green);
+    }
+
+    &:focus + label, &:not(:placeholder-shown) + label {
+      color: var(--color-green);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use '../helpers' as *;
+
+.link {
+  text-decoration: underline !important;
+
+  @include hover {
+    color: var(--color-accent);
+  }
+
+  &--accent {
+    color: var(--color-accent);
+  }
+}

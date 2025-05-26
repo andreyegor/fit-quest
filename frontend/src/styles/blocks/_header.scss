@@ -1,0 +1,93 @@
+@use '../helpers' as *;
+
+.header {
+  background-color: var(--color-accent);
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    column-gap: 60px;
+
+    padding: 10px 20px;
+
+    @include tablet {
+      column-gap: 40px;
+    }
+
+    @include mobile {
+      column-gap: 20px;
+      padding: 8px 15px;
+    }
+
+    @include mobile-s {
+      padding: 5px 10px;
+    }
+  }
+
+  &__list {
+    @include fluid-text(20, 11);
+
+    display: flex;
+    width: 100%;
+    column-gap: 30px;
+    justify-content: start;
+    align-items: center;
+    color: var(--color-light);
+    letter-spacing: 1px;
+    font-weight: 900;
+
+    @include tablet {
+      column-gap: 25px;
+      font-weight: 800;
+    }
+
+    @include mobile {
+      column-gap: 15px;
+    }
+  }
+
+  &__item {
+    display: flex;
+
+    &:last-child:has(.user-button) {
+      margin-left: auto;
+    }
+  }
+
+  &__link {
+    position: relative;
+
+    @include hover {
+      &::after {
+        width: 100%;
+      }
+    }
+
+    &::after {
+      @include abs-x();
+
+      content: "";
+      display: block;
+      bottom: 0;
+
+      width: 0;
+      height: 2px;
+      background-color: currentColor;
+      transition-duration: .2s;
+
+      @include laptop {
+        height: 1px;
+      }
+    }
+
+    &.is-active {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  &__logo {
+    flex-shrink: 0;
+  }
+}

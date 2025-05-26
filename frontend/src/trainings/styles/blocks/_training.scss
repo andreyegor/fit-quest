@@ -1,0 +1,358 @@
+@use '../../../styles/helpers/index' as *;
+
+.training {
+  --previewURL: url("/icons/walking.svg");
+  --colorAccent: var(--color-dark);
+  --colorSecondary: var(--color-light);
+  --colorHover: var(--color-gray);
+
+  display: grid;
+  grid-template-columns: min-content min-content;
+  grid-template-areas:
+      "preview description"
+      "preview charts";
+  column-gap: 15px;
+  row-gap: 20px;
+  padding: 25px 30px 25px 25px;
+  border-radius: 20px;
+  transition-duration: var(--transition-duration);
+  cursor: pointer;
+
+  @include hover {
+    background-color: var(--colorHover);
+
+    & .training__charts-item {
+      background-color: rgb(151, 151, 151);
+    }
+  }
+
+  @include tablet {
+    column-gap: 35px;
+    row-gap: 15px;
+    padding: 20px 45px 20px 20px;
+  }
+
+  @include mobile {
+    grid-template-areas: "preview description";
+    padding: 15px 40px 15px 15px;
+  }
+
+  @include mobile-s {
+    column-gap: 20px;
+    padding: 15px 30px 15px 15px;
+  }
+
+  &--accent {
+    --previewURL: url("/icons/running.svg");
+    --colorAccent: var(--color-accent);
+    --colorSecondary: var(--color-light);
+  }
+
+  &__preview {
+    @include flex-center();
+
+    grid-area: preview;
+
+    width: 300px;
+    aspect-ratio: 1;
+    border-radius: 20px;
+    background-color: var(--colorAccent);
+    //background-image: var(--previewURL);
+    //background-repeat: no-repeat;
+    //background-position: center;
+    //background-size: 175px;
+
+    @include desktop {
+      width: 250px;
+      background-size: 145px;
+    }
+
+    @include tablet {
+      width: 200px;
+      background-size: 115px;
+      border-radius: 17px;
+    }
+
+    @include mobile {
+      width: 100px;
+      background-size: 55px;
+      border-radius: 12px;
+    }
+
+    img {
+      width: 175px;
+      aspect-ratio: 1;
+
+      @include desktop {
+        width: 145px;
+      }
+
+      @include tablet {
+        width: 115px;
+      }
+
+      @include mobile {
+        width: 55px;
+      }
+    }
+  }
+
+  &__description {
+    grid-area: description;
+    align-self: start;
+    //justify-self: end;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    @include mobile {
+      justify-content: space-between;
+    }
+  }
+
+  &__title {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &-date {
+      @include fluid-text(40, 20);
+
+      font-weight: 900;
+
+      @include mobile {
+        font-weight: 800;
+      }
+      
+      &-wrapper {
+        position: relative;
+        width: min-content;
+      }
+    }
+
+    &-type-time {
+      @include fluid-text(26, 14);
+
+      width: max-content;
+      translate: 0 -6px;
+      font-style: italic;
+      font-weight: 800;
+
+      @include mobile {
+        font-weight: 700;
+      }
+    }
+
+    &-time-period {
+      position: absolute;
+      top: 0;
+      right: -10px;
+      translate: 100% calc(-1 * fluid(26, 12) / 2 + 6px);
+
+      @include mobile {
+        right: -5px;
+      }
+    }
+  }
+
+  &__additional {
+    &-list {
+      @include tablet-above {
+        padding-left: 30px;
+      }
+
+      @include mobile-above {
+        padding-left: 20px;
+      }
+    }
+
+    &-item {
+      display: flex;
+
+      font-style: italic;
+      color: var(--colorAccent);
+    }
+
+    &-type,
+    &-value {
+      display: inline-block;
+      width: max-content;
+      font-weight: 500;
+    }
+  }
+
+  &__charts {
+    &-list {
+      display: flex;
+      column-gap: 20px;
+
+      grid-area: charts;
+      align-self: end;
+      //justify-self: end;
+
+      @include tablet {
+        column-gap: 15px;
+      }
+    }
+
+    &-item {
+      position: relative;
+      display: flex;
+      width: 90px;
+      aspect-ratio: 1;
+      border: var(--border-gray);
+      background-color: rgb(228, 228, 228);
+      transition-duration: var(--transition-duration);
+
+      @include tablet {
+        width: 70px;
+      }
+
+      canvas {
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+
+  &__overlay {
+    --padding: 40px;
+
+    background-color: var(--color-light);
+    border: var(--border);
+    border-radius: 40px;
+    padding: var(--padding);
+    row-gap: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    @include tablet {
+      --padding: 30px;
+
+      row-gap: 25px;
+      border-radius: 30px;
+    }
+
+    @include mobile {
+      --padding: 15px;
+
+      row-gap: 20px;
+      border-radius: 15px;
+    }
+
+    &-summary {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      row-gap: 20px;
+
+      @include tablet {
+        row-gap: 15px;
+      }
+
+      @include mobile {
+        row-gap: 10px;
+      }
+
+      &-title {
+        &::after {
+          content: none;
+        }
+      }
+
+      &-item {
+        padding-inline: 20px;
+
+        @include tablet {
+          padding-inline: 15px;
+        }
+
+        @include mobile {
+          padding-inline: 10px;
+        }
+
+        &:first-child::before {
+          content: "";
+          width: 100%;
+          height: 1px;
+          background-color: var(--color-dark);
+          position: absolute;
+          top: -10px;
+          left: 0;
+
+          @include tablet {
+            top: -7.5px;
+          }
+
+          @include mobile {
+            top: -5px;
+          }
+        }
+
+        &:last-child::after {
+          content: "";
+          width: 100%;
+          height: 1px;
+          background-color: var(--color-dark);
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+
+          @include tablet {
+            bottom: -7.5px;
+          }
+
+          @include mobile {
+            bottom: -5px;
+          }
+        }
+      }
+    }
+
+    &-charts {
+      &-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+
+        @include tablet {
+          gap: 20px;
+        }
+
+        @include mobile {
+          gap: 10px;
+        }
+
+        @include mobile-s {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+      }
+
+      &-item {
+        position: relative;
+        width: 340px;
+        aspect-ratio: 1;
+
+        @include tablet {
+          width: 250px;
+        }
+
+        @include mobile {
+          width: 200px;
+        }
+
+        @include mobile-s {
+          width: 250px;
+        }
+
+        canvas {
+          width: 100%;
+          aspect-ratio: 1;
+        }
+      }
+    }
+  }
+}

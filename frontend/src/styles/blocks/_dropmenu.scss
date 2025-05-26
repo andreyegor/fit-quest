@@ -1,0 +1,82 @@
+@use '../helpers' as *;
+
+.dropmenu {
+  &.is-active &__options {
+    border-width: 1px;
+  }
+
+  &__options {
+    --borderRadius: 10px;
+    --paddingBlock: 5px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    border-radius: var(--borderRadius);
+    border: 0px solid var(--color-accent);
+    background-color: var(--color-light);
+    transition: height var(--transition-duration);
+    overflow: hidden;
+    height: 0;
+
+    @include tablet {
+      --borderRadius: 8px;
+      --paddingBlock: 4px;
+    }
+
+    @include mobile {
+      --borderRadius: 6px;
+      --paddingBlock: 3px;
+    }
+  }
+
+  &__option {
+    @include fluid-text(16, 10);
+
+    display: block;
+    width: 100%;
+    font-weight: 700;
+    color: var(--color-accent);
+    padding: var(--paddingBlock);
+    transition-duration: var(--transition-duration);
+
+    @include hover {
+      background-color: var(--color-light-gray);
+    }
+
+    @include mobile {
+      font-weight: 600;
+    }
+
+    &:first-child {
+      border-top-left-radius: var(--borderRadius);
+      border-top-right-radius: var(--borderRadius);
+    }
+
+    &:last-child {
+      border-bottom-left-radius: var(--borderRadius);
+      border-bottom-right-radius: var(--borderRadius);
+    }
+
+    &:not(:last-child) {
+      &::after {
+        display: block;
+        content: "";
+        height: 1px;
+        background-color: var(--color-accent);
+
+        translate: 0 5px;
+
+        @include tablet {
+          translate: 0 4px;
+        }
+
+        @include mobile {
+          translate: 0 3px;
+        }
+      }
+    }
+  }
+}

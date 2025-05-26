@@ -1,0 +1,6 @@
+@use '../helpers' as *;
+
+.content {
+  position: relative;
+  padding-bottom: calc(60px - 60 * (1024px - 100vh) / 1024);
+}

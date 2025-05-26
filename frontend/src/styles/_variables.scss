@@ -1,0 +1,52 @@
+@use 'helpers' as *;
+
+:root {
+  --color-light: #FFFFFF;
+  --color-dark: #2C2C2C;
+
+  --color-accent: #A22EA0;
+  --color-accent-alt: #8B2689;
+  --color-accent-alt-2: #6D206B;
+
+  --color-gray: #B3B3B3;
+  --color-light-gray: #F2F2F2;
+
+  --color-red: #EA4335;
+  --color-red-alt: #D93D30;
+  --color-red-alt-2: #BD372B;
+
+  --color-green: #34A853;
+  --color-green-alt: #2B8E45;
+  --color-green-alt-2: #227639;
+
+  --font-family-base: "Inter", sans-serif;
+
+  --container-width: 1660px;
+  --container-padding-x: 15px;
+
+  --button-height: 54px;
+  --input-height: var(--button-height);
+
+  --border: var(--color-dark) solid 2px;
+  --border-gray: var(--color-gray) solid 1px;
+  --stroke: var(--color-dark) 2px;
+
+  --transition-duration: .2s;
+
+  @include desktop {
+    --container-width: 1440px;
+  }
+
+  @include laptop {
+    --container-width: 1180px;
+    --button-height: 44px;
+  }
+
+  @include tablet {
+    --button-height: 40px;
+  }
+
+  @include mobile {
+    --button-height: 35px;
+  }
+}

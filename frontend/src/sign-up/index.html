@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="icon" href="/icons/logo.ico" type="image/x-icon">
+  <script type="module" src="main.ts" defer></script>
+  <title>Fit Quest | Регистрация</title>
+</head>
+<body>
+<header class="header">
+  <div class="header__inner container">
+    <ul class="header__list">
+      <li class="header__item">
+        <a href="#" class="header__logo logo">
+          <img
+              src="/images/logo.jpg"
+              alt="" width="60"
+              height="60" loading="lazy"
+          >
+        </a>
+      </li>
+
+      <li class="header__item">
+        <a class="header__link">Новости</a>
+      </li>
+
+      <li class="header__item">
+        <a href="/trainings/" class="header__link">Тренировки</a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<main class="content">
+  <div class="welcome">
+    <div class="welcome__inner container">
+      <h1 class="welcome__title h2">
+        Пора начать свой FIT QUEST!
+      </h1>
+
+      <div class="welcome__body">
+        <div class="welcome__image"></div>
+
+        <div class="welcome__body-form-wrapper">
+          <form method="POST" class="welcome__body-form form" data-js-form novalidate>
+            <h3 class="form__title h5">
+              Зарегистрируйтесь, чтобы продолжить
+            </h3>
+
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="text"
+                    class="form__input input"
+                    id="inputEmail"
+                    name="email"
+                    autocomplete="email"
+                    placeholder=""
+                    required
+                    pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                    maxlength="255"
+                    title="Поле должно содержать адрес электронной почты"
+                >
+                <label class="form__input-label" for="inputEmail">
+                  Email
+                </label>
+              </div>
+
+              <span class="form__info-field" data-js-form-infos></span>
+            </div>
+
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="text"
+                    class="form__input input"
+                    id="inputUsername"
+                    autocomplete="username"
+                    placeholder=""
+                    required
+                    name="username"
+                    minlength="3"
+                    maxlength="30"
+                    pattern="^[a-zA-Z0-9_.]{3,30}$"
+                    title="Введите имя пользователя на латинице. Допустимы цифры, заглавные буквы, символы нижнего подчеркивания и точки."
+                >
+                <label class="form__input-label" for="inputUsername">
+                  Имя пользователя
+                </label>
+              </div>
+              
+              <span class="form__info-field" data-js-form-infos></span>
+            </div>
+
+            <div class="form__field-wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="password"
+                    class="form__input input"
+                    id="inputPassword"
+                    name="password"
+                    autocomplete="password"
+                    placeholder=""
+                    required
+                    minlength="8"
+                    maxlength="64"
+                    title="Пароль должен содержать хотя бы одну цифру, заглавную букву и спецсимвол"
+                >
+                <label for="inputPassword">
+                  Пароль
+                </label>
+              </div>
+              <span class="form__info-field" data-js-form-infos></span>
+            </div>
+
+            <div class="form__field-wrapper input__wrapper">
+              <div class="input__wrapper">
+                <input
+                    type="password"
+                    class="form__input input"
+                    id="inputPasswordAgain"
+                    name="passwordAgain"
+                    placeholder=""
+                    required
+                    title="Введите пароль, который ввели в поле выше. Пароли должны совпадать"
+                    data-js-form-again
+                >
+                <label for="inputPasswordAgain">
+                  Повторите пароль
+                </label>
+              </div>
+
+              <span class="form__info-field" data-js-form-infos></span>
+            </div>
+
+            <span class="form__info-field" data-js-form-infos></span>
+
+            <button class="form__submit-button button button--accent" type="submit">
+              <p class="h6">Зарегистрироваться</p>
+            </button>
+
+            <div class="form__help form__help--center">
+              <span>Уже есть аккаунт? <a href="/sign-in/" class="form__help-sign-up-link link link--accent">Войдите</a></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer__background">
+    <img
+        src="/icons/background-sign-up.svg"
+        alt="" width="1180"
+        height="761" loading="lazy"
+    >
+  </div>
+</footer>
+</body>
+</html>

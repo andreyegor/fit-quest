@@ -1,0 +1,19 @@
+.footer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+
+  &__background {
+    --height: min(calc(100vw * 850/1160), 850px);
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+
+    height: var(--height);
+    aspect-ratio: 1160/850;
+  }
+}

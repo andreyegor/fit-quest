@@ -1,0 +1,109 @@
+@use '../helpers' as *;
+
+.form {
+  --rowGap: 20px;
+
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--color-light);
+  border: var(--border);
+  border-radius: 15px;
+  padding: 25px 50px;
+  row-gap: var(--rowGap);
+
+  @include laptop {
+    --rowGap: 17px;
+    padding: 20px 40px;
+  }
+
+  @include mobile {
+    --rowGap: 13px;
+    padding: 20px 30px;
+  }
+
+  @include mobile-s {
+    --rowGap: 10px;
+    padding: 15px 20px;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__input, &__field-wrapper, &__submit-button, &__or-text {
+    width: 100%;
+  }
+
+  &__help {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    font-weight: 500;
+    color: var(--color-gray);
+
+    &--center {
+      @include flex-center;
+    }
+
+    &-sign-up-link {
+      font-weight: 700;
+    }
+  }
+
+  &__info-field {
+    @include fluid-text(16, 10);
+
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-weight: 500;
+    transition-duration: var(--transition-duration);
+
+    &:empty {
+      display: none;
+    }
+
+    &.error, &.success {
+      padding: var(--padding);
+    }
+
+    &.error {
+      color: var(--color-red);
+    }
+
+    &.success {
+      color: var(--color-green);
+    }
+  }
+
+  &__field-wrapper &__info-field {
+    --padding: 10px;
+
+    max-height: 0;
+    border-radius: 0 0 8px 8px;
+
+    @include mobile {
+      --padding: 8px;
+
+      border-radius: 0 0 5px 5px;
+    }
+
+    &.error, &.success {
+      //visibility: ;
+      max-height: max-content;
+      border: var(--border-gray);
+      border-top: none;
+    }
+
+    &.error {
+      border-color: var(--color-red);
+    }
+
+    &.success {
+      border-color: var(--color-green);
+    }
+  }
+}
