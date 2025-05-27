@@ -11,58 +11,70 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  #Backend
   test-backend:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v4
       - name: Run test
         run: echo TODO Без тестов живём 🫠🫠🫠
 
-  build-publish-backend:
-    needs: test-backend
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set Docker tag
-        run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
-      - name: Docker build backend
-        run: docker build -t andreyegor/fit-quest-backend:${IMAGE_TAG} -t andreyegor/fit-quest-backend:latest backend
-      - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-      - name: Docker push backend
-        run: |
-          docker push andreyegor/fit-quest-backend:${IMAGE_TAG}
-          docker push andreyegor/fit-quest-backend:latest
-
-  #Frontend
   test-frontend:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
+      - uses: actions/checkout@v4
       - name: Run test
         run: echo TODO и тут без них 🫠🫠🫠
 
-  build-publish-frontend:
-    needs: test-frontend
+  build-publish:
+    needs: [test-backend, test-frontend]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        component: [backend, frontend]
+        include:
+          - component: backend
+            image_name: andreyegor/fit-quest-backend
+            context: backend
+          - component: frontend
+            image_name: andreyegor/fit-quest-frontend
+            context: frontend
     steps:
       - uses: actions/checkout@v4
       - name: Set Docker tag
         run: echo "IMAGE_TAG=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
-      - name: Docker build frontend
-        run: docker build -t andreyegor/fit-quest-frontend:${IMAGE_TAG} -t andreyegor/fit-quest-frontend:latest frontend
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ matrix.component }}-${{ github.sha }}
+          restore-keys: ${{ runner.os }}-buildx-${{ matrix.component }}-
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-      - name: Docker push frontend
+      - name: Docker build & push
         run: |
-          docker push andreyegor/fit-quest-frontend:${IMAGE_TAG}
-          docker push andreyegor/fit-quest-frontend:latest
+          docker buildx build \
+            --cache-from=type=local,src=/tmp/.buildx-cache \
+            --cache-to=type=local,dest=/tmp/.buildx-cache-new \
+            -t ${{ matrix.image_name }}:${IMAGE_TAG} \
+            -t ${{ matrix.image_name }}:latest \
+            --push \
+            ${{ matrix.context }}
+      - name: Move updated cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
   #Deploy
   deploy:
-    needs: [build-publish-backend, build-publish-frontend]
+    needs: build-publish
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.2
@@ -73,7 +85,7 @@ jobs:
           script: |
             cd ~/fit-quest-deploy
             git pull
-            docker-compose down --remove-orphans
-            docker image prune -af
+            docker-compose stop
             docker-compose pull
-            docker-compose up -d --force-recreate
+            docker-compose up -d --remove-orphans --force-recreate
+            docker image prune -af
