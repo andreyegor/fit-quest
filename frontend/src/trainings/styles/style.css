@@ -1297,19 +1297,19 @@ a[class] {
   .training {
     column-gap: 35px;
     row-gap: 15px;
-    padding: 20px 45px 20px 20px;
+    padding: 20px 70px 20px 20px;
   }
 }
 @media (width <= 767.98px) {
   .training {
     grid-template-areas: "preview description";
-    padding: 15px 40px 15px 15px;
+    padding: 15px 65px 15px 15px;
   }
 }
 @media (width <= 480.98px) {
   .training {
     column-gap: 20px;
-    padding: 15px 30px 15px 15px;
+    padding: 15px 60px 15px 15px;
   }
 }
 .training--accent {
