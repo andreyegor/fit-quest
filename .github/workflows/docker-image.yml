@@ -85,7 +85,7 @@ jobs:
           script: |
             cd ~/fit-quest-deploy
             git pull
-            docker-compose stop
-            docker-compose pull
-            docker-compose up -d --remove-orphans --force-recreate
+            docker-compose down --remove-orphans
             docker image prune -af
+            docker-compose pull
+            docker-compose up -d --force-recreate
