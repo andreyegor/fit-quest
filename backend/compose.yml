@@ -15,14 +15,3 @@ services:
     restart: always
     ports:
       - 9090:8080
-
-  app:
-    image: andreyegor/backend:latest
-    depends_on:
-      - db
-    environment:
-      DB_URL: jdbc:postgresql://db:5432/mydb
-      DB_USER: docker
-      DB_PASSWORD: docker
-    ports:
-      - "8080:8080"
