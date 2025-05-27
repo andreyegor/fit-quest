@@ -158,8 +158,15 @@ export class ApiRequests {
         try {
             const response = await fetch("https://fit-quest.ru/api/auth/status", {method: "GET", credentials: "include"})
             if (response.ok) {
-                return response.json()
+                const userInfo: UserInfo = await response.json()
+                localStorage.setItem("username", userInfo.name)
+                localStorage.setItem("userEmail", userInfo.email)
+                localStorage.setItem("userId", userInfo.id)
+                return userInfo
             } else {
+                localStorage.removeItem("username")
+                localStorage.removeItem("userEmail")
+                localStorage.removeItem("userId")
                 const message: string = await response.text()
                 console.error(`[Log] Error ${response.status} ${message ? `: ${message}` : ""}`)
                 return null

@@ -8,10 +8,12 @@
     border: 3px solid var(--color-light);
 
     @include tablet {
+      border-width: 2px;
       width: 50px;
     }
 
     @include mobile {
+      border-width: 1px;
       width: 40px;
     }
 

@@ -15,6 +15,6 @@ dropmenuToggle()
 new AbsolutePos(".footer__background", "top", 175)
 new PasswordEyeToggle()
 new FormValidate(ApiRequests.register as () => Promise<any>, "/sign-in/", {
-    "#inputPassword": /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+    "#inputPassword": /^(?=.*[A-Za-z])(?=.*\d).{8,}$/
 })
 new LogoutButton()
