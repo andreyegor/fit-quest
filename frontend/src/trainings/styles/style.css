@@ -368,6 +368,13 @@ html.is-lock {
   overflow: hidden;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--color-light) inset !important;
+}
+
 body {
   font-size: clamp(12px, 10.9803921569px + 0.2614379085vw, 16px);
   display: flex;
@@ -427,6 +434,7 @@ svg * {
 
 a {
   color: inherit;
+  cursor: pointer;
 }
 a[class] {
   text-decoration: none;
@@ -752,11 +760,13 @@ a[class] {
 }
 @media (width <= 1023.98px) {
   .logo img {
+    border-width: 2px;
     width: 50px;
   }
 }
 @media (width <= 767.98px) {
   .logo img {
+    border-width: 1px;
     width: 40px;
   }
 }
@@ -1091,7 +1101,7 @@ a[class] {
 }
 .trainings__summary-image {
   height: 150px;
-  aspect-ratio: 100/100;
+  aspect-ratio: 90/100;
 }
 @media (width <= 1023.98px) {
   .trainings__summary-image {
