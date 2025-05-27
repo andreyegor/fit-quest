@@ -42,6 +42,7 @@ object Server:
 
       loginAlg = auth.Login.impl[F](authenticate, sessionsTable)
       refreshAlg = auth.Refresh.impl[F](sessionsTable)
+      logoutAlg = auth.Logout.impl[F](sessionsTable)
 
       helloWorldAlg = silly.HelloWorld.impl[F]
       catAlg = silly.Cat.impl[F]
@@ -52,7 +53,7 @@ object Server:
       webPublicRoutes =
         SillyRoutes.helloWorldRoutes[F](helloWorldAlg) <+>
           UsersRoutes[F](registerAlg) <+>
-          AuthRoutes[F](loginAlg, refreshAlg)
+          AuthRoutes[F](loginAlg, refreshAlg, logoutAlg)
       mobilePublicRoutes = MobileAuthRoutes[F](loginAlg, refreshAlg)
 
       webProtectedRoutes =
