@@ -56,6 +56,7 @@
 | Изучение среды CorelDraw| 6 часов | [Обучение CorelDRAW. Основы работы в CorelDRAW](https://all-ready.ru/stati/obuchenie-coreldraw-osnovy-raboty-v-coreldraw/) |
 | Смена среды на Krita и е изучение, из-за окончания пробного периода CorelDraw | 5 часов | [Справочник Krita для начинающих](https://m.vk.com/@ilovefreeart-kratkii-spravochnik-po-krita-dlya-novichkov) |
 | Разработка дизайна маскота | 35 часов | [Коллаж готовых артов](https://pin.it/slcWShdmn) |
+| Разработка вариаций маскота для разных ситуаций | 20 часов | *В процессе*
 | **Всего** | **145 часов** |
 
 ## Отчёт
