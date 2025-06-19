@@ -1,18 +1,23 @@
 import dropmenuToggle from "../scripts/dropmenuToggle.ts";
-import Trainings from "../scripts/Trainings.ts";
+import Trainings from "./scripts/Trainings.ts";
 import LogoutButton from "../scripts/LogoutButton.ts";
 import ApiRequests from "../scripts/ApiRequests.ts";
+import CalendarButton from "../scripts/CalendarButton.ts";
+import TimePeriodStore from "../scripts/TimePeriodStore.ts";
 
 const userNameFieldElement = document.querySelector(".user-button__name")
-let userName = localStorage.getItem("username")
+ApiRequests.getUserInfo()
 if (userNameFieldElement) {
-    if (!userName) {
-        ApiRequests.getUserInfo()
-        userName = localStorage.getItem("username")
-    }
-    userNameFieldElement.textContent = userName
+    userNameFieldElement.textContent = localStorage.getItem("username")
 }
 
 dropmenuToggle()
-new Trainings
 new LogoutButton()
+
+const timePeriodStore = new TimePeriodStore([
+    new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+    new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999)
+])
+new Trainings(timePeriodStore)
+new CalendarButton(timePeriodStore)
+
