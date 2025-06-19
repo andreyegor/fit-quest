@@ -62,6 +62,10 @@
     flex-shrink: 0;
   }
 
+  &__calendar-button {
+    flex-shrink: 0;
+  }
+
   &__summary {
     grid-area: summary;
 

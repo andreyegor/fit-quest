@@ -1,40 +1,42 @@
 @use '../helpers' as *;
 
 .button {
+  --buttonHeight: var(--button-height);
+  --color: var(--color-dark);
+  --borderColor: var(--color-gray);
+  --borderColorHover: var(--color-gray);
+  --borderColorActive: var(--color-dark);
+  --backgroundColor: var(--color-light);
+  --backgroundColorHover: var(--color-light-gray);
+  --backgroundColorActive: var(--color-gray);
+
   @include flex-center;
   column-gap: 8px;
 
   font-weight: 600;
 
-  height: var(--button-height);
-  padding: 18px;
+  height: var(--buttonHeight);
+  padding-inline: 18px;
 
   border: var(--border-gray);
+  border-color: var(--borderColor);
   border-radius: 10px;
 
-  color: var(--color-dark);
-  background-color: var(--color-light);
+  color: var(--color);
+  background-color: var(--backgroundColor);
 
   transition-duration: calc(var(--transition-duration) / 2);
-  cursor: pointer;
+  cursor: not-allowed;
+  opacity: .8;
 
   @include tablet {
-    padding: 14px;
+    padding-inline: 14px;
   }
 
   @include mobile {
     column-gap: 6px;
-    padding: 12px;
+    padding-inline: 12px;
     border-radius: 6px;
-  }
-
-  @include hover {
-    background-color: var(--color-light-gray);
-  }
-
-  &:active {
-    background-color: var(--color-gray);
-    border-color: var(--color-dark);
   }
 
   &__icon {
@@ -46,19 +48,50 @@
     }
   }
 
+  &--small {
+    --buttonHeight: calc(var(--button-height) * 2 / 3);
+
+    column-gap: 6px;
+    padding-inline: 16px;
+    border-radius: 8px;
+
+    @include laptop {
+      --buttonHeight: calc(var(--button-height) * 4 / 5);
+    }
+
+    @include tablet {
+      padding-inline: 12px;
+    }
+
+    @include mobile {
+      column-gap: 4px;
+      padding-inline: 10px;
+      border-radius: 4px;
+    }
+  }
+
   &--accent {
-    color: var(--color-light);
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
+    --color: var(--color-light);
+    --borderColor: var(--color-accent);
+    --borderColorHover: var(--color-accent-alt);
+    --borderColorActive: var(--color-accent-alt-2);
+    --backgroundColor: var(--color-accent);
+    --backgroundColorHover: var(--color-accent-alt);
+    --backgroundColorActive: var(--color-accent-alt-2);
+  }
+
+  &:not(.disabled) {
+    cursor: pointer;
+    opacity: 1;
 
     @include hover {
-      background-color: var(--color-accent-alt);
-      border-color: var(--color-accent-alt);
+      background-color: var(--backgroundColorHover);
+      border-color: var(--borderColorHover);
     }
 
     &:active {
-      background-color: var(--color-accent-alt-2);
-      border-color: var(--color-accent-alt-2);
+      background-color: var(--backgroundColorActive);
+      border-color: var(--borderColorActive);
     }
   }
 }
