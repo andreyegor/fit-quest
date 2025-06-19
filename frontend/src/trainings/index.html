@@ -56,8 +56,8 @@
     <div class="trainings__inner container">
       <div class="trainings__header">
         <h1 class="trainings__title h2">Мои тренировки</h1>
-        <button class="trainings__calendar-button calendar-button calendar-button--accent">
-          <span class="calendar-button__arrow" id="calendarButtonLeftArrow">
+        <div class="trainings__calendar-button calendar-button calendar-button--accent">
+          <span class="calendar-button__arrow is-active" id="calendarButtonLeftArrow">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M31.6667 20L8.33341 20" stroke="white" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round"/>
@@ -65,7 +65,7 @@
                     stroke-linejoin="round"/>
             </svg>
           </span>
-          <span class="calendar-button__time-period"></span>
+          <span class="calendar-button__time-period">Июнь</span>
           <span class="calendar-button__arrow" id="calendarButtonRightArrow">
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.3335 20H31.6668" stroke="white" stroke-width="2" stroke-linecap="round"
@@ -74,7 +74,64 @@
                     stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
-        </button>
+
+          <div class="calendar-button__picker date-picker">
+            <div class="date-picker__header">
+              <span class="date-picker__arrow is-active" id="datePickerLeftArrow">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.8334 10L4.1667 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M10 15.8333L4.16667 10L10 4.16667" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="date-picker__time-period">
+                <span class="date-picker__month">Июнь</span>
+                <span class="date-picker__year is-active">2025</span>
+              </div>
+              <span class="date-picker__arrow" id="datePickerRightArrow">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.16663 10H15.8333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M10 4.16666L15.8333 10L10 15.8333" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+            <div class="date-picker__body">
+              <ul class="date-picker__list">
+                <li class="date-picker__item">
+                  1
+                </li>
+                <li class="date-picker__item">
+                  2
+                </li>
+                <li class="date-picker__item">
+                  3
+                </li>
+                <li class="date-picker__item">
+                  4
+                </li>
+                <li class="date-picker__item">
+                  5
+                </li>
+                <li class="date-picker__item">
+                  6
+                </li>
+                <li class="date-picker__item">
+                  7
+                </li>
+                <li class="date-picker__item">
+                  8
+                </li>
+                <li class="date-picker__item">
+                  9
+                </li>
+                <li class="date-picker__item">
+                  10
+                </li>
+              </ul>
+            </div>
+
+            <button class="date-picker__button button button--accent button--small disabled">Готово</button>
+          </div>
+        </div>
       </div>
       <div class="trainings__summary">
         <img

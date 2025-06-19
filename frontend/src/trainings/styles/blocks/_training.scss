@@ -312,10 +312,13 @@
     }
 
     &-charts {
+      --columns: 2;
+
       &-list {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(var(--columns), 1fr);
         gap: 30px;
+        min-width: 50vw;
 
         @include tablet {
           gap: 20px;
@@ -329,19 +332,24 @@
           grid-template-columns: 1fr;
           gap: 15px;
         }
+
+        &--1 {
+          --columns: 1;
+        }
       }
 
       &-item {
         position: relative;
-        width: 340px;
+        justify-self: center;
+        width: calc(340px * (3 - var(--columns)));
         aspect-ratio: 1;
 
         @include tablet {
-          width: 250px;
+          width: calc(250px * (3 - var(--columns)));
         }
 
         @include mobile {
-          width: 200px;
+          width: calc(200px * (3 - var(--columns)));
         }
 
         @include mobile-s {
@@ -349,8 +357,8 @@
         }
 
         canvas {
-          width: 100%;
-          aspect-ratio: 1;
+          width: 100% !important;
+          height: 100% !important;
         }
       }
     }

@@ -21,7 +21,7 @@ export type UserInfo = {
 
 export type FormInputElement = HTMLInputElement | HTMLTextAreaElement;
 
-export type trainingElementData = {
+export type TrainingElementData = {
     id: number,
     date: string,
     type: string,
@@ -33,11 +33,13 @@ export type trainingElementData = {
         [key: string]: number[]
     },
     previewURL: string,
-    rawStart: Date,
-    rawEnd: Date
+    // rawStart: Date,
+    // rawEnd: Date
 }
 
-export type rawTrainingData = {
+export type ExerciseTypes = "running" | "walking" | "cycling" | "swimming"
+
+export type TrainingData = {
     endTime: string,
     metrics: {
         [key: string]: number
@@ -46,5 +48,5 @@ export type rawTrainingData = {
         [key: string]: number[]
     },
     startTime: string,
-    exerciseType: "running" | "walking" | "cycling" | "swimming"
+    exerciseType: ExerciseTypes
 }

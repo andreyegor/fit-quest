@@ -2,6 +2,7 @@
 
 html {
   &.is-lock {
+    scrollbar-width: none;
     overflow: hidden;
   }
 }
@@ -9,7 +10,7 @@ html {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active{
+input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px var(--color-light) inset !important;
 }
 
@@ -39,6 +40,7 @@ h1, .h1 {
   @include fluid-text(96, 36);
   font-weight: 900;
 }
+
 h2, .h2 {
   @include fluid-text(64, 24);
   font-weight: 800;
@@ -73,6 +75,7 @@ svg * {
 a {
   color: inherit;
   cursor: pointer;
+
   &[class] {
     text-decoration: none;
   }

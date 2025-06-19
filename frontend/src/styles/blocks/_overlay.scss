@@ -1,17 +1,18 @@
 @use '../helpers' as *;
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 
   display: none;
   //display: flex;
-  align-items: center;
-  //align-items: start;
+  align-items: flex-start;
+  padding-block: 5vh;
+  overflow-y: auto;
   justify-content: center;
   cursor: pointer;
 
@@ -19,15 +20,6 @@
 
   &.is-active {
     display: flex;
-  }
-
-  &--big {
-    height: 100%;
-
-    .overlay__inner {
-      @include abs-x;
-      top: 5%;
-    }
   }
 
   &__inner {

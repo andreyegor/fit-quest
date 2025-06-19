@@ -1,11 +1,27 @@
-import {ApiResponse, RegisterCredentials, LoginCredentials, UserInfo} from "./types.ts";
+import {ApiResponse, RegisterCredentials, LoginCredentials, UserInfo, TrainingData} from "./types.ts";
+import safeRefresh from "./safeRefresh.ts";
 
 export class ApiRequests {
+    private static roads = {
+        // register: "/api/users",
+        register: "https://fit-quest.ru/api/users",
+        // login: "/api/auth/login",
+        login: "https://fit-quest.ru/api/auth/login",
+        // logout: "/api/auth/logout",
+        logout: "https://fit-quest.ru/api/auth/logout",
+        // refresh: "/api/auth/refresh",
+        refresh: "https://fit-quest.ru/api/auth/refresh",
+        // status: "/api/auth/status",
+        status: "https://fit-quest.ru/api/auth/status",
+        // exercises: "/api/exercises"
+        exercises: "https://fit-quest.ru/api/exercises"
+    }
+
     public static register = async (creds: RegisterCredentials): Promise<ApiResponse> => {
         const {email, username, password} = creds
 
         try {
-            const response: Response = await fetch("https://fit-quest.ru/api/users",
+            const response: Response = await fetch(this.roads.register,
                 {
                     method: "POST",
                     credentials: "include",
@@ -46,7 +62,7 @@ export class ApiRequests {
 
     public static login = async (creds: LoginCredentials): Promise<ApiResponse> => {
         try {
-            const response: Response = await fetch("https://fit-quest.ru/api/auth/login",
+            const response: Response = await fetch(this.roads.login,
                 {
                     method: "POST",
                     credentials: "include",
@@ -88,7 +104,7 @@ export class ApiRequests {
 
     public static async refresh(): Promise<ApiResponse> {
         try {
-            const response: Response = await fetch("https://fit-quest.ru/api/auth/refresh",
+            const response: Response = await fetch(this.roads.refresh,
                 {
                     method: "POST",
                     credentials: "include"
@@ -123,7 +139,7 @@ export class ApiRequests {
 
     public static async logout(): Promise<ApiResponse> {
         try {
-            const response: Response = await fetch("https://fit-quest.ru/api/auth/logout",
+            const response: Response = await fetch(this.roads.logout,
                 {
                     method: "POST",
                     credentials: "include",
@@ -156,7 +172,7 @@ export class ApiRequests {
 
     public static async getUserInfo(): Promise<UserInfo | null> {
         try {
-            const response = await fetch("https://fit-quest.ru/api/auth/status", {method: "GET", credentials: "include"})
+            const response = await fetch(this.roads.status, {method: "GET", credentials: "include"})
             if (response.ok) {
                 const userInfo: UserInfo = await response.json()
                 localStorage.setItem("username", userInfo.name)
@@ -173,6 +189,40 @@ export class ApiRequests {
             }
         } catch (e: any) {
             console.error(`[Log] Network error${e.message ? `: ${e.message}` : ''}`)
+            return null
+        }
+    }
+
+    public static async getTrainingData(params?: {offset?: number, limit?: number, types?: number[], timePeriod: Date[]}): Promise<TrainingData[] | null> {
+        try {
+            let fetchURL = this.roads.exercises
+            if (params) {
+                fetchURL += "?"
+                if (params.offset) {
+                    fetchURL += `${fetchURL.at(-1) === "?" ? "" : "&"}offset=${params.offset}`
+                } if (params.limit) {
+                    fetchURL += `${fetchURL.at(-1) === "?" ? "" : "&"}limit=${params.limit}`
+                } if (params.types && params.types.length !== 0) {
+                    fetchURL += `${fetchURL.at(-1) === "?" ? "" : "&"}types=${params.types.join(",")}`
+                }
+                // if (params.timePeriod && params.timePeriod.length === 2) {
+                //     fetchURL += `${fetchURL.at(-1) === "?" ? "" : "&"}start=${params.timePeriod[0]}&end=${params.timePeriod[1]}`
+                // }
+            }
+            const response: Response = await fetch(fetchURL, {
+                method: "GET",
+                credentials: "include"
+            })
+
+            if (response.ok || (response.status === 401 && await safeRefresh())) {
+                return await response.json() as TrainingData[]
+            } else {
+                const message: string = await response.text()
+                console.error(`[ApiRequests] ${response.status}: ${message ? `: ${message}` : ""}`)
+                return null
+            }
+        } catch (e: any) {
+            console.error(`[ApiRequests] Network error: ${e.message ? `: ${e.message}` : ''}`)
             return null
         }
     }
