@@ -24,6 +24,7 @@ import org.http4s.CacheDirective.public
 import ru.fitquest.backend.mobile.routes.MobileExercisesRoutes
 import ru.fitquest.backend.exercises.AddExercises
 import ru.fitquest.backend.core.database.ExercisesTable
+import ru.fitquest.backend.core.security.GenerateTokens
 
 object Server:
   def run[F[_]: Async]: F[Nothing] = {
@@ -35,13 +36,14 @@ object Server:
       sessionsTable = core.database.SessionsTable.impl(transactor)
       exercisesTable = core.database.ExercisesTable.impl(transactor)
 
-      authenticate = auth.Authenticate.impl(userTable)
+      generateTokens = createGenerateTokens
+      authenticate = auth.Authenticate.impl(generateTokens, userTable)
       authMiddleware = auth.Middleware(authenticate)
 
       registerAlg = users.Register.impl[F](userTable)
 
-      loginAlg = auth.Login.impl[F](authenticate, sessionsTable)
-      refreshAlg = auth.Refresh.impl[F](sessionsTable)
+      loginAlg = auth.Login.impl[F](generateTokens, authenticate, sessionsTable)
+      refreshAlg = auth.Refresh.impl[F](generateTokens, sessionsTable)
       logoutAlg = auth.Logout.impl[F](sessionsTable)
 
       helloWorldAlg = silly.HelloWorld.impl[F]
@@ -102,9 +104,9 @@ object Server:
   }
 
   private def postgres[F[_]: Async]: Resource[F, HikariTransactor[F]] =
-    val dbUrl = sys.env.getOrElse("DB_URL", "jdbc:postgresql:mydb")
-    val dbUser = sys.env.getOrElse("DB_USER", "docker")
-    val dbPassword = sys.env.getOrElse("DB_PASSWORD", "docker")
+    val dbUrl = envOrWarn("DB_URL", "jdbc:postgresql:mydb")
+    val dbUser = envOrWarn("DB_USER", "docker")
+    val dbPassword = envOrWarn("DB_PASSWORD", "docker")
     for {
       ce <- ExecutionContexts.fixedThreadPool[F](32)
       xa <- HikariTransactor.newHikariTransactor[F](
@@ -115,3 +117,13 @@ object Server:
         ce
       )
     } yield xa
+
+  private def createGenerateTokens: GenerateTokens =
+    val key = envOrWarn("TOKENS_SECRET_KEY", "совсем не секретный ключ")
+    GenerateTokens.impl(key)
+
+  def envOrWarn(name: String, default: String): String =
+    sys.env.get(name).getOrElse {
+      Console.err.println(s"ATTENTION you are using DEFAULT value for $name: $default")
+      default
+    }

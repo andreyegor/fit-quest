@@ -15,7 +15,10 @@ trait Authenticate[F[_]](userTable: UserTable[F]) {
 }
 
 object Authenticate:
-  def impl[F[_]: Sync](userTable: UserTable[F]): Authenticate[F] =
+  def impl[F[_]: Sync](
+      generateTokens: GenerateTokens,
+      userTable: UserTable[F]
+  ): Authenticate[F] =
     new Authenticate[F](userTable):
       override def authenticateUser(
           rawUser: UserRequest
@@ -33,7 +36,7 @@ object Authenticate:
       ): EitherT[F, String, User] =
         for {
           userId <- OptionT
-            .fromOption(GenerateTokens.decodeAccessToken(acessToken))
+            .fromOption(generateTokens.decodeAccessToken(acessToken))
             .toRight("Token is invalid")
           user <- userTable.getByUserId(userId).toRight("User not found")
         } yield user

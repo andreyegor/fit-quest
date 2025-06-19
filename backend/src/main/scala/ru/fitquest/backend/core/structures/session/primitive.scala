@@ -7,10 +7,6 @@ import java.util.UUID
 
 import ru.fitquest.backend.core.structures.user.*
 import ru.fitquest.backend.core.security.RefreshTokenHasher
-import ru.fitquest.backend.core.security.GenerateTokens.{
-  generateAccessToken,
-  generateRefreshToken
-}
 import io.circe.Encoder
 
 opaque type SessionId = UUID
@@ -24,7 +20,6 @@ object SessionId:
 opaque type AccessToken = String
 object AccessToken:
   def apply(t: String): AccessToken = t
-  def generate(u: User): AccessToken = generateAccessToken(u)
 
   extension (t: AccessToken) def value: String = t
   given Encoder[AccessToken] = Encoder[String].contramap[AccessToken](_.value)
@@ -33,7 +28,6 @@ object AccessToken:
 opaque type RefreshToken = String
 object RefreshToken:
   def apply(t: String): RefreshToken = t
-  def generate: RefreshToken = generateRefreshToken
 
   extension (t: RefreshToken) def value: String = t
   given Get[RefreshToken] = Get[String].map(RefreshToken(_))

@@ -11,6 +11,7 @@ import ru.fitquest.backend.core.database.{UserTable, SessionsTable}
 import ru.fitquest.backend.core.structures.session.*
 import ru.fitquest.backend.core.structures.user.*
 import ru.fitquest.backend.core.structures.user.UserRequest
+import ru.fitquest.backend.core.security.GenerateTokens
 
 
 trait Login[F[_]] {
@@ -19,14 +20,15 @@ trait Login[F[_]] {
 
 object Login:
   def impl[F[_]: Sync](
+      generateTokens: GenerateTokens,
       authenticate: Authenticate[F],
       sessionsTable: SessionsTable[F]
   ): Login[F] = new Login[F] {
     override def apply(rawUser: UserRequest): EitherT[F, String, Tokens] = for {
       user <- authenticate.authenticateUser(rawUser)
       now <- EitherT.liftF(Clock[F].realTimeInstant)
-      access = AccessToken.generate(user)
-      refresh = RefreshToken.generate
+      access = generateTokens.generateAccessToken(user)
+      refresh = generateTokens.generateRefreshToken
       session = Session.create(user.userId, refresh, now)
       _ <- EitherT.liftF(sessionsTable.add(session))
     } yield Tokens(access, refresh)

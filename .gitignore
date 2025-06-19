@@ -9,6 +9,7 @@
 *.log
 *.tmp
 *.swp
+*.conf
 
 target/
 dist/
