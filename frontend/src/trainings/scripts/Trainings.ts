@@ -6,7 +6,6 @@
 *
 */
 
-
 import {TrainingData} from "../../scripts/types.ts";
 import ApiRequests from "../../scripts/ApiRequests.ts";
 import DateGetter from "../../scripts/DateGetter.ts";
@@ -164,6 +163,7 @@ export class Trainings {
                     trainingsListElement.append(infoItemElement)
                 }
             } else {
+                console.log(newDataLength, this.trainings)
                 for (let i = 0; i < (newDataLength); i++) {
                     trainingsListElement.append(this.trainings[trainingListLength + i].get())
                 }
@@ -236,7 +236,7 @@ export class Trainings {
         if (!this.readAccess) return 0
 
         const rawData: TrainingData[] | null = await ApiRequests.getTrainingData(
-            {offset: this.trainings.length, limit: this.limit, timePeriod: this.store.period, types: this.types}
+            {offset: this.trainings.length, timePeriod: this.store.period, types: this.types}
         )
         if (!rawData) return 0
         if (rawData.length === 0) {
@@ -244,39 +244,48 @@ export class Trainings {
             return 0
         }
 
+        let counter = 0
         rawData.forEach((trainingData) => {
             const startDate: Date = new Date(trainingData.startTime)
             const endDate: Date = new Date(trainingData.endTime)
 
-            const metrics: string[][] = []
-            Object.entries(trainingData.metrics).forEach(entry => {
-                const metricType = this.translations[entry[0] as keyof typeof this.translations]
-                metrics.push([
-                    metricType, entry[1].toString()
-                ])
+            const isInPeriod = startDate.getTime() <= this.store.period[1].getTime() && startDate.getTime() >= this.store.period[0].getTime()
+            if (isInPeriod) {
+                const metrics: string[][] = []
+                Object.entries(trainingData.metrics).forEach(entry => {
+                    const metricType = this.translations[entry[0] as keyof typeof this.translations]
+                    metrics.push([
+                        metricType, entry[1].toString()
+                    ])
 
-                // TODO: заменить на запрос на апи в fillSummaryList
-                if (!this.summaryMetrics[metricType]) {
-                    this.summaryMetrics[metricType] = 0
+                    // TODO: заменить на запрос на апи в fillSummaryList
+                    if (!this.summaryMetrics[metricType]) {
+                        this.summaryMetrics[metricType] = 0
+                    }
+                    this.summaryMetrics[metricType] += entry[1]
+                })
+
+                const data = {
+                    id: this.trainings.length + 1,
+                    date: DateGetter.getLocalDate(startDate),
+                    type: this.translations[trainingData.exerciseType as keyof typeof this.translations],
+                    duration: DateGetter.getDifferenceInDates(startDate, endDate),
+                    start: DateGetter.getLocalTime(startDate),
+                    end: DateGetter.getLocalTime(endDate),
+                    metrics: metrics,
+                    series: trainingData.series,
+                    previewURL: this.URLs[trainingData.exerciseType],
                 }
-                this.summaryMetrics[metricType] += entry[1]
-            })
 
-            const data = {
-                id: this.trainings.length + 1,
-                date: DateGetter.getLocalDate(startDate),
-                type: this.translations[trainingData.exerciseType as keyof typeof this.translations],
-                duration: DateGetter.getDifferenceInDates(startDate, endDate),
-                start: DateGetter.getLocalTime(startDate),
-                end: DateGetter.getLocalTime(endDate),
-                metrics: metrics,
-                series: trainingData.series,
-                previewURL: this.URLs[trainingData.exerciseType],
+                this.trainings.push(new Training(data))
+                counter += 1
+                // TODO: вернуть как было когда появится сортировка по дате на апи
             }
-            this.trainings.push(new Training(data))
         })
 
-        return rawData.length
+        this.readAccess = false
+        return counter
+        // return rawData.length
     }
 
     private async render() {
