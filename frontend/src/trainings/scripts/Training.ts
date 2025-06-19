@@ -18,10 +18,23 @@ class Training {
     private overlayElement!: HTMLElement
     private chartsCounter = 0
 
+    private date: Date | null = null // TODO: убрать, когда появится сортировка по дате на апи
+
     constructor(data: TrainingElementData) {
         this.trainingElement = this.makeATrainingElement(data)
         this.overlayElement = this.makeAnOverlayElement(data)
+
+        const day = Number(data.date.split("/").at(0))
+        const month = Number(data.date.split("/").at(1))
+        const year = Number(data.date.split("/").at(2))
+        if (day && month && year) {
+            this.date = new Date(year, month - 1, day)
+        } // TODO: убрать, когда появится сортировка по дате на апи
     }
+
+    public getDate(): Date | null {
+        return this.date
+    } // TODO: убрать, когда появится сортировка по дате на апи
 
     public get(): HTMLElement {
         return this.trainingElement
