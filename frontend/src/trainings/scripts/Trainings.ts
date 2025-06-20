@@ -42,7 +42,7 @@ export class Trainings {
         cycling: "/icons/cycling.svg",
         swimming: "/icons/swimming.svg"
     }
-    private readonly limit: number = 10
+    // private readonly limit: number = 10
 
     private store: TimePeriodStore
     private summaryMetrics: { [key: string]: number } = {}
